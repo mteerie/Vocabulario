@@ -5,6 +5,8 @@
     android:id="@+id/start_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="?attr/actionBarSize"
+
     tools:context="com.inf3005.android.vocabulario.StartFragment">
 
     <TextView

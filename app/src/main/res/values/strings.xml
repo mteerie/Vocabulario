@@ -7,4 +7,6 @@
     <string name="info_text_1">Diese Anwendung ist als Projekt für das Modul Entwicklung mobiler Anwendungen entstanden.</string>
     <string name="info_text_2">Sie soll dabei helfen Vokabeln einfach zu einer Liste zusammen zu fügen und die Möglichkeit bieten diese spielerisch abzufragen.</string>
     <string name="menu_info">Information</string>
+    <string name="list_item_spanisch">spanisch</string>
+    <string name="list_item_deutsch">deutsch</string>
 </resources>
