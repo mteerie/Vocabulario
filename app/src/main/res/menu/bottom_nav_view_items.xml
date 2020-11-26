@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- item-ids entsprechen den IDs der zugehörigen Fragments, um Navigation
+    per BottomNavigationView zu ermöglichen -->
+    <item
+        android:id="@+id/startFragment"
+        android:icon="@drawable/ic_abfrage_nav"
+        android:title="@string/abfrage_nav_button_text" />
+    <item
+        android:id="@+id/listFragment"
+        android:icon="@drawable/ic_vokabelliste_nav"
+        android:title="@string/vokabelliste_nav_button_text" />
+</menu>
