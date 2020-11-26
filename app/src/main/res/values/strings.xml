@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Vocabulario</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="start_textview_text">Prüfe Deine Vokabelkenntnisse!</string>
     <string name="abfrage_start_button_text">Start</string>
     <string name="abfrage_nav_button_text">Abfrage</string>
     <string name="vokabelliste_nav_button_text">Vokabelliste</string>
+    <string name="info_text_1">Diese Anwendung ist als Projekt für das Modul Entwicklung mobiler Anwendungen entstanden.</string>
+    <string name="info_text_2">Sie soll dabei helfen Vokabeln einfach zu einer Liste zusammen zu fügen und die Möglichkeit bieten diese spielerisch abzufragen.</string>
+    <string name="menu_info">Information</string>
 </resources>
