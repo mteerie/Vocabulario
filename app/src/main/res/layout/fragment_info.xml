@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InfoFragment"
+    tools:context=".base.InfoFragment"
     android:layout_marginBottom="?attr/actionBarSize">
 
     <ImageView
@@ -17,7 +17,8 @@
         app:layout_constraintBottom_toTopOf="@+id/info_text_1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_info_list" />
+        app:srcCompat="@drawable/ic_info_list"
+        android:contentDescription="@string/fragment_info_list_icon"/>
 
     <ImageView
         android:id="@+id/aboutImagePlus"
@@ -30,7 +31,8 @@
         app:layout_constraintStart_toEndOf="@+id/aboutImageList"
         app:layout_constraintTop_toTopOf="parent"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/ic_info_plus" />
+        app:srcCompat="@drawable/ic_info_plus"
+        android:contentDescription="@string/fragment_info_plus_icon"/>
 
     <ImageView
         android:id="@+id/aboutImagePlay"
@@ -42,7 +44,8 @@
         app:layout_constraintBottom_toTopOf="@+id/info_text_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_info_play" />
+        app:srcCompat="@drawable/ic_info_play"
+        android:contentDescription="@string/fragment_info_play_icon"/>
 
     <TextView
         android:id="@+id/info_text_1"

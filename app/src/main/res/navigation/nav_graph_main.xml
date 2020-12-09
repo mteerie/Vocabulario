@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.inf3005.android.vocabulario.StartFragment"
+        android:name="com.inf3005.android.vocabulario.base.StartFragment"
         android:label="fragment_start"
         tools:layout="@layout/fragment_start"/>
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.inf3005.android.vocabulario.ListFragment"
-        android:label="fragment_vokabelliste"
-        tools:layout="@layout/fragment_vokabelliste"/>
+        android:name="com.inf3005.android.vocabulario.voclist.ListFragment"
+        android:label="fragment_vocabulary_list"
+        tools:layout="@layout/fragment_vocabulary_list"/>
     <fragment
         android:id="@+id/infoFragment"
-        android:name="com.inf3005.android.vocabulario.InfoFragment"
+        android:name="com.inf3005.android.vocabulario.base.InfoFragment"
         android:label="fragment_info"
         tools:layout="@layout/fragment_info" />
 </navigation>

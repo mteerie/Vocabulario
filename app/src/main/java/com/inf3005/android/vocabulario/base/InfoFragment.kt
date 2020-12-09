@@ -1,10 +1,11 @@
-package com.inf3005.android.vocabulario
+package com.inf3005.android.vocabulario.base
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.inf3005.android.vocabulario.R
 
 class InfoFragment : Fragment() {
 

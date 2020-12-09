@@ -6,7 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:configChanges="uiMode" >
 
 <!-- Beim Versuch fragment durch FragmentContainerView zu ersetzen - wie von Android Studio vorgeschlagen -
  stürzt die App beim Erzeugen der MainActivity app. Aus irgendeinem Grund vertragen sich FragmentContainerView und

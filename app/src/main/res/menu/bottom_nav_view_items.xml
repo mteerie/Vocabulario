@@ -4,10 +4,10 @@
     per BottomNavigationView zu ermöglichen -->
     <item
         android:id="@+id/startFragment"
-        android:icon="@drawable/ic_abfrage_nav"
+        android:icon="@drawable/ic_test_nav"
         android:title="@string/abfrage_nav_button_text" />
     <item
         android:id="@+id/listFragment"
-        android:icon="@drawable/ic_vokabelliste_nav"
-        android:title="@string/vokabelliste_nav_button_text" />
+        android:icon="@drawable/ic_vocabulary_list_nav"
+        android:title="@string/vocabulary_list_nav_button_text" />
 </menu>

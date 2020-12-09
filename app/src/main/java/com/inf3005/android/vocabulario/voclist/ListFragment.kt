@@ -1,13 +1,13 @@
-package com.inf3005.android.vocabulario
+package com.inf3005.android.vocabulario.voclist
 
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.inf3005.android.vocabulario.R
 import com.inf3005.android.vocabulario.dummy.DummyContent
 
 /**
@@ -25,17 +25,14 @@ class ListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_vokabelliste, container, false)
+        val view = inflater.inflate(R.layout.fragment_vocabulary_list, container, false)
 
         // Set the adapter
         if (view is RecyclerView) {
             with(view) {
-                layoutManager = LinearLayoutManager(context)
-//                layoutManager = when {
-//                    columnCount <= 1 -> LinearLayoutManager(context)
-//                    else -> GridLayoutManager(context, columnCount)
-
-                adapter = MyVokabelRecyclerViewAdapter(DummyContent.ITEMS)
+                this.layoutManager = LinearLayoutManager(context)
+                this.adapter = MyVokabelRecyclerViewAdapter(DummyContent.ITEMS)
+                this.setHasFixedSize(true)
             }
         }
         setHasOptionsMenu(true)

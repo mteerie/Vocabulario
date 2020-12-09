@@ -1,10 +1,11 @@
-package com.inf3005.android.vocabulario
+package com.inf3005.android.vocabulario.base
 
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.inf3005.android.vocabulario.R
 import timber.log.Timber
 
 /**
