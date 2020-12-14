@@ -1,4 +1,4 @@
-package com.inf3005.android.vocabulario.base
+package com.inf3005.android.vocabulario.utilities
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,7 +10,8 @@ import com.inf3005.android.vocabulario.R
 class InfoFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+        savedInstanceState: Bundle?): View? {
+
         return inflater.inflate(R.layout.fragment_info, container, false)
     }
 }

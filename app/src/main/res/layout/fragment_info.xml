@@ -4,28 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".base.InfoFragment"
+    tools:context=".utilities.InfoFragment"
     android:layout_marginBottom="?attr/actionBarSize">
 
     <ImageView
         android:id="@+id/aboutImageList"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="128dp"
-        app:tint="@color/lavender"
+        app:tint="@color/design_default_color_primary"
         app:layout_constraintBottom_toTopOf="@+id/info_text_1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_info_list"
-        android:contentDescription="@string/fragment_info_list_icon"/>
+        android:contentDescription="@string/fragment_info_list_icon"
+        android:scaleType="fitXY"/>
 
     <ImageView
         android:id="@+id/aboutImagePlus"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginTop="128dp"
-        app:tint="@color/lavender"
+        app:tint="@color/design_default_color_primary"
         app:layout_constraintBottom_toTopOf="@+id/info_text_1"
         app:layout_constraintEnd_toStartOf="@+id/aboutImagePlay"
         app:layout_constraintStart_toEndOf="@+id/aboutImageList"
@@ -36,16 +37,17 @@
 
     <ImageView
         android:id="@+id/aboutImagePlay"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:layout_marginEnd="64dp"
         android:layout_marginTop="128dp"
-        app:tint="@color/lavender"
+        app:tint="@color/design_default_color_primary"
         app:layout_constraintBottom_toTopOf="@+id/info_text_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_info_play"
-        android:contentDescription="@string/fragment_info_play_icon"/>
+        android:contentDescription="@string/fragment_info_play_icon"
+        android:scaleType="fitXY"/>
 
     <TextView
         android:id="@+id/info_text_1"

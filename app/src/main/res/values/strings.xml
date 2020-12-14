@@ -12,4 +12,5 @@
     <string name="fragment_info_list_icon">list icon</string>
     <string name="fragment_info_plus_icon">plus icon</string>
     <string name="fragment_info_play_icon">play icon</string>
+    <string name="add_vocabulary">add vocabulary</string>
 </resources>

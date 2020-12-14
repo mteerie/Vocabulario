@@ -3,6 +3,7 @@
     package="com.inf3005.android.vocabulario">
 
     <application
+        android:name=".utilities.VocabularyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

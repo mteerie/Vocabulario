@@ -9,9 +9,6 @@
     tools:context=".MainActivity"
     android:configChanges="uiMode" >
 
-<!-- Beim Versuch fragment durch FragmentContainerView zu ersetzen - wie von Android Studio vorgeschlagen -
- stürzt die App beim Erzeugen der MainActivity app. Aus irgendeinem Grund vertragen sich FragmentContainerView und
- die Kombination NavController/BottomNavigationView nicht.-->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"

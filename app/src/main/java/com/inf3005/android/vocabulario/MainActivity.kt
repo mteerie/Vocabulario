@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.provider.Settings.Global.getString
 import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -12,6 +13,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.inf3005.android.vocabulario.utilities.VocabularyApplication
+import com.inf3005.android.vocabulario.voclist.VocabularyViewModel
+import com.inf3005.android.vocabulario.voclist.VocabularyViewModelFactory
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {

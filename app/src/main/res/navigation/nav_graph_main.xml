@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.inf3005.android.vocabulario.base.StartFragment"
+        android:name="com.inf3005.android.vocabulario.utilities.StartFragment"
         android:label="fragment_start"
         tools:layout="@layout/fragment_start"/>
     <fragment
@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_vocabulary_list"/>
     <fragment
         android:id="@+id/infoFragment"
-        android:name="com.inf3005.android.vocabulario.base.InfoFragment"
+        android:name="com.inf3005.android.vocabulario.utilities.InfoFragment"
         android:label="fragment_info"
         tools:layout="@layout/fragment_info" />
 </navigation>

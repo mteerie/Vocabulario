@@ -1,5 +1,6 @@
 package com.inf3005.android.vocabulario.voclist
 
+import android.app.Application
 import androidx.lifecycle.*
 import com.inf3005.android.vocabulario.database.Vocabulary
 import com.inf3005.android.vocabulario.database.VocabularyRepository
@@ -7,7 +8,8 @@ import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
 class VocabularyViewModel(private val repository: VocabularyRepository) : ViewModel() {
-    val allEntries: LiveData<List<Vocabulary>> = repository.allEntries.asLiveData()
+
+    val allEntries: LiveData<List<Vocabulary>> = repository.allEntries
 
     fun insert(vocabulary: Vocabulary) = viewModelScope.launch {
         repository.insert(vocabulary)
@@ -19,6 +21,10 @@ class VocabularyViewModel(private val repository: VocabularyRepository) : ViewMo
 
     fun delete(vocabulary: Vocabulary) = viewModelScope.launch {
         repository.delete(vocabulary)
+    }
+
+    fun returnAllEntries(): LiveData<List<Vocabulary>> {
+        return allEntries
     }
 }
 

@@ -1,5 +1,6 @@
 package com.inf3005.android.vocabulario.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
@@ -19,7 +20,7 @@ interface VocabularyDao {
     * Gibt die gesamte Tabelle zurück. Zur Verwendung mit RecyclerView, um alle Vokabeln anzuzeigen.
     * */
     @Query("SELECT * FROM vocabulary ORDER BY vocId")
-    fun getAllEntries(): Flow<List<Vocabulary>>
+    fun getAllEntries(): LiveData<List<Vocabulary>>
 
     /**
     * Löscht die gesamte Tabelle. Nicht implementiert.

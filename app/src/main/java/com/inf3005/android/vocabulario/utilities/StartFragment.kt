@@ -1,4 +1,4 @@
-package com.inf3005.android.vocabulario.base
+package com.inf3005.android.vocabulario.utilities
 
 import android.os.Bundle
 import android.view.*
