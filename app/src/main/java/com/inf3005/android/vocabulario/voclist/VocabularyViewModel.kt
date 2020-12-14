@@ -1,6 +1,5 @@
 package com.inf3005.android.vocabulario.voclist
 
-import android.app.Application
 import androidx.lifecycle.*
 import com.inf3005.android.vocabulario.database.Vocabulary
 import com.inf3005.android.vocabulario.database.VocabularyRepository
@@ -9,26 +8,24 @@ import java.lang.IllegalArgumentException
 
 class VocabularyViewModel(private val repository: VocabularyRepository) : ViewModel() {
 
-    val allEntries: LiveData<List<Vocabulary>> = repository.allEntries
+    val allEntries: LiveData<List<Vocabulary>> = repository.allEntries.asLiveData()
 
-    fun insert(vocabulary: Vocabulary) = viewModelScope.launch {
-        repository.insert(vocabulary)
+    fun insert(entry: Vocabulary) = viewModelScope.launch {
+        repository.insert(entry)
     }
 
-    fun update(vocabulary: Vocabulary) = viewModelScope.launch {
-        repository.update(vocabulary)
+    fun update(entry: Vocabulary) = viewModelScope.launch {
+        repository.update(entry)
     }
 
-    fun delete(vocabulary: Vocabulary) = viewModelScope.launch {
-        repository.delete(vocabulary)
-    }
-
-    fun returnAllEntries(): LiveData<List<Vocabulary>> {
-        return allEntries
+    fun delete(entry: Vocabulary) = viewModelScope.launch {
+        repository.delete(entry)
     }
 }
 
-class VocabularyViewModelFactory(private val repository: VocabularyRepository) : ViewModelProvider.Factory {
+class VocabularyViewModelFactory(
+    private val repository: VocabularyRepository
+    ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(VocabularyViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/item_deutsch"
@@ -22,7 +22,6 @@
         android:text="@string/list_item_spanisch"
         android:textAppearance="?attr/textAppearanceListItem"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/item_deutsch"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Barrier

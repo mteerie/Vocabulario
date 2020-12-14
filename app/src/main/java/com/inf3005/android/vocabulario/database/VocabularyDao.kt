@@ -1,6 +1,5 @@
 package com.inf3005.android.vocabulario.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
@@ -8,22 +7,22 @@ import kotlinx.coroutines.flow.Flow
 interface VocabularyDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(voc: Vocabulary)
+    suspend fun insert(entry: Vocabulary)
 
     @Update
-    suspend fun update(voc: Vocabulary)
+    suspend fun update(entry: Vocabulary)
 
     @Delete
-    suspend fun delete(voc: Vocabulary)
+    suspend fun delete(entry: Vocabulary)
 
     /**
     * Gibt die gesamte Tabelle zurück. Zur Verwendung mit RecyclerView, um alle Vokabeln anzuzeigen.
     * */
-    @Query("SELECT * FROM vocabulary ORDER BY vocId")
-    fun getAllEntries(): LiveData<List<Vocabulary>>
+    @Query("SELECT * FROM vocabulary ORDER BY id")
+    fun getAllEntries(): Flow<List<Vocabulary>>
 
     /**
-    * Löscht die gesamte Tabelle. Nicht implementiert.
+    * Löscht alle Einträge in der Tabelle.
     * */
     @Query("DELETE FROM vocabulary")
     suspend fun clearList()

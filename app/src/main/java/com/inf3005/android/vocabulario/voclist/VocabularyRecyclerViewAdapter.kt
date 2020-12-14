@@ -12,8 +12,6 @@ import com.inf3005.android.vocabulario.database.Vocabulary
 
 class VocabularyAdapter : ListAdapter<Vocabulary, VocabularyAdapter.ViewHolder>(VocabularyDifferences())  {
 
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.create(parent)
     }
@@ -23,19 +21,19 @@ class VocabularyAdapter : ListAdapter<Vocabulary, VocabularyAdapter.ViewHolder>(
         holder.bind(item.de, item.sp)
     }
 
-    class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val deTextView: TextView = itemView.findViewById(R.id.item_deutsch)
-        private val spTextView: TextView = itemView.findViewById(R.id.item_spanisch)
+    class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
+        private val deTextView: TextView = view.findViewById(R.id.item_deutsch)
+        private val spTextView: TextView = view.findViewById(R.id.item_spanisch)
 
-        fun bind(de : String?, sp : String?) {
-            deTextView.text = de
-            spTextView.text = sp
+        fun bind(deText: String?, spText: String?) {
+            deTextView.text = deText
+            spTextView.text = spText
         }
 
         companion object {
             fun create(parent: ViewGroup): ViewHolder {
-                val view = LayoutInflater.from(parent.context)
-                        .inflate(R.layout.fragment_vocabulary_list_item, parent, false)
+                val view: View = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.fragment_vocabulary_list_item, parent, false)
                 return ViewHolder(view)
             }
         }
@@ -44,7 +42,7 @@ class VocabularyAdapter : ListAdapter<Vocabulary, VocabularyAdapter.ViewHolder>(
 
 class VocabularyDifferences : DiffUtil.ItemCallback<Vocabulary>() {
     override fun areItemsTheSame(oldItem: Vocabulary, newItem: Vocabulary): Boolean {
-        return oldItem.vocId == newItem.vocId
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: Vocabulary, newItem: Vocabulary): Boolean {
