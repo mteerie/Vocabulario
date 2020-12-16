@@ -59,9 +59,6 @@ class ListFragment : Fragment() {
 
         materialDialogBuilder = MaterialAlertDialogBuilder(requireContext())
 
-
-
-
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
             0,
             ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
@@ -164,7 +161,7 @@ class ListFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.dot_menu, menu)
+        inflater.inflate(R.menu.action_bar_menu, menu)
     }
 
 

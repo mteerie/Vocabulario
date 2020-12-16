@@ -19,7 +19,7 @@ interface VocabularyDao {
     /**
     * Gibt die gesamte Tabelle zurück. Zur Verwendung mit RecyclerView, um alle Vokabeln anzuzeigen.
     * */
-    @Query("SELECT * FROM vocabulary ORDER BY id")
+    @Query("SELECT * FROM vocabulary ORDER BY german")
     fun getAllEntries(): Flow<List<Vocabulary>>
 
     @Query("SELECT COUNT(id) FROM vocabulary")
