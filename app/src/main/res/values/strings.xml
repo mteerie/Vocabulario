@@ -13,4 +13,15 @@
     <string name="fragment_info_plus_icon">plus icon</string>
     <string name="fragment_info_play_icon">play icon</string>
     <string name="add_vocabulary">add vocabulary</string>
+    <string name="list_entry_deleted">Vokabel gelöscht.</string>
+    <string name="list_entry_undo">Wiederherstellen</string>
+    <string name="delete_all_list_entries">Alle Löschen</string>
+    <string name="delete_all_entries">Alle Listeneinträge löschen?</string>
+    <string name="delete_all_entries_positive">Ja</string>
+    <string name="delete_all_entries_negative">Nein</string>
+    <string name="input_dialog_de_hint">Deutsch</string>
+    <string name="input_dialog_sp_hint">Spanisch</string>
+    <string name="add_entry">Vokabel hinzufügen</string>
+    <string name="submit_button">OK</string>
+    <string name="dismiss_button">Abbrechen</string>
 </resources>

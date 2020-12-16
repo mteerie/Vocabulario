@@ -9,6 +9,7 @@ import java.lang.IllegalArgumentException
 class VocabularyViewModel(private val repository: VocabularyRepository) : ViewModel() {
 
     val allEntries: LiveData<List<Vocabulary>> = repository.allEntries.asLiveData()
+    val entryCount: LiveData<Int> = repository.entryCount.asLiveData()
 
     fun insert(entry: Vocabulary) = viewModelScope.launch {
         repository.insert(entry)
@@ -20,6 +21,10 @@ class VocabularyViewModel(private val repository: VocabularyRepository) : ViewMo
 
     fun delete(entry: Vocabulary) = viewModelScope.launch {
         repository.delete(entry)
+    }
+
+    fun deleteAllEntries() = viewModelScope.launch {
+        repository.deleteAllEntries()
     }
 }
 

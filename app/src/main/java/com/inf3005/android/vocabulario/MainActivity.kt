@@ -24,14 +24,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
-        /**
-         * Initialisiere die Timber-Library zwecks Debugging.
-         */
-        Timber.plant(Timber.DebugTree())
-        Timber.i("onCreate called.")
-
         /**
          * Erzeuge ein Value für die BottomNavigationView im Layout-File der Main Activity.
          */
@@ -39,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         /**
          * Instanziiere den navController über das nav_host_fragment und verknüpfe ihn mit
-         * bottomNavigation
+         * bottomNavigation.
          */
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController

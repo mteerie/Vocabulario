@@ -33,10 +33,14 @@ class VocabularyAdapter : ListAdapter<Vocabulary, VocabularyAdapter.ViewHolder>(
         companion object {
             fun create(parent: ViewGroup): ViewHolder {
                 val view: View = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.fragment_vocabulary_list_item, parent, false)
+                    .inflate(R.layout.fragment_list_item, parent, false)
                 return ViewHolder(view)
             }
         }
+    }
+
+    fun getEntryAt(position: Int) : Vocabulary{
+        return getItem(position)
     }
 }
 

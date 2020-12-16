@@ -14,7 +14,7 @@
         android:id="@+id/listFragment"
         android:name="com.inf3005.android.vocabulario.voclist.ListFragment"
         android:label="fragment_vocabulary_list"
-        tools:layout="@layout/fragment_vocabulary_list"/>
+        tools:layout="@layout/fragment_list"/>
     <fragment
         android:id="@+id/infoFragment"
         android:name="com.inf3005.android.vocabulario.utilities.InfoFragment"

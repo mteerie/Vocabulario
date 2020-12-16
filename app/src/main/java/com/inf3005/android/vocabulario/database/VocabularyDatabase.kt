@@ -9,11 +9,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 /**
-* Der Room-Database-Code entspricht zu großen Teilen dem in "Android CodeLab 6" - hier wird auch erwähnt,
- * dass es sich bei Room-Datenbank-Instanziierung oft um Boilerplate-Code handelt.
+* Der Room-Database-Code entspricht zu großen Teilen dem Boilerplate-Code in "Android CodeLab 6".
+ * Erweiterung durch einen DatabaseCallback (zum Auffüllen der Datenbank im Auslieferungszustand)
+ * und
 * */
 
-@Database(entities = [Vocabulary::class], version = 1, exportSchema = false)
+@Database(entities = [Vocabulary::class], version = 2, exportSchema = false)
 abstract class VocabularyDatabase : RoomDatabase() {
 
     abstract fun vocabularyDao(): VocabularyDao
@@ -26,6 +27,14 @@ abstract class VocabularyDatabase : RoomDatabase() {
             super.onCreate(db)
             INSTANCE?.let { database ->
                 scope.launch {
+
+                    /**
+                    * Dieser Codeblock dient dazu die Datenbank im Auslieferungszustand bereits
+                     * befüllen zu können.
+                     *
+                     * Der Code wird nur bei Erzeugung der Datenbank aufgerufen, d.h. bei
+                     * Installation der App auf einem Endgerät oder Emulator.
+                    * */
                     val vocabularyDao = database.vocabularyDao()
 
                     vocabularyDao.clearList()
@@ -64,10 +73,7 @@ abstract class VocabularyDatabase : RoomDatabase() {
                     .addCallback(VocabularyDatabaseCallback(scope))
                     .build()
                 INSTANCE = instance
-                /**
-                 * return instance, falls INSTANCE == null
-                 */
-                instance
+                instance    // return instance falls INSTANCE == null
             }
         }
     }
