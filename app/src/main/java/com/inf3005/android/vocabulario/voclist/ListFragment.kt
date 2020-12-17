@@ -1,5 +1,6 @@
 package com.inf3005.android.vocabulario.voclist
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -8,6 +9,7 @@ import android.view.*
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -97,6 +99,8 @@ class ListFragment : Fragment() {
                 viewModel.delete(entry)
                 Snackbar.make(view, getString(R.string.list_entry_deleted), Snackbar.LENGTH_LONG)
                     .setAction(getString(R.string.list_entry_undo)) { viewModel.insert(entry) }
+                    .setActionTextColor(ContextCompat.getColor(context!!, R.color.black))
+                    .setTextColor(ContextCompat.getColor(context!!, R.color.black))
                     .show()
             }
         }).attachToRecyclerView(recyclerView)

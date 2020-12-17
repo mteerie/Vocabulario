@@ -20,8 +20,8 @@
             android:layout_height="wrap_content"
             android:text="@string/list_item_deutsch"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:textSize="18sp"
-            android:fontFamily="@v26/roboto_medium"
+            android:textSize="17sp"
+            android:fontFamily="@font/roboto_medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,9 +30,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/list_item_spanisch"
-            android:fontFamily="@v26/roboto_italic"
+            android:fontFamily="@font/roboto_italic"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:layout_marginTop="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
