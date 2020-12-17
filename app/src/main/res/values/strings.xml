@@ -4,7 +4,7 @@
     <string name="abfrage_start_button_text">Start</string>
     <string name="abfrage_nav_button_text">Abfrage</string>
     <string name="vocabulary_list_nav_button_text">Vokabelliste</string>
-    <string name="info_text_1">Diese Anwendung ist als Projekt für das Modul Entwicklung mobiler Anwendungen entstanden.</string>
+    <string name="info_text_1">Diese Anwendung wird derzeit noch konstruiert.</string>
     <string name="info_text_2">Sie soll dabei helfen Vokabeln einfach zu einer Liste zusammen zu fügen und die Möglichkeit bieten diese spielerisch abzufragen.</string>
     <string name="menu_info">Information</string>
     <string name="list_item_spanisch">spanisch</string>
@@ -22,6 +22,6 @@
     <string name="input_dialog_de_hint">Deutsch</string>
     <string name="input_dialog_sp_hint">Spanisch</string>
     <string name="add_entry">Vokabel hinzufügen</string>
-    <string name="submit_button">OK</string>
-    <string name="dismiss_button">Abbrechen</string>
+    <string name="submit_button">Hinzufügen</string>
+    <string name="dismiss_button">Verwerfen</string>
 </resources>

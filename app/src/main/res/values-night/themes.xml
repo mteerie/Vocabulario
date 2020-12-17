@@ -2,15 +2,22 @@
     <!-- Base application theme. -->
     <style name="Theme.Vocabulario" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/surf_green_60</item>
+        <item name="colorPrimaryVariant">@color/surf_green_60</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorSecondary">@color/salmon_80</item>
+        <item name="colorSecondaryVariant">@color/salmon_75</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="actionBarStyle">@style/primaryColorActionBar</item>
+
+    </style>
+
+
+    <style name="primaryColorActionBar" parent = "Widget.MaterialComponents.ActionBar.Solid">
+        <item name="background">@color/surf_green_60</item>
     </style>
 </resources>

@@ -9,5 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#767676</color>
     <color name="lavender">#967BB6</color>
+    <color name="surf_green_78">#9FEFCE</color>
+    <color name="surf_green_60">#70C2A0</color>
+    <color name="salmon_75">#F79A87</color>
+    <color name="salmon_80">#F8AEA0</color>
 
 </resources>

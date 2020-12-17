@@ -1,14 +1,18 @@
 package com.inf3005.android.vocabulario.voclist
 
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
+import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -97,6 +101,8 @@ class ListFragment : Fragment() {
             }
         }).attachToRecyclerView(recyclerView)
 
+
+
         fab = view.findViewById(R.id.fab)
 
         fab.setOnClickListener {
@@ -139,10 +145,19 @@ class ListFragment : Fragment() {
                     after: Int
                 ) {}
 
+                @RequiresApi(Build.VERSION_CODES.O)
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                    val deInput: String = deInput.editText?.text.toString().trim()
-                    val spInput: String = spInput.editText?.text.toString().trim()
-                    submitButton.isEnabled = (deInput.isNotEmpty() && spInput.isNotEmpty())
+                    val deEditText = deInput.editText?.text.toString().trim()
+                    val spEditText = spInput.editText?.text.toString().trim()
+
+                    submitButton.isEnabled = (deEditText.isNotEmpty() && spEditText.isNotEmpty())
+
+                    if (deEditText.length == 32)
+                        inputDialog.setTitle("Maximale Anzahl an Zeichen erreicht.")
+//                        deInput.error = "Maximale Anzahl an Zeichen erreicht."
+
+                    if (spEditText.length == 32)
+                        spInput.error = "Maximale Anzahl an Zeichen erreicht "
                 }
 
                 override fun afterTextChanged(s: Editable) {}
@@ -152,6 +167,9 @@ class ListFragment : Fragment() {
 
             spInput.editText?.addTextChangedListener(vocabularyTextWatcher)
         }
+
+        val spTextView = view?.findViewById<TextView>(R.id.item_spanisch)
+        spTextView?.isSelected = true
 
         setHasOptionsMenu(true)
 
