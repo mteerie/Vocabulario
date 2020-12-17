@@ -45,7 +45,8 @@ abstract class VocabularyDatabase : RoomDatabase() {
                     entry = Vocabulary(2, "Berg", "montaña")
                     vocabularyDao.insert(entry)
 
-                    entry = Vocabulary(3, "Schwimmen", "nadar")
+                    entry = Vocabulary(3, "Finanzdienstleistungsunternehmen",
+                        "empresa de servicios financieros")
                     vocabularyDao.insert(entry)
 
                     entry = Vocabulary(4, "Pfannkuchen", "panqueques")

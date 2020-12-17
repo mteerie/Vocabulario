@@ -1,10 +1,13 @@
 package com.inf3005.android.vocabulario.voclist
 
+import android.app.Dialog
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
+import android.text.SpannableString
 import android.text.TextWatcher
+import android.text.style.TypefaceSpan
 import android.view.*
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -40,8 +43,10 @@ class ListFragment : Fragment() {
     private lateinit var materialDialogBuilder: MaterialAlertDialogBuilder
 
     val viewModel: VocabularyViewModel by viewModels {
-        VocabularyViewModelFactory((requireNotNull(this.activity)
-            .application as VocabularyApplication).repository)
+        VocabularyViewModelFactory(
+            (requireNotNull(this.activity)
+                .application as VocabularyApplication).repository
+        )
     }
 
     val adapter = VocabularyAdapter()
@@ -133,6 +138,8 @@ class ListFragment : Fragment() {
                     dialog.dismiss()
                 }
                 .setNegativeButton(getString(R.string.dismiss_button)) { dialog, _ ->
+                    deInput.clearOnEditTextAttachedListeners()
+                    spInput.clearOnEditTextAttachedListeners()
                     dialog.dismiss()
                 }
                 .show()
@@ -147,21 +154,24 @@ class ListFragment : Fragment() {
                     start: Int,
                     count: Int,
                     after: Int
-                ) {}
+                ) {
+                }
 
                 @RequiresApi(Build.VERSION_CODES.O)
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                     val deEditText = deInput.editText?.text.toString().trim()
                     val spEditText = spInput.editText?.text.toString().trim()
 
-                    submitButton.isEnabled = (deEditText.isNotEmpty() && spEditText.isNotEmpty())
+                    submitButton.isEnabled = (deEditText.isNotEmpty() && spEditText.isNotEmpty()
+                            && deEditText.length <= 32 && spEditText.length <= 32)
 
-                    if (deEditText.length == 32)
-                        inputDialog.setTitle("Maximale Anzahl an Zeichen erreicht.")
-//                        deInput.error = "Maximale Anzahl an Zeichen erreicht."
+                    if (deEditText.length > 32)
+                        deInput.error = getString(R.string.error_input_too_long)
+                    else { deInput.error = "" }
 
-                    if (spEditText.length == 32)
-                        spInput.error = "Maximale Anzahl an Zeichen erreicht "
+                    if (spEditText.length > 32)
+                        spInput.error = getString(R.string.error_input_too_long)
+                    else { spInput.error = "" }
                 }
 
                 override fun afterTextChanged(s: Editable) {}
@@ -171,9 +181,6 @@ class ListFragment : Fragment() {
 
             spInput.editText?.addTextChangedListener(vocabularyTextWatcher)
         }
-
-        val spTextView = view?.findViewById<TextView>(R.id.item_spanisch)
-        spTextView?.isSelected = true
 
         setHasOptionsMenu(true)
 

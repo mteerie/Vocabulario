@@ -24,4 +24,5 @@
     <string name="add_entry">Vokabel hinzufügen</string>
     <string name="submit_button">Hinzufügen</string>
     <string name="dismiss_button">Verwerfen</string>
+    <string name="error_input_too_long">Deine Eingabe ist zu lang.</string>
 </resources>
