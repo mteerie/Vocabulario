@@ -23,6 +23,8 @@
     <string name="input_dialog_sp_hint">Spanisch</string>
     <string name="add_entry">Vokabel hinzufügen</string>
     <string name="submit_button">Hinzufügen</string>
-    <string name="dismiss_button">Verwerfen</string>
+    <string name="dismiss_button">Abbrechen</string>
     <string name="error_input_too_long">Deine Eingabe ist zu lang.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

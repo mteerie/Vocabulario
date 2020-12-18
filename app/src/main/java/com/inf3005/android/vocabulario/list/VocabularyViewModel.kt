@@ -1,4 +1,4 @@
-package com.inf3005.android.vocabulario.voclist
+package com.inf3005.android.vocabulario.list
 
 import androidx.lifecycle.*
 import com.inf3005.android.vocabulario.database.Vocabulary
@@ -25,6 +25,10 @@ class VocabularyViewModel(private val repository: VocabularyRepository) : ViewMo
 
     fun deleteAllEntries() = viewModelScope.launch {
         repository.deleteAllEntries()
+    }
+
+    fun onEntryClicked(id: Long) {
+
     }
 }
 

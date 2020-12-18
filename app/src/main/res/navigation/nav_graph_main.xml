@@ -6,18 +6,13 @@
     app:startDestination="@id/listFragment">
 
     <fragment
-        android:id="@+id/startFragment"
-        android:name="com.inf3005.android.vocabulario.utilities.StartFragment"
-        android:label="fragment_start"
-        tools:layout="@layout/fragment_start"/>
-    <fragment
         android:id="@+id/listFragment"
-        android:name="com.inf3005.android.vocabulario.voclist.ListFragment"
+        android:name="com.inf3005.android.vocabulario.list.ListFragment"
         android:label="fragment_vocabulary_list"
         tools:layout="@layout/fragment_list"/>
     <fragment
         android:id="@+id/infoFragment"
-        android:name="com.inf3005.android.vocabulario.utilities.InfoFragment"
+        android:name="com.inf3005.android.vocabulario.InfoFragment"
         android:label="fragment_info"
         tools:layout="@layout/fragment_info" />
 </navigation>

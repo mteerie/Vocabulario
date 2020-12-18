@@ -1,46 +1,37 @@
-package com.inf3005.android.vocabulario.voclist
+package com.inf3005.android.vocabulario.list
 
-import android.app.Dialog
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
-import android.text.SpannableString
 import android.text.TextWatcher
-import android.text.style.TypefaceSpan
 import android.view.*
-import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.content.contentValuesOf
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputLayout
 import com.inf3005.android.vocabulario.R
 import com.inf3005.android.vocabulario.database.Vocabulary
+import com.inf3005.android.vocabulario.databinding.FragmentDialogBinding
+import com.inf3005.android.vocabulario.databinding.FragmentListBinding
 import com.inf3005.android.vocabulario.utilities.VocabularyApplication
 
 
 class ListFragment : Fragment() {
 
-    private lateinit var fab: FloatingActionButton
-
-    private lateinit var DialogLayout: View
-
-    private lateinit var deInput: TextInputLayout
-
-    private lateinit var spInput: TextInputLayout
-
     private lateinit var materialDialogBuilder: MaterialAlertDialogBuilder
+
+    private lateinit var dialogBinding: FragmentDialogBinding
 
     val viewModel: VocabularyViewModel by viewModels {
         VocabularyViewModelFactory(
@@ -49,26 +40,35 @@ class ListFragment : Fragment() {
         )
     }
 
-    val adapter = VocabularyAdapter()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        val view = inflater.inflate(R.layout.fragment_list, container, false)
+        val binding: FragmentListBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_list, container, false,
+        )
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.list)
 
-        recyclerView.adapter = adapter
 
-        recyclerView.layoutManager = LinearLayoutManager(activity)
+        val adapter = VocabularyAdapter(EntryClickListener {
+            Toast.makeText(context, "ID des Listeneintrags: $id", Toast.LENGTH_LONG)
+                .show()
+        })
+
+        binding.vocabularyViewModel = viewModel
+
+        binding.list.adapter = adapter
+
+        binding.list.layoutManager = LinearLayoutManager(activity)
 
         viewModel.allEntries.observe(viewLifecycleOwner) { entry ->
             entry.let { adapter.submitList(entry) }
         }
 
         materialDialogBuilder = MaterialAlertDialogBuilder(requireContext())
+
+
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
             0,
@@ -82,50 +82,34 @@ class ListFragment : Fragment() {
                 return false
             }
 
-            /**
-             * Überschreiben der onSwiped-Funktion, um festzulegen was bei Ausführen einer
-             * Geste geschehen soll.
-             *
-             * Die Hilfsfunktion getEntryAt aus dem VocabularyAdapter wird aufgerufen,
-             * um den Listeneintrag an der angegebenen Position zu bestimmen und in entry
-             * zu speichern.
-             *
-             * Der Listeneintrag wird mittels delete-Methode aus dem ViewModel entfernt.
-             *
-             * Zuletzt wird eine Snackbar angezeigt, die den Nutzer darüber informiert, dass
-             * ein Listeneintrag entfernt wurde. Zusätzlich wird auch eine Aktion verfügbar,
-             * mit deren Hilfe der Nutzer den Löschvorgang rückgängig machen kann.
-             *
-             * Entscheidet sich der Nutzer dazu den Listeneintrag widerherzustellen, so fügt ihn
-             * die insert-Methode des ViewModels an der korrekten Position wieder ein.
-             */
+
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val entry = adapter.getEntryAt(viewHolder.adapterPosition)
                 viewModel.delete(entry)
-                Snackbar.make(view, getString(R.string.list_entry_deleted), Snackbar.LENGTH_LONG)
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.list_entry_deleted),
+                    Snackbar.LENGTH_LONG
+                )
                     .setAction(getString(R.string.list_entry_undo)) { viewModel.insert(entry) }
                     .setActionTextColor(ContextCompat.getColor(context!!, R.color.black))
                     .setTextColor(ContextCompat.getColor(context!!, R.color.black))
                     .show()
             }
-        }).attachToRecyclerView(recyclerView)
+        }).attachToRecyclerView(binding.list)
 
-
-
-        fab = view.findViewById(R.id.fab)
+        val fab = binding.fab
 
         fab.setOnClickListener {
 
-            DialogLayout = inflater.inflate(
-                R.layout.fragment_dialog,
-                container,
-                false
+            dialogBinding = DataBindingUtil.inflate(
+                inflater, R.layout.fragment_dialog, container, false
             )
 
-            deInput = this.DialogLayout.findViewById(R.id.input_de)
-            spInput = this.DialogLayout.findViewById(R.id.input_sp)
+            val deInput = dialogBinding.inputDe
+            val spInput = dialogBinding.inputSp
 
-            val inputDialog = materialDialogBuilder.setView(this.DialogLayout)
+            val inputDialog = materialDialogBuilder.setView(dialogBinding.root)
                 .setTitle(getString(R.string.add_entry))
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.submit_button)) { dialog, _ ->
@@ -136,11 +120,12 @@ class ListFragment : Fragment() {
                     viewModel.insert(Vocabulary(0, deText, spText))
 
                     dialog.dismiss()
+
                 }
                 .setNegativeButton(getString(R.string.dismiss_button)) { dialog, _ ->
                     deInput.clearOnEditTextAttachedListeners()
                     spInput.clearOnEditTextAttachedListeners()
-                    dialog.dismiss()
+                    dialog.cancel()
                 }
                 .show()
 
@@ -167,11 +152,15 @@ class ListFragment : Fragment() {
 
                     if (deEditText.length > 32)
                         deInput.error = getString(R.string.error_input_too_long)
-                    else { deInput.error = "" }
+                    else {
+                        deInput.error = ""
+                    }
 
                     if (spEditText.length > 32)
                         spInput.error = getString(R.string.error_input_too_long)
-                    else { spInput.error = "" }
+                    else {
+                        spInput.error = ""
+                    }
                 }
 
                 override fun afterTextChanged(s: Editable) {}
@@ -184,9 +173,12 @@ class ListFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-        return view
+        return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)

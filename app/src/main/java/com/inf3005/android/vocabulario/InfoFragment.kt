@@ -1,4 +1,4 @@
-package com.inf3005.android.vocabulario.utilities
+package com.inf3005.android.vocabulario
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
