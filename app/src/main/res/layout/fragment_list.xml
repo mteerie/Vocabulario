@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="vocabularyViewModel"
             type="com.inf3005.android.vocabulario.list.VocabularyViewModel" />
@@ -15,6 +15,18 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="?attr/actionBarSize">
 
+        <!--        <com.google.android.material.bottomappbar.BottomAppBar-->
+        <!--            android:id="@+id/bottom_app_bar"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="bottom"-->
+        <!--            android:backgroundTint="@color/teal_200"-->
+        <!--            app:fabAlignmentMode="center"-->
+        <!--            app:hideOnScroll="false"-->
+        <!--            app:navigationContentDescription="info"-->
+        <!--            app:navigationIcon="@drawable/ic_information"-->
+        <!--            app:menu="@menu/action_bar_menu" />-->
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
             android:name="com.inf3005.android.vocabulario.ListFragment"
@@ -22,7 +34,7 @@
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:context=".list.ListFragment"
-            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="0dp"
             tools:listitem="@layout/fragment_list_item" />
 
@@ -33,9 +45,10 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:contentDescription="@string/add_vocabulary"
-            android:src="@drawable/ic_info_plus"
+            android:src="@drawable/ic_add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

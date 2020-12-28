@@ -2,12 +2,9 @@ package com.inf3005.android.vocabulario.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.annotation.NonNull
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.inf3005.android.vocabulario.R
 import com.inf3005.android.vocabulario.database.Vocabulary
 import com.inf3005.android.vocabulario.databinding.FragmentListItemBinding
 
@@ -30,7 +27,6 @@ class VocabularyAdapter(private val listener: EntryClickListener) : ListAdapter<
             binding.executePendingBindings()
         }
 
-
         companion object {
             fun create(parent: ViewGroup): ViewHolder {
                 val binding = FragmentListItemBinding.inflate(
@@ -48,7 +44,7 @@ class VocabularyAdapter(private val listener: EntryClickListener) : ListAdapter<
 
 class VocabularyDifferences : DiffUtil.ItemCallback<Vocabulary>() {
     override fun areItemsTheSame(oldItem: Vocabulary, newItem: Vocabulary): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.vocId == newItem.vocId
     }
 
     override fun areContentsTheSame(oldItem: Vocabulary, newItem: Vocabulary): Boolean {
@@ -57,5 +53,5 @@ class VocabularyDifferences : DiffUtil.ItemCallback<Vocabulary>() {
 }
 
 class EntryClickListener(val listener: (id: Long) -> Unit) {
-    fun onClick(entry: Vocabulary) = listener(entry.id)
+    fun onClick(entry: Vocabulary) = listener(entry.vocId)
 }

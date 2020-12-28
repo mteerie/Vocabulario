@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
  * und
 * */
 
-@Database(entities = [Vocabulary::class], version = 2, exportSchema = false)
+@Database(entities = [Vocabulary::class], version = 3, exportSchema = false)
 abstract class VocabularyDatabase : RoomDatabase() {
 
     abstract fun vocabularyDao(): VocabularyDao

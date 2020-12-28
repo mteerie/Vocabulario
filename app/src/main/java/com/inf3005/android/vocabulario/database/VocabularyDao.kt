@@ -22,7 +22,7 @@ interface VocabularyDao {
     @Query("SELECT * FROM vocabulary ORDER BY german")
     fun getAllEntries(): Flow<List<Vocabulary>>
 
-    @Query("SELECT COUNT(id) FROM vocabulary")
+    @Query("SELECT COUNT(vocId) FROM vocabulary")
     fun countEntries() : Flow<Int>
 
     /**

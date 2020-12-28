@@ -1,4 +1,4 @@
-package com.inf3005.android.vocabulario.list
+package com.inf3005.android.vocabulario.utilities
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter

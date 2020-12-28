@@ -27,4 +27,6 @@
     <string name="error_input_too_long">Deine Eingabe ist zu lang.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="information">Information</string>
+    <string name="search_action">search list entries</string>
 </resources>

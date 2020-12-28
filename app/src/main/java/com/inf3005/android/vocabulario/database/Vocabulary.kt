@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "vocabulary")
 data class Vocabulary(
     @PrimaryKey(autoGenerate = true)
-    val id: Long = 0L,
+    val vocId: Long = 0L,
 
     @ColumnInfo(name = "german")
     val de: String = "de",

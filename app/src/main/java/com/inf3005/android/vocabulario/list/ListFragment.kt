@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import androidx.core.content.contentValuesOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -49,10 +48,8 @@ class ListFragment : Fragment() {
             inflater, R.layout.fragment_list, container, false,
         )
 
-
-
-        val adapter = VocabularyAdapter(EntryClickListener {
-            Toast.makeText(context, "ID des Listeneintrags: $id", Toast.LENGTH_LONG)
+        val adapter = VocabularyAdapter(EntryClickListener { vocId ->
+            Toast.makeText(context, "$vocId", Toast.LENGTH_LONG)
                 .show()
         })
 
@@ -67,8 +64,6 @@ class ListFragment : Fragment() {
         }
 
         materialDialogBuilder = MaterialAlertDialogBuilder(requireContext())
-
-
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
             0,
@@ -94,13 +89,23 @@ class ListFragment : Fragment() {
                     .setAction(getString(R.string.list_entry_undo)) { viewModel.insert(entry) }
                     .setActionTextColor(ContextCompat.getColor(context!!, R.color.black))
                     .setTextColor(ContextCompat.getColor(context!!, R.color.black))
+                    .setAnchorView(binding.fab)
                     .show()
             }
         }).attachToRecyclerView(binding.list)
 
-        val fab = binding.fab
+        binding.list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy > 0) {
+                    binding.fab.hide()
+                } else {
+                    binding.fab.show()
+                }
+                super.onScrolled(recyclerView, dx, dy)
+            }
+        })
 
-        fab.setOnClickListener {
+        binding.fab.setOnClickListener {
 
             dialogBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_dialog, container, false
@@ -177,7 +182,6 @@ class ListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
