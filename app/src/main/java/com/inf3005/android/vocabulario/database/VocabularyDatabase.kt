@@ -7,76 +7,78 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+import javax.inject.Provider
 
 /**
-* Der Room-Database-Code entspricht zu großen Teilen dem Boilerplate-Code in "Android CodeLab 6".
- * Erweiterung durch einen DatabaseCallback (zum Auffüllen der Datenbank im Auslieferungszustand)
- * und
-* */
+ * Erzeuge Room-Database-Instanz - größtenteils Boilerplate Code.
+ * */
 
 @Database(entities = [Vocabulary::class], version = 3, exportSchema = false)
 abstract class VocabularyDatabase : RoomDatabase() {
 
     abstract fun vocabularyDao(): VocabularyDao
 
-    private class VocabularyDatabaseCallback(
+    class VocabularyDatabaseCallback @Inject constructor(
+        private val database: Provider<VocabularyDatabase>,
         private val scope: CoroutineScope
-    ): RoomDatabase.Callback() {
+    ) : RoomDatabase.Callback() {
 
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
-            INSTANCE?.let { database ->
-                scope.launch {
 
-                    /**
-                    * Dieser Codeblock dient dazu die Datenbank im Auslieferungszustand bereits
-                     * befüllen zu können.
-                     *
-                     * Der Code wird nur bei Erzeugung der Datenbank aufgerufen, d.h. bei
-                     * Installation der App auf einem Endgerät oder Emulator.
-                    * */
-                    val vocabularyDao = database.vocabularyDao()
+            val dao = database.get().vocabularyDao()
 
-                    vocabularyDao.clearList()
+            scope.launch {
 
-                    var entry = Vocabulary(1, "Auto", "coche")
-                    vocabularyDao.insert(entry)
+                /**
+                 * Dieser Codeblock dient dazu die Datenbank im Auslieferungszustand bereits
+                 * befüllen zu können.
+                 *
+                 * Der Code wird nur bei Erzeugung der Datenbank aufgerufen, d.h. bei
+                 * Installation der App auf einem Endgerät oder Emulator.
+                 * */
 
-                    entry = Vocabulary(2, "Berg", "montaña")
-                    vocabularyDao.insert(entry)
+                dao.clearList()
 
-                    entry = Vocabulary(3, "Finanzdienstleistungsunternehmen",
-                        "empresa de servicios financieros")
-                    vocabularyDao.insert(entry)
+                var entry = Vocabulary("Auto", "coche")
+                dao.insert(entry)
 
-                    entry = Vocabulary(4, "Pfannkuchen", "panqueques")
-                    vocabularyDao.insert(entry)
-                }
-            }
-        }
+                entry = Vocabulary("Berg", "montaña")
+                dao.insert(entry)
 
-    }
+                entry = Vocabulary("Finanzdienstleistungsunternehmen",
+                    "empresa de servicios financieros")
+                dao.insert(entry)
 
-    companion object {
-        @Volatile
-        private var INSTANCE: VocabularyDatabase? = null
-
-        fun getInstance(
-            context: Context,
-            scope: CoroutineScope
-        ): VocabularyDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    VocabularyDatabase::class.java,
-                    "vocabulary_database"
-                )   .fallbackToDestructiveMigration()
-                    .addCallback(VocabularyDatabaseCallback(scope))
-                    .build()
-                INSTANCE = instance
-                instance    // return instance falls INSTANCE == null
+                entry = Vocabulary("Pfannkuchen", "panqueques")
+                dao.insert(entry)
             }
         }
     }
 
 }
+
+//    companion object {
+//        @Volatile
+//        private var INSTANCE: VocabularyDatabase? = null
+//
+//        fun getInstance(
+//            context: Context,
+//            scope: CoroutineScope
+//        ): VocabularyDatabase {
+//            return INSTANCE ?: synchronized(this) {
+//                val instance = Room.databaseBuilder(
+//                    context.applicationContext,
+//                    VocabularyDatabase::class.java,
+//                    "vocabulary_database"
+//                ).fallbackToDestructiveMigration()
+//                    .addCallback(VocabularyDatabaseCallback(scope))
+//                    .build()
+//                INSTANCE = instance
+//                instance    // return instance falls INSTANCE == null
+//            }
+//        }
+//    }
+
+//}

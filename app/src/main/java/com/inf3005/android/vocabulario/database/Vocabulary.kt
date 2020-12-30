@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 /**
-* Hier wird die Entitiy erzeugt, d.h. der Datenbankrohling mit dem ich in der eigentlich Room-
+ * Hier wird die Entitiy erzeugt, d.h. der Datenbankrohling mit dem ich in der eigentlich Room-
  * Datenbank weiterarbeite.
  *
  * Es wird eine Tabelle mit drei Attributen erzeugt - einer ID (Primärschlüssel),
@@ -14,12 +14,12 @@ import androidx.room.PrimaryKey
  * */
 @Entity(tableName = "vocabulary")
 data class Vocabulary(
-    @PrimaryKey(autoGenerate = true)
-    val vocId: Long = 0L,
-
     @ColumnInfo(name = "german")
     val de: String = "de",
 
     @ColumnInfo(name = "spanish")
-    val sp: String = "sp"
-    )
+    val sp: String = "sp",
+
+    @PrimaryKey(autoGenerate = true)
+    val vocId: Long = 0L
+)

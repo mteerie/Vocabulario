@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/option_delete_all"
+        android:icon="@drawable/ic_delete_all"
+        android:title="@string/delete_all_list_entries"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/option_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search_action"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView" />
+
+    <item
+        android:id="@+id/option_expand_filter"
+        android:icon="@drawable/ic_filter_list"
+        android:title="@string/sort_list_entries"
+        app:showAsAction="ifRoom">
+
+        <menu>
+
+            <item
+                android:id="@+id/sort_de"
+                android:title="@string/sort_by_ger" />
+
+            <item
+                android:id="@+id/sort_sp"
+                android:title="@string/sort_by_spa" />
+
+        </menu>
+
+    </item>
+
+</menu>

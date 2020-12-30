@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    
+
     <data>
+
         <variable
             name="vocabulary"
             type="com.inf3005.android.vocabulario.database.Vocabulary" />
+
         <variable
             name="clickListener"
             type="com.inf3005.android.vocabulario.list.EntryClickListener" />
     </data>
 
     <androidx.cardview.widget.CardView
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:cardCornerRadius="16dp"
+        android:longClickable="true"
         android:onClick="@{() -> clickListener.onClick(vocabulary)}"
-        android:longClickable="true">
+        app:cardCornerRadius="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            >
+            android:padding="16dp">
 
             <TextView
                 android:id="@+id/entry_de"
@@ -37,9 +37,9 @@
                 android:text="@string/list_item_deutsch"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textSize="17sp"
+                app:deText="@{vocabulary}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:deText="@{vocabulary}"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/entry_sp"
@@ -53,7 +53,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/entry_de"
-                app:spText="@{vocabulary}"/>
+                app:spText="@{vocabulary}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

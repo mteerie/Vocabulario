@@ -15,7 +15,7 @@
     <string name="add_vocabulary">add vocabulary</string>
     <string name="list_entry_deleted">Vokabel gelöscht.</string>
     <string name="list_entry_undo">Undo</string>
-    <string name="delete_all_list_entries">Alle Löschen</string>
+    <string name="delete_all_list_entries">delete all list entries</string>
     <string name="delete_all_entries">Alle Listeneinträge löschen?</string>
     <string name="delete_all_entries_positive">Ja</string>
     <string name="delete_all_entries_negative">Nein</string>
@@ -25,8 +25,9 @@
     <string name="submit_button">Hinzufügen</string>
     <string name="dismiss_button">Abbrechen</string>
     <string name="error_input_too_long">Deine Eingabe ist zu lang.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="information">Information</string>
     <string name="search_action">search list entries</string>
+    <string name="sort_list_entries">Liste sortieren</string>
+    <string name="sort_by_ger">Nach Deutsch sortieren</string>
+    <string name="sort_by_spa">Nach Spanisch sortieren</string>
 </resources>

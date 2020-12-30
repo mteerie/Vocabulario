@@ -10,10 +10,10 @@
             type="com.inf3005.android.vocabulario.list.VocabularyViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize">
+        tools:context=".list.ListFragment">
 
         <!--        <com.google.android.material.bottomappbar.BottomAppBar-->
         <!--            android:id="@+id/bottom_app_bar"-->
@@ -33,9 +33,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:context=".list.ListFragment"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp"
             tools:listitem="@layout/fragment_list_item" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -46,9 +43,8 @@
             android:layout_marginBottom="16dp"
             android:contentDescription="@string/add_vocabulary"
             android:src="@drawable/ic_add"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_gravity="bottom|end"/>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.inf3005.android.vocabulario.database.Vocabulary
 import com.inf3005.android.vocabulario.databinding.FragmentListItemBinding
 
-class VocabularyAdapter(private val listener: EntryClickListener) : ListAdapter<Vocabulary, VocabularyAdapter.ViewHolder>(VocabularyDifferences())  {
+class VocabularyAdapter(private val listener: EntryClickListener) :
+    ListAdapter<Vocabulary, VocabularyAdapter.ViewHolder>(VocabularyDifferences()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.create(parent)
@@ -37,18 +38,16 @@ class VocabularyAdapter(private val listener: EntryClickListener) : ListAdapter<
         }
     }
 
-    fun getEntryAt(position: Int) : Vocabulary{
+    fun getEntryAt(position: Int): Vocabulary {
         return getItem(position)
     }
-}
 
-class VocabularyDifferences : DiffUtil.ItemCallback<Vocabulary>() {
-    override fun areItemsTheSame(oldItem: Vocabulary, newItem: Vocabulary): Boolean {
-        return oldItem.vocId == newItem.vocId
-    }
+    class VocabularyDifferences : DiffUtil.ItemCallback<Vocabulary>() {
+        override fun areItemsTheSame(oldItem: Vocabulary, newItem: Vocabulary) =
+            oldItem.vocId == newItem.vocId
 
-    override fun areContentsTheSame(oldItem: Vocabulary, newItem: Vocabulary): Boolean {
-        return oldItem == newItem
+        override fun areContentsTheSame(oldItem: Vocabulary, newItem: Vocabulary) =
+            oldItem == newItem
     }
 }
 
