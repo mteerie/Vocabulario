@@ -5,7 +5,7 @@
 
         <variable
             name="vocabularyViewModel"
-            type="com.inf3005.android.vocabulario.list.VocabularyViewModel" />
+            type="com.inf3005.android.vocabulario.list.ListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

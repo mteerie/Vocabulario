@@ -2,6 +2,7 @@ package com.inf3005.android.vocabulario.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.inf3005.android.vocabulario.list.SortBy
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -28,8 +29,17 @@ interface VocabularyDao {
      * Objekt der Relation entsprechen kann - ist userQuery = 'uto' soll also trotzdem der Eintrag
      * mit 'auto' angezeigt werden.
      * */
-    @Query("SELECT * FROM vocabulary WHERE german LIKE  '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%'")
-    fun getAllEntries(userQuery: String): Flow<List<Vocabulary>>
+    fun getAllEntries(userQuery: String, entryOrder: SortBy): Flow<List<Vocabulary>> =
+        when(entryOrder) {
+            SortBy.GERMAN -> getAllEntriesByGerman(userQuery)
+            SortBy.SPANISH -> getAllEntriesBySpanish(userQuery)
+        }
+
+    @Query("SELECT * FROM vocabulary WHERE german LIKE  '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY german")
+    fun getAllEntriesByGerman(userQuery: String): Flow<List<Vocabulary>>
+
+    @Query("SELECT * FROM vocabulary WHERE german LIKE  '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY spanish")
+    fun getAllEntriesBySpanish(userQuery: String): Flow<List<Vocabulary>>
 
     /**
      * Zählt die Anzahl der Einträge in der Relation. Wird primär verwendet, um die Anzeige

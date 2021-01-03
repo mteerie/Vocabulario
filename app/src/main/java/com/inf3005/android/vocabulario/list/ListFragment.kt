@@ -7,12 +7,15 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.inf3005.android.vocabulario.R
+import com.inf3005.android.vocabulario.database.Vocabulary
 import com.inf3005.android.vocabulario.databinding.FragmentDialogBinding
 import com.inf3005.android.vocabulario.databinding.FragmentListBinding
 import com.inf3005.android.vocabulario.utilities.onQueryChanged
@@ -20,13 +23,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
-class ListFragment : Fragment(R.layout.fragment_list) {
+class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryClickListener {
 
-    private val viewModel: VocabularyViewModel by viewModels()
+    private val viewModel: ListViewModel by viewModels()
 
     private lateinit var dialogBinding: FragmentDialogBinding
 
-//    override fun onCreateView(
+//        override fun onCreateView(
 //        inflater: LayoutInflater, container: ViewGroup?,
 //        savedInstanceState: Bundle?
 //    ): View {
@@ -49,37 +52,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 //        viewModel.allEntries.observe(viewLifecycleOwner) { entry ->
 //            entry.let { adapter.submitList(entry) }
 //        }
-//
-//        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
-//            0,
-//            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-//        ) {
-//            override fun onMove(
-//                recyclerView: RecyclerView,
-//                viewHolder: RecyclerView.ViewHolder,
-//                target: RecyclerView.ViewHolder
-//            ): Boolean {
-//                return false
-//            }
-//
-//
-//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-//                val entry = adapter.getEntryAt(viewHolder.adapterPosition)
-//                viewModel.delete(entry)
-//                Snackbar.make(
-//                    binding.root,
-//                    getString(R.string.list_entry_deleted),
-//                    Snackbar.LENGTH_LONG
-//                )
-//                    .setAction(getString(R.string.list_entry_undo)) { viewModel.insert(entry) }
-//                    .setActionTextColor(ContextCompat.getColor(context!!, R.color.black))
-//                    .setTextColor(ContextCompat.getColor(context!!, R.color.black))
-//                    .setAnchorView(binding.fab)
-//                    .show()
-//            }
-//        }).attachToRecyclerView(binding.list)
-//
-//
 //        /**
 //         * onScrollListener für RecyclerView um FAB-Sichtbarkeit zu kontrollieren.
 //         * */
@@ -176,15 +148,30 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 //        return binding.root
 //    }
 
+    override fun onClick(entry: Vocabulary) {
+
+        val options = navOptions {
+            anim {
+                enter = R.anim.slide_in_right
+                exit = R.anim.slide_out_left
+                popEnter = R.anim.slide_in_left
+                popExit = R.anim.slide_out_right
+            }
+        }
+
+        val action = ListFragmentDirections.actionListFragmentToAddEditFragment(
+            entry,
+            "Vokabel anpassen"
+        )
+        findNavController().navigate(action, options)
+    }
+
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         val binding = FragmentListBinding.bind(view)
 
-        val vocabularyAdapter = VocabularyAdapter(EntryClickListener { vocId ->
-            Toast.makeText(context, "$vocId", Toast.LENGTH_LONG)
-                .show()
-        })
+        val vocabularyAdapter = VocabularyAdapter(this)
 
         binding.apply {
             list.apply {
@@ -192,43 +179,63 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 layoutManager = LinearLayoutManager(requireContext())
                 setHasFixedSize(true)
             }
-        }
 
-        viewModel.allEntries.observe(viewLifecycleOwner) {
-            vocabularyAdapter.submitList(it)
-        }
-
-        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
-            0,
-            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-        ) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
-            }
+            ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+                0,
+                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+            ) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    return false
+                }
 
 
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val entry = vocabularyAdapter.getEntryAt(viewHolder.adapterPosition)
-                viewModel.delete(entry)
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val entry = vocabularyAdapter.getEntryAt(viewHolder.adapterPosition)
+                    viewModel.delete(entry)
 
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.list_entry_deleted),
-                    Snackbar.LENGTH_LONG
+                    Snackbar.make(
+                        requireView(),
+                        getString(R.string.list_entry_deleted),
+                        Snackbar.LENGTH_LONG
+                    )
+                        .setAction(getString(R.string.list_entry_undo)) {
+                            viewModel.insert(entry)
+                        }
+                        .setActionTextColor(ContextCompat.getColor(context!!, R.color.black))
+                        .setTextColor(ContextCompat.getColor(context!!, R.color.black))
+                        .setAnchorView(binding.fab)
+                        .show()
+                }
+            }).attachToRecyclerView(list)
+
+            binding.fab.setOnClickListener {
+
+                val options = navOptions {
+                    anim {
+                        enter = R.anim.slide_in_bottom
+                        exit = R.anim.fade_out
+                        popEnter = R.anim.slide_in_bottom
+                        popExit = R.anim.fade_out
+                    }
+                }
+
+                val action = ListFragmentDirections.actionListFragmentToAddEditFragment(
+                    null, "Neue Vokabel"
                 )
-                    .setAction(getString(R.string.list_entry_undo)) { viewModel.insert(entry) }
-                    .setActionTextColor(ContextCompat.getColor(context!!, R.color.black))
-                    .setTextColor(ContextCompat.getColor(context!!, R.color.black))
-                    .setAnchorView(binding.fab)
-                    .show()
+                findNavController().navigate(action, options)
             }
-        }).attachToRecyclerView(binding.list)
 
-        setHasOptionsMenu(true)
+            viewModel.allEntries.observe(viewLifecycleOwner)
+            {
+                vocabularyAdapter.submitList(it)
+            }
+
+            setHasOptionsMenu(true)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -261,21 +268,25 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                     .setCancelable(true)
                     .setPositiveButton(getString(R.string.delete_all_entries_positive)) { _, _ ->
                         viewModel.deleteAllEntries()
+
+                        Toast.makeText(context, "Alle Einträge gelöscht.", Toast.LENGTH_LONG)
+                            .show()
                     }
                     .setNegativeButton(getString(R.string.delete_all_entries_negative)) { dialog, _
                         ->
                         dialog.dismiss()
                     }
                     .show()
-
                 true
             }
 
             R.id.sort_de -> {
+                viewModel.entryOrder.value = SortBy.GERMAN
                 true
             }
 
             R.id.sort_sp -> {
+                viewModel.entryOrder.value = SortBy.SPANISH
                 true
             }
             else -> super.onOptionsItemSelected(item)

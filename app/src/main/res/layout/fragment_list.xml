@@ -2,12 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
-
         <variable
             name="vocabularyViewModel"
-            type="com.inf3005.android.vocabulario.list.VocabularyViewModel" />
+            type="com.inf3005.android.vocabulario.list.ListViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -43,8 +41,10 @@
             android:layout_marginBottom="16dp"
             android:contentDescription="@string/add_vocabulary"
             android:src="@drawable/ic_add"
-            android:layout_gravity="bottom|end"/>
+            android:layout_gravity="bottom|end"
+            app:tint="@color/white"/>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
+

@@ -1,6 +1,7 @@
 package com.inf3005.android.vocabulario.list
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -8,35 +9,43 @@ import androidx.recyclerview.widget.RecyclerView
 import com.inf3005.android.vocabulario.database.Vocabulary
 import com.inf3005.android.vocabulario.databinding.FragmentListItemBinding
 
-class VocabularyAdapter(private val listener: EntryClickListener) :
+class VocabularyAdapter(private val clickListener: EntryClickListener) :
     ListAdapter<Vocabulary, VocabularyAdapter.ViewHolder>(VocabularyDifferences()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.create(parent)
+        val binding =
+            FragmentListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position)!!, listener)
+        holder.bind(getItem(position)!!)
     }
 
-    class ViewHolder(private val binding: FragmentListItemBinding) :
+    inner class ViewHolder(private val binding: FragmentListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(entry: Vocabulary, listener: EntryClickListener) {
-            binding.vocabulary = entry
-            binding.clickListener = listener
-            binding.executePendingBindings()
+        init {
+            binding.apply {
+                root.setOnClickListener {
+                    if (adapterPosition != RecyclerView.NO_POSITION)
+                        clickListener.onClick(getItem(adapterPosition))
+                }
+            }
         }
 
-        companion object {
-            fun create(parent: ViewGroup): ViewHolder {
-                val binding = FragmentListItemBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false
-                )
-                return ViewHolder(binding)
+        fun bind(entry: Vocabulary) {
+            binding.apply {
+                binding.vocabulary = entry
+                binding.executePendingBindings()
             }
         }
     }
+
+    interface EntryClickListener {
+        fun onClick(entry: Vocabulary)
+    }
+
 
     fun getEntryAt(position: Int): Vocabulary {
         return getItem(position)
@@ -49,8 +58,4 @@ class VocabularyAdapter(private val listener: EntryClickListener) :
         override fun areContentsTheSame(oldItem: Vocabulary, newItem: Vocabulary) =
             oldItem == newItem
     }
-}
-
-class EntryClickListener(val listener: (id: Long) -> Unit) {
-    fun onClick(entry: Vocabulary) = listener(entry.vocId)
 }

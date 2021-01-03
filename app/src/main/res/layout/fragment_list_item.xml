@@ -3,21 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="vocabulary"
             type="com.inf3005.android.vocabulario.database.Vocabulary" />
 
         <variable
-            name="clickListener"
-            type="com.inf3005.android.vocabulario.list.EntryClickListener" />
+            name="listener"
+            type="com.inf3005.android.vocabulario.list.VocabularyAdapter.EntryClickListener" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:longClickable="true"
-        android:onClick="@{() -> clickListener.onClick(vocabulary)}"
+        android:clickable="true"
+        android:focusable="true"
         app:cardCornerRadius="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
@@ -57,5 +57,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

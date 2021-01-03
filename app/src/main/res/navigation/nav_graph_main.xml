@@ -8,11 +8,29 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="com.inf3005.android.vocabulario.list.ListFragment"
-        android:label="fragment_vocabulary_list"
-        tools:layout="@layout/fragment_list"/>
+        android:label="Vokabelliste"
+        tools:layout="@layout/fragment_list">
+        <action
+            android:id="@+id/action_listFragment_to_addEditFragment"
+            app:destination="@id/addEditFragment" />
+    </fragment>
     <fragment
         android:id="@+id/infoFragment"
         android:name="com.inf3005.android.vocabulario.InfoFragment"
         android:label="fragment_info"
         tools:layout="@layout/fragment_info" />
+    <fragment
+        android:id="@+id/addEditFragment"
+        android:name="com.inf3005.android.vocabulario.list.AddEditFragment"
+        android:label="{title}"
+        tools:layout="@layout/fragment_add_edit" >
+        <argument
+            android:name="entry"
+            app:argType="com.inf3005.android.vocabulario.database.Vocabulary"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -1,8 +1,10 @@
 package com.inf3005.android.vocabulario.database
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
 /**
  * Hier wird die Entitiy erzeugt, d.h. der Datenbankrohling mit dem ich in der eigentlich Room-
@@ -13,6 +15,7 @@ import androidx.room.PrimaryKey
  * einem String für das Spanische Wort.
  * */
 @Entity(tableName = "vocabulary")
+@Parcelize
 data class Vocabulary(
     @ColumnInfo(name = "german")
     val de: String = "de",
@@ -22,4 +25,4 @@ data class Vocabulary(
 
     @PrimaryKey(autoGenerate = true)
     val vocId: Long = 0L
-)
+) : Parcelable

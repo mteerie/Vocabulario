@@ -17,11 +17,19 @@
 
     <item
         android:id="@+id/option_expand_filter"
-        android:icon="@drawable/ic_filter_list"
+        android:enabled="true"
+        android:icon="@drawable/ic_sort_list"
         android:title="@string/sort_list_entries"
+        android:visible="true"
         app:showAsAction="ifRoom">
 
         <menu>
+
+            <item
+                android:checkable="false"
+                android:enabled="false"
+                android:title="@string/sort_by"
+                />
 
             <item
                 android:id="@+id/sort_de"
@@ -30,7 +38,6 @@
             <item
                 android:id="@+id/sort_sp"
                 android:title="@string/sort_by_spa" />
-
         </menu>
 
     </item>

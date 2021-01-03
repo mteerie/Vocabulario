@@ -8,7 +8,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-class VocabularyViewModel @ViewModelInject constructor(
+class ListViewModel @ViewModelInject constructor(
     private val dao: VocabularyDao
 ) : ViewModel() {
 
@@ -24,6 +24,8 @@ class VocabularyViewModel @ViewModelInject constructor(
      * */
     val currentSearchQuery = MutableStateFlow("")
 
+    val entryOrder = MutableStateFlow(SortBy.GERMAN)
+
     /**
      * Collector für currentSearchQuery. Der flatMapLatest-Operator ruft bei Änderung des Wertes
      * von currentSearchQuery eine Transformationsfunktion auf
@@ -37,14 +39,15 @@ class VocabularyViewModel @ViewModelInject constructor(
      * erzeugten Flow.
      * */
     @ExperimentalCoroutinesApi
-    private val vocabularyEntries = currentSearchQuery.flatMapLatest { query ->
-        query.let { dao.getAllEntries(query) }
+    private val vocabularyEntries = combine(currentSearchQuery, entryOrder) {
+        currentSearchQuery, entryOrder  ->
+        Pair(currentSearchQuery, entryOrder)
+    }.flatMapLatest { query ->
+        query.let { dao.getAllEntries(it.first, it.second) }
     }
 
     @ExperimentalCoroutinesApi
     val allEntries = vocabularyEntries.asLiveData()
-
-//    val allEntries: LiveData<List<Vocabulary>> = dao.getAllEntries("").asLiveData()
 
     val entryCount: LiveData<Int> = dao.countEntries().asLiveData()
 
@@ -53,7 +56,7 @@ class VocabularyViewModel @ViewModelInject constructor(
     }
 
     fun update(entry: Vocabulary) = viewModelScope.launch {
-        dao.update(entry)
+        dao.update(entry.copy())
     }
 
     fun delete(entry: Vocabulary) = viewModelScope.launch {
@@ -66,14 +69,4 @@ class VocabularyViewModel @ViewModelInject constructor(
 
 }
 
-//class VocabularyViewModelFactory(
-//    private val repository: VocabularyRepository
-//    ) : ViewModelProvider.Factory {
-//    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//        if (modelClass.isAssignableFrom(VocabularyViewModel::class.java)) {
-//            @Suppress("UNCHECKED_CAST")
-//            return VocabularyViewModel(repository) as T
-//        }
-//        throw IllegalArgumentException("Unknown ViewModel class")
-//    }
-//}
+enum class SortBy { GERMAN, SPANISH }
