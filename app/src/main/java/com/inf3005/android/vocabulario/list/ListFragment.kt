@@ -25,9 +25,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryClickListener {
 
-    private val viewModel: ListViewModel by viewModels()
+    private lateinit var searchActionView: SearchView
 
-    private lateinit var dialogBinding: FragmentDialogBinding
+    private val viewModel: ListViewModel by viewModels()
 
 //        override fun onCreateView(
 //        inflater: LayoutInflater, container: ViewGroup?,
@@ -243,7 +243,15 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
         inflater.inflate(R.menu.action_bar_menu_list, menu)
 
         val searchOption = menu.findItem(R.id.option_search)
-        val searchActionView = searchOption.actionView as SearchView
+
+        val pendingQuery = viewModel.currentSearchQuery.value
+
+        if (pendingQuery.isNotEmpty()) {
+            searchOption.expandActionView()
+            searchActionView.setQuery(pendingQuery, false)
+        }
+
+        searchActionView = searchOption.actionView as SearchView
 
         /**
          * Verwendet die in Extensions.kt deklarierte Extension-Inline-Funktion 'onQueryTextChanged'
@@ -260,7 +268,6 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         return when (item.itemId) {
             R.id.option_delete_all -> {
                 MaterialAlertDialogBuilder(requireContext())
@@ -272,10 +279,7 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
                         Toast.makeText(context, "Alle Einträge gelöscht.", Toast.LENGTH_LONG)
                             .show()
                     }
-                    .setNegativeButton(getString(R.string.delete_all_entries_negative)) { dialog, _
-                        ->
-                        dialog.dismiss()
-                    }
+                    .setNegativeButton(getString(R.string.delete_all_entries_negative), null)
                     .show()
                 true
             }
@@ -307,5 +311,11 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
         viewModel.entryCount.observe(viewLifecycleOwner) { entry ->
             deleteAllButton.isVisible = entry != 0
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        searchActionView.setOnQueryTextListener(null)
     }
 }

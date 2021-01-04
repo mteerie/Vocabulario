@@ -55,10 +55,6 @@ class ListViewModel @ViewModelInject constructor(
         dao.insert(entry)
     }
 
-    fun update(entry: Vocabulary) = viewModelScope.launch {
-        dao.update(entry.copy())
-    }
-
     fun delete(entry: Vocabulary) = viewModelScope.launch {
         dao.delete(entry)
     }

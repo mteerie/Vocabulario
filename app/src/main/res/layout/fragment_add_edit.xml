@@ -7,6 +7,9 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".list.AddEditFragment">
+
+
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_de"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -54,15 +57,21 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/input_sp" />
+
     <Button
         android:id="@+id/submit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/submit_button"
-        android:layout_marginTop="16sp"
         android:backgroundTint="@color/red_200"
+        android:text="@string/submit_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_sp" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        android:textColor="@color/black"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

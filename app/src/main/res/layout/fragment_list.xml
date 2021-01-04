@@ -41,8 +41,7 @@
             android:layout_marginBottom="16dp"
             android:contentDescription="@string/add_vocabulary"
             android:src="@drawable/ic_add"
-            android:layout_gravity="bottom|end"
-            app:tint="@color/white"/>
+            android:layout_gravity="bottom|end" />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

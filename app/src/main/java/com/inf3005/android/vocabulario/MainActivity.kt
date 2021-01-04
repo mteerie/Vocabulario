@@ -37,6 +37,12 @@ class MainActivity : AppCompatActivity() {
         return navigationController.navigateUp() || super.onSupportNavigateUp()
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        hideKeyboard()
+    }
+
     /**
      * Zum Aufruf in onSupportNavigateUp. Die Tastatur soll versteckt werden, wenn der Nutzer eines
      * der Eingabefelder im Add-Edit-Fragment anklickt und mit geöffneter Tastatur den Back-Button
@@ -55,6 +61,8 @@ class MainActivity : AppCompatActivity() {
             manager.hideSoftInputFromWindow(
                 view.windowToken, 0
             )
+
+            view.clearFocus()
         }
     }
 }

@@ -22,8 +22,7 @@
     <string name="input_dialog_de_hint">Deutsch</string>
     <string name="input_dialog_sp_hint">Spanisch</string>
     <string name="add_entry">Vokabel hinzufügen</string>
-    <string name="submit_button">Hinzufügen</string>
-    <string name="dismiss_button">Abbrechen</string>
+    <string name="submit_button">Speichern</string>
     <string name="error_input_too_long">Deine Eingabe ist zu lang.</string>
     <string name="information">Information</string>
     <string name="search_action">search list entries</string>
