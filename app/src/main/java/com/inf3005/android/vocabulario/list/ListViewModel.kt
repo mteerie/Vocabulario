@@ -65,4 +65,4 @@ class ListViewModel @ViewModelInject constructor(
 
 }
 
-enum class SortBy { GERMAN, SPANISH }
+enum class SortBy { GERMAN, SPANISH, DIFFICULTY_ASC, DIFFICULTY_DESC }

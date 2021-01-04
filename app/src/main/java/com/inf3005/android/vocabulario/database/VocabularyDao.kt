@@ -33,6 +33,8 @@ interface VocabularyDao {
         when(entryOrder) {
             SortBy.GERMAN -> getAllEntriesByGerman(userQuery)
             SortBy.SPANISH -> getAllEntriesBySpanish(userQuery)
+            SortBy.DIFFICULTY_ASC -> getAllEntriesByDifficultyAscending(userQuery)
+            SortBy.DIFFICULTY_DESC -> getAllEntriesByDifficultyDescending(userQuery)
         }
 
     @Query("SELECT * FROM vocabulary WHERE german LIKE  '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY german")
@@ -40,6 +42,12 @@ interface VocabularyDao {
 
     @Query("SELECT * FROM vocabulary WHERE german LIKE  '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY spanish")
     fun getAllEntriesBySpanish(userQuery: String): Flow<List<Vocabulary>>
+
+    @Query("SELECT * FROM vocabulary WHERE german LIKE  '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY difficulty ASC")
+    fun getAllEntriesByDifficultyAscending(userQuery: String): Flow<List<Vocabulary>>
+
+    @Query("SELECT * FROM vocabulary WHERE german LIKE  '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY difficulty DESC")
+    fun getAllEntriesByDifficultyDescending(userQuery: String): Flow<List<Vocabulary>>
 
     /**
      * Zählt die Anzahl der Einträge in der Relation. Wird primär verwendet, um die Anzeige

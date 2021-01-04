@@ -5,8 +5,8 @@
     <color name="teal_700">#00796b</color>
     <color name="teal_700_dark">#004c40</color>
     <color name="teal_700_light">#48a999</color>
-    <color name="red_200">#ef9a9a</color>
-    <color name="red_200_dark">#ba6b6c</color>
+    <color name="red_200">#ffbcaf</color>
+    <color name="red_200_dark">#ff8a80</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#767676</color>

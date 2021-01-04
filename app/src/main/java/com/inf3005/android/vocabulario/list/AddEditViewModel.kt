@@ -5,6 +5,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.inf3005.android.vocabulario.database.Difficulty
+import com.inf3005.android.vocabulario.database.DifficultyConverters
 import com.inf3005.android.vocabulario.database.Vocabulary
 import com.inf3005.android.vocabulario.database.VocabularyDao
 import kotlinx.coroutines.launch
@@ -28,11 +30,23 @@ class AddEditViewModel @ViewModelInject constructor(
             state.set("entrySpanishValue", value)
         }
 
+    var entryDifficulty = state.get<Difficulty>("entryDifficulty")
+        ?: entry?.difficulty ?: Difficulty.EASY
+        set(value) {
+            field = value
+            state.set("entryDifficulty", value)
+        }
+
     fun onClick() {
         if (entry != null)
-            update(entry.copy(de = entryGermanValue, sp = entrySpanishValue))
+            update(
+                entry.copy(
+                    de = entryGermanValue, sp = entrySpanishValue,
+                    difficulty = entryDifficulty
+                )
+            )
         else
-            insert(Vocabulary(entryGermanValue, entrySpanishValue))
+            insert(Vocabulary(entryGermanValue, entrySpanishValue, entryDifficulty))
     }
 
     private fun insert(entry: Vocabulary) = viewModelScope.launch {

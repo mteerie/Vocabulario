@@ -38,6 +38,14 @@
             <item
                 android:id="@+id/sort_sp"
                 android:title="@string/sort_by_spa" />
+
+            <item
+                android:id="@+id/sort_difficulty_asc"
+                android:title="@string/sort_difficulty_asc"/>
+
+            <item
+                android:id="@+id/sort_difficulty_desc"
+                android:title="@string/sort_difficulty_desc"/>
         </menu>
 
     </item>

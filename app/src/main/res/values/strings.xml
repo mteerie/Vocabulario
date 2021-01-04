@@ -1,17 +1,17 @@
 <resources>
     <string name="app_name">Vocabulario</string>
-    <string name="start_textview_text">Prüfe Deine Vokabelkenntnisse!</string>
-    <string name="abfrage_start_button_text">Start</string>
-    <string name="abfrage_nav_button_text">Abfrage</string>
+
     <string name="vocabulary_list_nav_button_text">Vokabelliste</string>
+
     <string name="info_text_1">Diese Anwendung wird derzeit noch konstruiert.</string>
-    <string name="info_text_2">Sie soll dabei helfen Vokabeln einfach zu einer Liste zusammen zu fügen und die Möglichkeit bieten diese spielerisch abzufragen.</string>
+
     <string name="menu_info">Information</string>
+
     <string name="list_item_spanisch">spanisch</string>
     <string name="list_item_deutsch">deutsch</string>
+
     <string name="fragment_info_list_icon">list icon</string>
-    <string name="fragment_info_plus_icon">plus icon</string>
-    <string name="fragment_info_play_icon">play icon</string>
+
     <string name="add_vocabulary">add vocabulary</string>
     <string name="list_entry_deleted">Vokabel gelöscht.</string>
     <string name="list_entry_undo">Undo</string>
@@ -19,17 +19,29 @@
     <string name="delete_all_entries">Alle Listeneinträge löschen?</string>
     <string name="delete_all_entries_positive">Ja</string>
     <string name="delete_all_entries_negative">Nein</string>
+
     <string name="input_dialog_de_hint">Deutsch</string>
     <string name="input_dialog_sp_hint">Spanisch</string>
     <string name="add_entry">Vokabel hinzufügen</string>
     <string name="submit_button">Speichern</string>
     <string name="error_input_too_long">Deine Eingabe ist zu lang.</string>
+
     <string name="information">Information</string>
     <string name="search_action">search list entries</string>
     <string name="sort_list_entries">Liste sortieren</string>
     <string name="sort_by_ger">Deutsch</string>
     <string name="sort_by_spa">Spanisch</string>
     <string name="sort_by">Sortieren nach…</string>
+
     <string name="checkmark">checkmark</string>
+    <string name="sort_difficulty_asc">Schwierigkeit (auf)</string>
+    <string name="sort_difficulty_desc">Schwierigkeit (ab)</string>
+
+
+    <string-array name="difficulty_choices">
+        <item>Niedrig</item>
+        <item>Fortgeschritten</item>
+        <item>Schwierig</item>
+    </string-array>
 
 </resources>

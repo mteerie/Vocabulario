@@ -39,17 +39,17 @@ abstract class VocabularyDatabase : RoomDatabase() {
 
                 dao.clearList()
 
-                var entry = Vocabulary("Auto", "coche")
+                var entry = Vocabulary("Auto", "coche", Difficulty.EASY)
                 dao.insert(entry)
 
-                entry = Vocabulary("Berg", "montaña")
+                entry = Vocabulary("Berg", "montaña", Difficulty.EASY)
                 dao.insert(entry)
 
                 entry = Vocabulary("Finanzdienstleistungsunternehmen",
-                    "empresa de servicios financieros")
+                    "empresa de servicios financieros", Difficulty.HARD)
                 dao.insert(entry)
 
-                entry = Vocabulary("Pfannkuchen", "panqueques")
+                entry = Vocabulary("Pfannkuchen", "panqueques", Difficulty.INTERMEDIATE)
                 dao.insert(entry)
             }
         }
