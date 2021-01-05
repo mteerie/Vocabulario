@@ -31,12 +31,6 @@ class AddEditFragment : Fragment(R.layout.fragment_add_edit) {
 
         val spinnerAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item, spinnerItems)
 
-        if (viewModel.entryGermanValue != "")
-            viewModel.setDeTextChangedState(true)
-
-        if (viewModel.entrySpanishValue != "")
-            viewModel.setSpTextChangedState(true)
-
         binding.apply {
 
             viewModel.submitButtonState.observe(viewLifecycleOwner)
@@ -48,7 +42,7 @@ class AddEditFragment : Fragment(R.layout.fragment_add_edit) {
             inputDe.editText?.addTextChangedListener {
                 viewModel.entryGermanValue = it.toString()
 
-                if (viewModel.entryGermanValue != "")
+                if (viewModel.entryGermanValue.isNotEmpty())
                     viewModel.setDeTextChangedState(true)
                 else viewModel.setDeTextChangedState(false)
             }
@@ -57,7 +51,7 @@ class AddEditFragment : Fragment(R.layout.fragment_add_edit) {
             inputSp.editText?.addTextChangedListener {
                 viewModel.entrySpanishValue = it.toString()
 
-                if (viewModel.entrySpanishValue != "")
+                if (viewModel.entrySpanishValue.isNotEmpty())
                     viewModel.setSpTextChangedState(true)
                 else viewModel.setSpTextChangedState(false)
             }

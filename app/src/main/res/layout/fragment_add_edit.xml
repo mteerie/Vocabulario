@@ -62,13 +62,14 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/input_sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
-            android:hint="Schwierigkeit"/>
+            android:hint="@string/difficulty_hint"/>
 
     
         

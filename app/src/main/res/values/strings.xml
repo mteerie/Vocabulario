@@ -29,19 +29,12 @@
     <string name="information">Information</string>
     <string name="search_action">search list entries</string>
     <string name="sort_list_entries">Liste sortieren</string>
+    <string name="sort_by">Sortieren nach…</string>
     <string name="sort_by_ger">Deutsch</string>
     <string name="sort_by_spa">Spanisch</string>
-    <string name="sort_by">Sortieren nach…</string>
-
-    <string name="checkmark">checkmark</string>
     <string name="sort_difficulty_asc">Schwierigkeit (auf)</string>
     <string name="sort_difficulty_desc">Schwierigkeit (ab)</string>
 
-
-    <string-array name="difficulty_choices">
-        <item>Niedrig</item>
-        <item>Fortgeschritten</item>
-        <item>Schwierig</item>
-    </string-array>
-
+    <string name="checkmark">checkmark</string>
+    <string name="difficulty_hint">Schwierigkeit</string>
 </resources>
