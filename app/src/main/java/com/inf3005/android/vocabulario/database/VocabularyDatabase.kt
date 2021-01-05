@@ -45,8 +45,10 @@ abstract class VocabularyDatabase : RoomDatabase() {
                 entry = Vocabulary("Berg", "montaña", Difficulty.EASY)
                 dao.insert(entry)
 
-                entry = Vocabulary("Finanzdienstleistungsunternehmen",
-                    "empresa de servicios financieros", Difficulty.HARD)
+                entry = Vocabulary(
+                    "Finanzdienstleistungsunternehmen",
+                    "empresa de servicios financieros", Difficulty.HARD
+                )
                 dao.insert(entry)
 
                 entry = Vocabulary("Pfannkuchen", "panqueques", Difficulty.INTERMEDIATE)
@@ -54,29 +56,4 @@ abstract class VocabularyDatabase : RoomDatabase() {
             }
         }
     }
-
 }
-
-//    companion object {
-//        @Volatile
-//        private var INSTANCE: VocabularyDatabase? = null
-//
-//        fun getInstance(
-//            context: Context,
-//            scope: CoroutineScope
-//        ): VocabularyDatabase {
-//            return INSTANCE ?: synchronized(this) {
-//                val instance = Room.databaseBuilder(
-//                    context.applicationContext,
-//                    VocabularyDatabase::class.java,
-//                    "vocabulary_database"
-//                ).fallbackToDestructiveMigration()
-//                    .addCallback(VocabularyDatabaseCallback(scope))
-//                    .build()
-//                INSTANCE = instance
-//                instance    // return instance falls INSTANCE == null
-//            }
-//        }
-//    }
-
-//}

@@ -2,11 +2,8 @@ package com.inf3005.android.vocabulario.list
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.inf3005.android.vocabulario.database.Difficulty
-import com.inf3005.android.vocabulario.database.DifficultyConverters
 import com.inf3005.android.vocabulario.database.Vocabulary
 import com.inf3005.android.vocabulario.database.VocabularyDao
 import kotlinx.coroutines.launch
@@ -45,6 +42,8 @@ class AddEditViewModel @ViewModelInject constructor(
                     difficulty = entryDifficulty
                 )
             )
+        else if (entryGermanValue == "" && entrySpanishValue == "")
+            return
         else
             insert(Vocabulary(entryGermanValue, entrySpanishValue, entryDifficulty))
     }

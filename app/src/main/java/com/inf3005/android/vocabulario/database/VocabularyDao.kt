@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface VocabularyDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entry: Vocabulary)
 
     @Update
@@ -37,16 +37,16 @@ interface VocabularyDao {
             SortBy.DIFFICULTY_DESC -> getAllEntriesByDifficultyDescending(userQuery)
         }
 
-    @Query("SELECT * FROM vocabulary WHERE german LIKE  '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY german")
+    @Query("SELECT * FROM vocabulary WHERE german LIKE '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY german")
     fun getAllEntriesByGerman(userQuery: String): Flow<List<Vocabulary>>
 
-    @Query("SELECT * FROM vocabulary WHERE german LIKE  '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY spanish")
+    @Query("SELECT * FROM vocabulary WHERE german LIKE '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY spanish")
     fun getAllEntriesBySpanish(userQuery: String): Flow<List<Vocabulary>>
 
-    @Query("SELECT * FROM vocabulary WHERE german LIKE  '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY difficulty ASC")
+    @Query("SELECT * FROM vocabulary WHERE german LIKE '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY difficulty ASC")
     fun getAllEntriesByDifficultyAscending(userQuery: String): Flow<List<Vocabulary>>
 
-    @Query("SELECT * FROM vocabulary WHERE german LIKE  '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY difficulty DESC")
+    @Query("SELECT * FROM vocabulary WHERE german LIKE '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY difficulty DESC")
     fun getAllEntriesByDifficultyDescending(userQuery: String): Flow<List<Vocabulary>>
 
     /**

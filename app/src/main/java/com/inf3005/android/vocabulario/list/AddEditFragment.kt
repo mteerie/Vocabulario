@@ -33,16 +33,15 @@ class AddEditFragment : Fragment(R.layout.fragment_add_edit), AdapterView.OnItem
 
         spinner.onItemSelectedListener = this
 
-
         binding.apply {
 
-            inputDe.editText?.setText(viewModel.entryGermanValue)
-            inputSp.editText?.setText(viewModel.entrySpanishValue)
 
+            inputDe.editText?.setText(viewModel.entryGermanValue)
             inputDe.editText?.addTextChangedListener {
                 viewModel.entryGermanValue = it.toString()
             }
 
+            inputSp.editText?.setText(viewModel.entrySpanishValue)
             inputSp.editText?.addTextChangedListener {
                 viewModel.entrySpanishValue = it.toString()
             }
@@ -89,13 +88,13 @@ class AddEditFragment : Fragment(R.layout.fragment_add_edit), AdapterView.OnItem
                 override fun afterTextChanged(s: Editable) {}
             }
 
-            inputDe.editText?.addTextChangedListener(vocabularyTextWatcher)
-
-            inputSp.editText?.addTextChangedListener(vocabularyTextWatcher)
+//            inputDe.editText?.addTextChangedListener(vocabularyTextWatcher)
+//
+//            inputSp.editText?.addTextChangedListener(vocabularyTextWatcher)
 
             submitButton.setOnClickListener {
                 viewModel.onClick()
-                findNavController().popBackStack()
+
             }
         }
 
