@@ -6,12 +6,44 @@ import androidx.lifecycle.*
 import com.inf3005.android.vocabulario.database.Difficulty
 import com.inf3005.android.vocabulario.database.Vocabulary
 import com.inf3005.android.vocabulario.database.VocabularyDao
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class AddEditViewModel @ViewModelInject constructor(
     @Assisted private val state: SavedStateHandle,
     private val dao: VocabularyDao
 ) : ViewModel() {
+
+    private val _spinnerSelectedState = MutableStateFlow(false)
+    var spinnerSelectedState = _spinnerSelectedState.asStateFlow()
+
+    fun setSpinnerSelectedState(state: Boolean) {
+        _spinnerSelectedState.value = state
+    }
+
+    private val _spTextChangedState = MutableStateFlow(false)
+    var spTextChangedState = _spTextChangedState.asStateFlow()
+
+    fun setSpTextChangedState(state: Boolean) {
+        _spTextChangedState.value = state
+    }
+
+    private val _deTextChangedState = MutableStateFlow(false)
+    var deTextChangedState = _deTextChangedState.asStateFlow()
+
+    fun setDeTextChangedState(state: Boolean) {
+        _deTextChangedState.value = state
+    }
+
+    private val submitButtonStateFlow = combine(
+        spinnerSelectedState,
+        spTextChangedState,
+        deTextChangedState
+    ) { spinnerSelectedState, spTextChangedState, deTextChangedState ->
+        Triple(spinnerSelectedState, spTextChangedState, deTextChangedState)
+    }
+
+    val submitButtonState = submitButtonStateFlow.asLiveData()
 
     val entry = state.get<Vocabulary>("entry")
 
@@ -42,10 +74,12 @@ class AddEditViewModel @ViewModelInject constructor(
                     difficulty = entryDifficulty
                 )
             )
-        else if (entryGermanValue == "" && entrySpanishValue == "")
-            return
+
+//        else if (entryGermanValue == "" && entrySpanishValue == "")
+//            return
         else
             insert(Vocabulary(entryGermanValue, entrySpanishValue, entryDifficulty))
+        return
     }
 
     private fun insert(entry: Vocabulary) = viewModelScope.launch {

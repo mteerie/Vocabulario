@@ -5,10 +5,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.WindowManager
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Toast
+import android.widget.*
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 
 import androidx.fragment.app.Fragment
@@ -20,7 +18,7 @@ import com.inf3005.android.vocabulario.databinding.FragmentAddEditBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddEditFragment : Fragment(R.layout.fragment_add_edit), AdapterView.OnItemSelectedListener {
+class AddEditFragment : Fragment(R.layout.fragment_add_edit) {
 
     private val viewModel: AddEditViewModel by viewModels()
 
@@ -29,85 +27,110 @@ class AddEditFragment : Fragment(R.layout.fragment_add_edit), AdapterView.OnItem
 
         val binding = FragmentAddEditBinding.bind(view)
 
-        val spinner = binding.difficultySpinner
+        val spinnerItems = listOf("Einfach", "Fortgeschritten", "Schwierig")
 
-        spinner.onItemSelectedListener = this
+        val spinnerAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item, spinnerItems)
+
+        if (viewModel.entryGermanValue != "")
+            viewModel.setDeTextChangedState(true)
+
+        if (viewModel.entrySpanishValue != "")
+            viewModel.setSpTextChangedState(true)
 
         binding.apply {
 
+            viewModel.submitButtonState.observe(viewLifecycleOwner)
+            {
+                submitButton.isEnabled = it.first && it.second && it.third
+            }
 
             inputDe.editText?.setText(viewModel.entryGermanValue)
             inputDe.editText?.addTextChangedListener {
                 viewModel.entryGermanValue = it.toString()
+
+                if (viewModel.entryGermanValue != "")
+                    viewModel.setDeTextChangedState(true)
+                else viewModel.setDeTextChangedState(false)
             }
 
             inputSp.editText?.setText(viewModel.entrySpanishValue)
             inputSp.editText?.addTextChangedListener {
                 viewModel.entrySpanishValue = it.toString()
+
+                if (viewModel.entrySpanishValue != "")
+                    viewModel.setSpTextChangedState(true)
+                else viewModel.setSpTextChangedState(false)
             }
 
-            ArrayAdapter.createFromResource(
-                this.root.context,
-                R.array.difficulty_choices,
-                android.R.layout.simple_spinner_item
-            ).also { adapter ->
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spinner.adapter = adapter
-                spinner.setSelection(viewModel.entryDifficulty.ordinal - 1)
+            (spinnerLayout.editText as? AutoCompleteTextView)?.setAdapter(spinnerAdapter)
+
+            val spinnerText = when (viewModel.entryDifficulty) {
+                Difficulty.INTERMEDIATE -> "Fortgeschritten"
+                Difficulty.HARD -> "Schwierig"
+                else -> "Einfach"
             }
 
-            val vocabularyTextWatcher: TextWatcher = object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
+            spinnerLayout.hint = spinnerText
+
+            spinnerLayout.editText?.setOnClickListener {
+                spinnerLayout.hint = "Schwierigikeit"
+            }
+
+            spinnerLayout.editText?.addTextChangedListener {
+                when (it.toString()) {
+                    "Einfach" -> viewModel.entryDifficulty = Difficulty.EASY
+                    "Fortgeschritten" -> viewModel.entryDifficulty = Difficulty.INTERMEDIATE
+                    "Schwierig" -> viewModel.entryDifficulty = Difficulty.HARD
                 }
-
-                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                    val deEditText = inputDe.editText?.text.toString().trim()
-                    val spEditText = inputSp.editText?.text.toString().trim()
-
-                    submitButton.isEnabled = (deEditText.isNotEmpty() && spEditText.isNotEmpty()
-                            && deEditText.length <= 32 && spEditText.length <= 32)
-
-                    if (deEditText.length > 32)
-                        inputDe.error = getString(R.string.error_input_too_long)
-                    else {
-                        inputDe.error = ""
-                    }
-
-                    if (spEditText.length > 32)
-                        inputSp.error = getString(R.string.error_input_too_long)
-                    else {
-                        inputSp.error = ""
-                    }
-                }
-
-                override fun afterTextChanged(s: Editable) {}
+                viewModel.setSpinnerSelectedState(true)
             }
-
-//            inputDe.editText?.addTextChangedListener(vocabularyTextWatcher)
-//
-//            inputSp.editText?.addTextChangedListener(vocabularyTextWatcher)
 
             submitButton.setOnClickListener {
                 viewModel.onClick()
-
+                findNavController().popBackStack()
             }
         }
 
-    }
+//        val vocabularyTextWatcher: TextWatcher = object : TextWatcher {
+//            override fun beforeTextChanged(
+//                s: CharSequence,
+//                start: Int,
+//                count: Int,
+//                after: Int
+//            ) {
+//                if(viewModel.entryGermanValue.trim().isNotEmpty()
+//                    && viewModel.entrySpanishValue.trim().isNotEmpty())
+//                        viewModel.setTextChangedState(true)
+//            }
+//
+//            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+//
+//                binding.submitButton.isEnabled = (
+//                        viewModel.entryGermanValue.trim().isNotEmpty()
+//                                && viewModel.entrySpanishValue.trim().isNotEmpty()
+//                                && viewModel.entryGermanValue.length <= 32
+//                                && viewModel.entrySpanishValue.length <= 32
+//                        )
+//
+//
+//                if (viewModel.entryGermanValue.length > 32)
+//                    binding.inputDe.error = getString(R.string.error_input_too_long)
+//                else binding.inputDe.error = ""
+//
+//                if (viewModel.entrySpanishValue.length > 32)
+//                    binding.inputSp.error = getString(R.string.error_input_too_long)
+//                else binding.inputSp.error = ""
+//
+//                viewModel.setTextChangedState(true)
+//
+//            }
+//
+//            override fun afterTextChanged(s: Editable) {}
+//        }
+//
+//        binding.inputDe.editText?.addTextChangedListener(vocabularyTextWatcher)
+//
+//        binding.inputSp.editText?.addTextChangedListener(vocabularyTextWatcher)
 
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        when (position) {
-            0 -> viewModel.entryDifficulty = Difficulty.EASY
-            1 -> viewModel.entryDifficulty = Difficulty.INTERMEDIATE
-            2 -> viewModel.entryDifficulty = Difficulty.HARD
-        }
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>?) {
     }
 }
