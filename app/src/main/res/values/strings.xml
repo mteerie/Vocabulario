@@ -12,10 +12,9 @@
 
     <string name="fragment_info_list_icon">list icon</string>
 
-    <string name="add_vocabulary">add vocabulary</string>
     <string name="list_entry_deleted">Vokabel gelöscht.</string>
     <string name="list_entry_undo">Undo</string>
-    <string name="delete_all_list_entries">delete all list entries</string>
+    <string name="delete_all_list_entries">Alle Einträge löschen</string>
     <string name="delete_all_entries_title">Liste löschen</string>
     <string name="delete_all_entries">Möchtest Du alle Einträge löschen?</string>
     <string name="delete_all_entries_positive">Ja</string>
@@ -24,11 +23,11 @@
     <string name="input_dialog_de_hint">Deutsch</string>
     <string name="input_dialog_sp_hint">Spanisch</string>
     <string name="add_entry">Vokabel hinzufügen</string>
+    <string name="edit_entry">Vokabel anpassen</string>
     <string name="submit_button">Speichern</string>
-    <string name="error_input_too_long">Deine Eingabe ist zu lang.</string>
 
     <string name="information">Information</string>
-    <string name="search_action">search list entries</string>
+    <string name="search_action">Liste durchsuchen</string>
     <string name="sort_list_entries">Liste sortieren</string>
     <string name="sort_by">Sortieren nach…</string>
     <string name="sort_by_ger">Deutsch</string>
@@ -41,4 +40,5 @@
     <string name="difficulty_easy">Einfach</string>
     <string name="difficulty_intermediate">Fortgeschritten</string>
     <string name="difficulty_hard">Schwierig</string>
+    <string name="list_deleted">Alle Einträge gelöscht.</string>
 </resources>

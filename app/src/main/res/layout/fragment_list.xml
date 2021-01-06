@@ -30,8 +30,10 @@
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:contentDescription="@string/add_vocabulary"
-            android:src="@drawable/ic_add"/>
+            android:contentDescription="@string/add_entry"
+            android:tooltipText="@string/add_entry"
+            android:src="@drawable/ic_add"
+            tools:targetApi="26" />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

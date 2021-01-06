@@ -26,9 +26,8 @@
         tools:layout="@layout/fragment_add_edit" >
         <argument
             android:name="entry"
-            app:argType="com.inf3005.android.vocabulario.database.Vocabulary"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:argType="com.inf3005.android.vocabulario.data.Vocabulary"
+            app:nullable="true" />
         <argument
             android:name="title"
             app:argType="string" />

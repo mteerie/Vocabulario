@@ -10,6 +10,7 @@ import com.inf3005.android.vocabulario.R
 import com.inf3005.android.vocabulario.data.Difficulty
 import com.inf3005.android.vocabulario.databinding.FragmentAddEditBinding
 import androidx.core.widget.addTextChangedListener
+import com.inf3005.android.vocabulario.utilities.KeyboardUtilities
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -81,5 +82,16 @@ class AddEditFragment : Fragment(R.layout.fragment_add_edit) {
                 findNavController().popBackStack()
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        /**
+         * Die Tastatur bleibt ohne Aufruf der Funktion geöffnet, wenn der Nutzer beim Hinzufügen
+         * eines Listeneintrags den submitButton drückt, ohne vorher die Tastatur zu schließen.
+         * */
+        KeyboardUtilities.hideKeyboard(requireActivity())
+
     }
 }

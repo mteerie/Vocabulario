@@ -93,12 +93,11 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
             }).attachToRecyclerView(list)
 
             binding.fab.setOnClickListener {
-
                 val options = navOptions {
                     anim {
                         enter = R.anim.slide_in_bottom
                         exit = R.anim.fade_out
-                        popEnter = R.anim.slide_in_bottom
+                        popEnter = R.anim.slide_in_top
                         popExit = R.anim.fade_out
                     }
                 }
@@ -146,7 +145,6 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
         }
     }
 
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.option_delete_all -> {
@@ -157,7 +155,9 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
                     .setPositiveButton(getString(R.string.delete_all_entries_positive)) { _, _ ->
                         viewModel.deleteAllEntries()
 
-                        Toast.makeText(context, "Alle Einträge gelöscht.", Toast.LENGTH_LONG)
+                        Toast.makeText(
+                            context, getString(R.string.list_deleted), Toast.LENGTH_LONG
+                        )
                             .show()
                     }
                     .setNegativeButton(getString(R.string.delete_all_entries_negative), null)
@@ -188,7 +188,6 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
             else -> super.onOptionsItemSelected(item)
 
         }
-
 //        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
 //                || super.onOptionsItemSelected(item)
     }

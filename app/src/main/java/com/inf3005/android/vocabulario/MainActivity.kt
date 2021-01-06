@@ -1,11 +1,11 @@
 package com.inf3005.android.vocabulario
 
 import android.os.Bundle
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.inf3005.android.vocabulario.utilities.KeyboardUtilities
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -32,38 +32,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
 
-        hideKeyboard()
-
+        KeyboardUtilities.hideKeyboard(this)
         return navigationController.navigateUp() || super.onSupportNavigateUp()
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
 
-        hideKeyboard()
+        /**
+         * Zum Aufruf in onSupportNavigateUp. Die Tastatur soll versteckt werden, wenn der Nutzer eines
+         * der Eingabefelder im Add-Edit-Fragment anklickt und mit geöffneter Tastatur den Back-Button
+         * in der ActionBar betätigt.
+         * */
+        KeyboardUtilities.hideKeyboard(this)
     }
 
-    /**
-     * Zum Aufruf in onSupportNavigateUp. Die Tastatur soll versteckt werden, wenn der Nutzer eines
-     * der Eingabefelder im Add-Edit-Fragment anklickt und mit geöffneter Tastatur den Back-Button
-     * in der ActionBar betätigt.
-     *
-     * Normales Verhalten: Die Tastatur bleibt geöffnet und die Eingabe verschwindet ins Nirvana?
-     * */
-    private fun hideKeyboard() {
-        val view = this.currentFocus
-
-        if (view != null) {
-            val manager = getSystemService(
-                INPUT_METHOD_SERVICE
-            ) as InputMethodManager
-
-            manager.hideSoftInputFromWindow(
-                view.windowToken, 0
-            )
-
-            view.clearFocus()
-        }
-    }
 }
 
