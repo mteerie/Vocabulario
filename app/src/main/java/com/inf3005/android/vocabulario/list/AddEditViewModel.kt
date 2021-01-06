@@ -35,17 +35,6 @@ class AddEditViewModel @ViewModelInject constructor(
             state.set("entryDifficulty", value)
         }
 
-    private val _spinnerSelectedState = MutableStateFlow(
-        entryGermanValue.isNotBlank()
-                && entrySpanishValue.isNotBlank()
-    )
-
-    var spinnerSelectedState = _spinnerSelectedState.asStateFlow()
-
-    fun setSpinnerSelectedState(state: Boolean) {
-        _spinnerSelectedState.value = state
-    }
-
     private val _spTextChangedState = MutableStateFlow(entrySpanishValue.isNotBlank())
 
     var spTextChangedState = _spTextChangedState.asStateFlow()
@@ -63,11 +52,10 @@ class AddEditViewModel @ViewModelInject constructor(
     }
 
     private val submitButtonStateFlow = combine(
-        spinnerSelectedState,
         spTextChangedState,
         deTextChangedState
-    ) { spinnerSelectedState, spTextChangedState, deTextChangedState ->
-        Triple(spinnerSelectedState, spTextChangedState, deTextChangedState)
+    ) { spTextChangedState, deTextChangedState ->
+        Pair(spTextChangedState, deTextChangedState)
     }
 
     val submitButtonState = submitButtonStateFlow.asLiveData()

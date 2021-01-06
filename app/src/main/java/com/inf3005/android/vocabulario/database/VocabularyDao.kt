@@ -37,10 +37,10 @@ interface VocabularyDao {
             SortBy.DIFFICULTY_DESC -> getAllEntriesByDifficultyDescending(userQuery)
         }
 
-    @Query("SELECT * FROM vocabulary WHERE german LIKE '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY german")
+    @Query("SELECT * FROM vocabulary WHERE german LIKE '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY UPPER(german)")
     fun getAllEntriesByGerman(userQuery: String): Flow<List<Vocabulary>>
 
-    @Query("SELECT * FROM vocabulary WHERE german LIKE '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY spanish")
+    @Query("SELECT * FROM vocabulary WHERE german LIKE '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY UPPER(spanish)")
     fun getAllEntriesBySpanish(userQuery: String): Flow<List<Vocabulary>>
 
     @Query("SELECT * FROM vocabulary WHERE german LIKE '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY difficulty ASC")
@@ -61,5 +61,4 @@ interface VocabularyDao {
      * */
     @Query("DELETE FROM vocabulary")
     suspend fun clearList()
-
 }

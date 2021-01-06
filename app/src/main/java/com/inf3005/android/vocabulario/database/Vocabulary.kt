@@ -17,23 +17,23 @@ import kotlinx.parcelize.Parcelize
 @TypeConverters(DifficultyConverters::class)
 data class Vocabulary(
     @ColumnInfo(name = "german")
-    val de: String = "de",
+    val de: String,
 
     @ColumnInfo(name = "spanish")
-    val sp: String = "sp",
+    val sp: String,
 
     @ColumnInfo(name = "difficulty")
     val difficulty: Difficulty = Difficulty.EASY,
 
     @PrimaryKey(autoGenerate = true)
-    val vocId: Long = 0L
+    val vocId: Int = 0
 ) : Parcelable
 
-enum class Difficulty(level: Int) {
-    NONE(0),
-    EASY(1),
-    INTERMEDIATE(2),
-    HARD(3)
+enum class Difficulty {
+    NONE,
+    EASY,
+    INTERMEDIATE,
+    HARD
 }
 
 class DifficultyConverters {

@@ -2,7 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="vocabularyViewModel"
             type="com.inf3005.android.vocabulario.list.ListViewModel" />
@@ -12,18 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".list.ListFragment">
-
-        <!--        <com.google.android.material.bottomappbar.BottomAppBar-->
-        <!--            android:id="@+id/bottom_app_bar"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_gravity="bottom"-->
-        <!--            android:backgroundTint="@color/teal_200"-->
-        <!--            app:fabAlignmentMode="center"-->
-        <!--            app:hideOnScroll="false"-->
-        <!--            app:navigationContentDescription="info"-->
-        <!--            app:navigationIcon="@drawable/ic_information"-->
-        <!--            app:menu="@menu/action_bar_menu" />-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
@@ -37,11 +27,11 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:contentDescription="@string/add_vocabulary"
-            android:src="@drawable/ic_add"
-            android:layout_gravity="bottom|end" />
+            android:src="@drawable/ic_add"/>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -151,7 +151,8 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
         return when (item.itemId) {
             R.id.option_delete_all -> {
                 MaterialAlertDialogBuilder(requireContext())
-                    .setTitle(getString(R.string.delete_all_entries))
+                    .setTitle(getString(R.string.delete_all_entries_title))
+                    .setMessage(getString(R.string.delete_all_entries))
                     .setCancelable(true)
                     .setPositiveButton(getString(R.string.delete_all_entries_positive)) { _, _ ->
                         viewModel.deleteAllEntries()
