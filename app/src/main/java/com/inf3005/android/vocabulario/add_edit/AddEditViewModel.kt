@@ -1,11 +1,11 @@
-package com.inf3005.android.vocabulario.list
+package com.inf3005.android.vocabulario.add_edit
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.inf3005.android.vocabulario.database.Difficulty
-import com.inf3005.android.vocabulario.database.Vocabulary
-import com.inf3005.android.vocabulario.database.VocabularyDao
+import com.inf3005.android.vocabulario.data.Difficulty
+import com.inf3005.android.vocabulario.data.Vocabulary
+import com.inf3005.android.vocabulario.data.VocabularyDao
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 

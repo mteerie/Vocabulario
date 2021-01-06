@@ -1,15 +1,15 @@
-package com.inf3005.android.vocabulario.list
+package com.inf3005.android.vocabulario.add_edit
 
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.inf3005.android.vocabulario.R
-import com.inf3005.android.vocabulario.database.Difficulty
+import com.inf3005.android.vocabulario.data.Difficulty
 import com.inf3005.android.vocabulario.databinding.FragmentAddEditBinding
+import androidx.core.widget.addTextChangedListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

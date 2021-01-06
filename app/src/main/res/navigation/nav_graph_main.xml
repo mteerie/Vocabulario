@@ -21,7 +21,7 @@
         tools:layout="@layout/fragment_info" />
     <fragment
         android:id="@+id/addEditFragment"
-        android:name="com.inf3005.android.vocabulario.list.AddEditFragment"
+        android:name="com.inf3005.android.vocabulario.add_edit.AddEditFragment"
         android:label="{title}"
         tools:layout="@layout/fragment_add_edit" >
         <argument

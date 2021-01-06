@@ -1,6 +1,5 @@
-package com.inf3005.android.vocabulario.database
+package com.inf3005.android.vocabulario.data
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.inf3005.android.vocabulario.list.SortBy
 import kotlinx.coroutines.flow.Flow

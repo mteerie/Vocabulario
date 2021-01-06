@@ -1,12 +1,10 @@
-package com.inf3005.android.vocabulario.list
+package com.inf3005.android.vocabulario.data
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.inf3005.android.vocabulario.database.Vocabulary
 import com.inf3005.android.vocabulario.databinding.FragmentListItemBinding
 
 class VocabularyAdapter(private val clickListener: EntryClickListener) :

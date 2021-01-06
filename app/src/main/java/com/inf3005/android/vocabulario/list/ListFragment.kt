@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.inf3005.android.vocabulario.R
-import com.inf3005.android.vocabulario.database.Vocabulary
-import com.inf3005.android.vocabulario.databinding.FragmentDialogBinding
+import com.inf3005.android.vocabulario.data.Vocabulary
+import com.inf3005.android.vocabulario.data.VocabularyAdapter
 import com.inf3005.android.vocabulario.databinding.FragmentListBinding
 import com.inf3005.android.vocabulario.utilities.onQueryChanged
 import dagger.hilt.android.AndroidEntryPoint

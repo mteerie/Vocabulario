@@ -2,8 +2,7 @@ package com.inf3005.android.vocabulario.utilities
 
 import android.app.Application
 import androidx.room.Room
-import com.inf3005.android.vocabulario.database.Vocabulary
-import com.inf3005.android.vocabulario.database.VocabularyDatabase
+import com.inf3005.android.vocabulario.data.VocabularyDatabase
 import dagger.Module
 import javax.inject.Singleton
 import dagger.Provides

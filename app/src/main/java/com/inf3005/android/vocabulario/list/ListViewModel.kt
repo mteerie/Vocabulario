@@ -2,8 +2,8 @@ package com.inf3005.android.vocabulario.list
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.inf3005.android.vocabulario.database.Vocabulary
-import com.inf3005.android.vocabulario.database.VocabularyDao
+import com.inf3005.android.vocabulario.data.Vocabulary
+import com.inf3005.android.vocabulario.data.VocabularyDao
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

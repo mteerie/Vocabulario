@@ -6,7 +6,7 @@
 
         <variable
             name="vocabulary"
-            type="com.inf3005.android.vocabulario.database.Vocabulary" />
+            type="com.inf3005.android.vocabulario.data.Vocabulary" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

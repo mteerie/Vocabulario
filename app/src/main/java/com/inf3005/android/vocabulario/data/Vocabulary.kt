@@ -1,4 +1,4 @@
-package com.inf3005.android.vocabulario.database
+package com.inf3005.android.vocabulario.data
 
 import android.os.Parcelable
 import androidx.room.*
