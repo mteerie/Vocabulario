@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.view.View" />
 
         <variable
             name="vocabulary"
@@ -19,8 +21,8 @@
         android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="true"
-        android:tooltipText="@string/edit_entry"
         android:longClickable="true"
+        android:tooltipText="@string/edit_entry"
         app:cardCornerRadius="16dp"
         tools:targetApi="26">
 
