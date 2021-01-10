@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Vocabulario" parent="Theme.MaterialComponents.Light">
+    <style name="Theme.Vocabulario" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/green_200</item>
         <item name="colorPrimaryVariant">@color/green_200_dark</item>

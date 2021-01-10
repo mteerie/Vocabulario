@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Vocabulario</string>
 
-    <string name="vocabulary_list_nav_button_text">Vokabelliste</string>
+    <string name="vocabulary_list">Vokabelliste</string>
 
     <string name="info_text_1">Diese Anwendung wird derzeit noch konstruiert.</string>
 

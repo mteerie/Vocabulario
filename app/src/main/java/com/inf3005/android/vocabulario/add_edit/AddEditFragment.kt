@@ -11,6 +11,7 @@ import com.inf3005.android.vocabulario.data.Difficulty
 import com.inf3005.android.vocabulario.databinding.FragmentAddEditBinding
 import androidx.core.widget.addTextChangedListener
 import com.inf3005.android.vocabulario.utilities.KeyboardUtilities
+import com.inf3005.android.vocabulario.utilities.NavigationDrawerState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,6 +21,8 @@ class AddEditFragment : Fragment(R.layout.fragment_add_edit) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (activity as NavigationDrawerState).setDrawerState(false)
 
         val binding = FragmentAddEditBinding.bind(view)
 
@@ -92,6 +95,11 @@ class AddEditFragment : Fragment(R.layout.fragment_add_edit) {
          * eines Listeneintrags den submitButton drückt, ohne vorher die Tastatur zu schließen.
          * */
         KeyboardUtilities.hideKeyboard(requireActivity())
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        (activity as NavigationDrawerState).setDrawerState(true)
     }
 }
