@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_info_list"
-        app:tint="@color/deep_orange_200" />
+        app:tint="@color/green_200" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/info_text_1"

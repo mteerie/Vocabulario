@@ -9,47 +9,61 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.navigation.NavigationView
+import com.inf3005.android.vocabulario.databinding.ActivityMainBinding
 import com.inf3005.android.vocabulario.utilities.KeyboardUtilities
 import com.inf3005.android.vocabulario.utilities.NavigationDrawerState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavigationDrawerState {
+
+    private lateinit var binding: ActivityMainBinding
+
     private lateinit var navHostFragment: NavHostFragment
 
     private lateinit var navigationController: NavController
 
-    private lateinit var navigationView: NavigationView
-
     private lateinit var drawerLayout: DrawerLayout
-
-    private lateinit var toolbar: MaterialToolbar
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        toolbar = findViewById(R.id.toolbar)
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
-        setSupportActionBar(toolbar)
+        setContentView(binding.root)
 
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        /**
+         * Da die App ein Theme verwendet, das zunächst keine über ActionBar verfügt, muss im
+         * Layout der Main Activity eine ActionBar erzeugt werden. Hier wird festgelegt,
+         * dass die App die eigens erstellte Toolbar als solche ansieht.
+         * */
+        setSupportActionBar(binding.toolbar)
+
+        /**
+         * Das drawerLayout muss als lateinit variable erzeugt und hier initialisiert werden,
+         * da es für die Funktion setDrawerState benötigt wird.
+         * */
+        drawerLayout = binding.drawerLayout
+
+        /**
+         * Dieser Code-Block setzt das navHostFragment und den navigationController fest.
+         * */
+        navHostFragment = supportFragmentManager.findFragmentById(binding.navHostFragment.id)
                 as NavHostFragment
 
         navigationController = navHostFragment.navController
 
-        navigationView = findViewById(R.id.navigation_view)
-
-        navigationView.setupWithNavController(navigationController)
-
-        drawerLayout = findViewById(R.id.drawer_layout)
-
+        /**
+         * Die navigationView (Navigation Drawer) wird mit dem Navigation Controller verknüpft,
+         * um über den Navigation Graph die Ziele der App ansteuern zu können.
+         *
+         * Die Action Bar wird ebenfalls mit dem Navigation Controller verknüpft, um bspw. auch im
+         * Add-Edit-Fragment einen Up-Button in der Action Bar anzeigen zu können.
+         * */
+        binding.navigationView.setupWithNavController(navigationController)
         appBarConfiguration = AppBarConfiguration(navigationController.graph, drawerLayout)
-
         setupActionBarWithNavController(navigationController, appBarConfiguration)
     }
 
