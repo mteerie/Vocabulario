@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/infoFragment"
         android:name="com.inf3005.android.vocabulario.InfoFragment"
-        android:label="fragment_info"
+        android:label="Information"
         tools:layout="@layout/fragment_info" />
     <fragment
         android:id="@+id/addEditFragment"

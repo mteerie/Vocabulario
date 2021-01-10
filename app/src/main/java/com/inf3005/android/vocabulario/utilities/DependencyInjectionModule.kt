@@ -9,6 +9,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 
 
@@ -36,5 +37,6 @@ object DependencyInjectionModule {
 
     @Singleton
     @Provides
-    fun provideCoroutineScope() = CoroutineScope(SupervisorJob())
+    fun provideCoroutineScope() = CoroutineScope(Dispatchers.Main.immediate
+            + SupervisorJob())
 }

@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.inf3005.android.vocabulario.utilities.KeyboardUtilities
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,16 +20,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        val bottomNavigation : BottomNavigationView = findViewById(R.id.bottom_nav_view)
-
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
                 as NavHostFragment
 
         navigationController = navHostFragment.navController
 
         setupActionBarWithNavController(navHostFragment.navController)
-
-//        bottomNavigation.setupWithNavController(navHostFragment.navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {

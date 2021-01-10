@@ -24,6 +24,7 @@
         android:longClickable="true"
         android:tooltipText="@string/edit_entry"
         app:cardCornerRadius="16dp"
+        app:cardElevation="2dp"
         tools:targetApi="26">
 
         <androidx.constraintlayout.widget.ConstraintLayout

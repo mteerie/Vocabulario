@@ -24,9 +24,9 @@ interface VocabularyDao {
      * verwendet wird, um die Objekte der Relation zu durchsuchen. In Verwendung mit der Such-
      * Funktion des ListFragments.
      *
-     * Innerhalb des Query wird '%' verwendet, damit die Nutzereingabe auch nur teilweise dem
-     * Objekt der Relation entsprechen kann - ist userQuery = 'uto' soll also trotzdem der Eintrag
-     * mit 'auto' angezeigt werden.
+     * Innerhalb der Queries wird '%' als Platzhalter verwendet, sodass die Nutzereingabe auch nur teilweise dem
+     * Objekt der Relation entsprechen kann - ist userQuery == 'uto' soll also trotzdem ein Eintrag
+     * mit Wert 'auto' in einem der Attribute angezeigt werden.
      * */
     fun getAllEntries(userQuery: String, entryOrder: SortBy): Flow<List<Vocabulary>> =
         when(entryOrder) {
@@ -42,10 +42,10 @@ interface VocabularyDao {
     @Query("SELECT * FROM vocabulary WHERE german LIKE '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY UPPER(spanish)")
     fun getAllEntriesBySpanish(userQuery: String): Flow<List<Vocabulary>>
 
-    @Query("SELECT * FROM vocabulary WHERE german LIKE '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY difficulty ASC")
+    @Query("SELECT * FROM vocabulary WHERE german LIKE '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY difficulty ASC, UPPER(german)")
     fun getAllEntriesByDifficultyAscending(userQuery: String): Flow<List<Vocabulary>>
 
-    @Query("SELECT * FROM vocabulary WHERE german LIKE '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY difficulty DESC")
+    @Query("SELECT * FROM vocabulary WHERE german LIKE '%' || :userQuery || '%' OR spanish LIKE '%' || :userQuery || '%' ORDER BY difficulty DESC, UPPER(german)")
     fun getAllEntriesByDifficultyDescending(userQuery: String): Flow<List<Vocabulary>>
 
     /**

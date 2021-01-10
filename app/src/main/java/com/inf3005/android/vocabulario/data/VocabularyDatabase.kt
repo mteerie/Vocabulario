@@ -12,20 +12,20 @@ import javax.inject.Provider
  * Erzeuge Room-Database-Instanz - größtenteils Boilerplate Code.
  * */
 
-@Database(entities = [Vocabulary::class], version = 4, exportSchema = false)
+@Database(entities = [Vocabulary::class], version = 4)
 abstract class VocabularyDatabase : RoomDatabase() {
 
     abstract fun vocabularyDao(): VocabularyDao
 
     class VocabularyDatabaseCallback @Inject constructor(
-        private val database: Provider<VocabularyDatabase>,
+        private val vocabularyDao: Provider<VocabularyDao>,
         private val scope: CoroutineScope
     ) : RoomDatabase.Callback() {
 
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
 
-            val dao = database.get().vocabularyDao()
+            val dao = vocabularyDao.get()
 
             scope.launch {
 

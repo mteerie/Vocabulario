@@ -2,23 +2,23 @@
     <!-- Base application theme. -->
     <style name="Theme.Vocabulario" parent="Theme.MaterialComponents.Light">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/teal_200</item>
-        <item name="colorPrimaryVariant">@color/teal_200_dark</item>
+        <item name="colorPrimary">@color/green_200</item>
+        <item name="colorPrimaryVariant">@color/green_200_dark</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/red_200</item>
-        <item name="colorSecondaryVariant">@color/red_200_dark</item>
+        <item name="colorSecondary">@color/deep_orange_200</item>
+        <item name="colorSecondaryVariant">@color/deep_orange_200_dark</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="snackbarStyle">@style/secondaryColorSnackBar</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
 
     <style name="secondaryColorSnackBar" parent="Widget.MaterialComponents.Snackbar">
-        <item name="backgroundTint">@color/red_200</item>
+        <item name="backgroundTint">@color/deep_orange_200</item>
     </style>
-
 
 
 </resources>
