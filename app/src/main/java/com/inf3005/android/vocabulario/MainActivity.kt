@@ -16,20 +16,21 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navigationController: NavController
 
+    private lateinit var navHostFragment: NavHostFragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
                 as NavHostFragment
 
         navigationController = navHostFragment.navController
 
-        setupActionBarWithNavController(navHostFragment.navController)
+        setupActionBarWithNavController(navigationController)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-
         KeyboardUtilities.hideKeyboard(this)
         return navigationController.navigateUp() || super.onSupportNavigateUp()
     }
@@ -44,6 +45,5 @@ class MainActivity : AppCompatActivity() {
          * */
         KeyboardUtilities.hideKeyboard(this)
     }
-
 }
 

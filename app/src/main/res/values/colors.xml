@@ -9,14 +9,6 @@
     <color name="deep_orange_200_dark">#c97b63</color>
     <color name="deep_orange_200_light">#ffddc1</color>
 
-    <color name="deep_purple_900">#9fa8da</color>
-    <color name="deep_purple_900_dark">#6f79a8</color>
-    <color name="deep_purple_900_light">#d1d9ff</color>
-
-    <color name="red_200">#ffbcaf</color>
-    <color name="red_200_dark">#ff8a80</color>
-    <color name="red_200_light">#ffcccb</color>
-
     <color name="red_600">#e53935</color>
     <color name="yellow_600">#fdd835</color>
     <color name="green_600">#7cb342</color>

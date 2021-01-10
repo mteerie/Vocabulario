@@ -13,7 +13,7 @@
         android:icon="@drawable/ic_search"
         android:title="@string/search_action"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="ifRoom|collapseActionView" />
+        app:showAsAction="always|collapseActionView" />
 
     <item
         android:enabled="true"
@@ -43,7 +43,6 @@
                     android:title="@string/sort_difficulty_desc" />
             </group>
         </menu>
-
     </item>
 
 </menu>
