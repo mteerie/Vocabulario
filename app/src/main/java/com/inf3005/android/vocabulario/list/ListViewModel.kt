@@ -4,12 +4,15 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.inf3005.android.vocabulario.data.Vocabulary
 import com.inf3005.android.vocabulario.data.VocabularyDao
+import com.inf3005.android.vocabulario.utilities.DataStorePreferences
+import com.inf3005.android.vocabulario.utilities.SortBy
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class ListViewModel @ViewModelInject constructor(
-    private val dao: VocabularyDao
+    private val dao: VocabularyDao,
+    private val preferences: DataStorePreferences
 ) : ViewModel() {
 
     /**
@@ -24,27 +27,38 @@ class ListViewModel @ViewModelInject constructor(
      * */
     val currentSearchQuery = MutableStateFlow("")
 
-    val entryOrder = MutableStateFlow(SortBy.GERMAN)
+    /**
+     * Innerhalb dieses Flows wird der dataStoreFlow der Klasse DataStorePreferences zwischen-
+     * gespeichert. Er wird im vocabularyEntries-Flow verwendet, um den Wert zu erhalten, der
+     * derzeitig im val sortBy innerhalb des map-Operators in DataStorePreferences gespeichert ist.
+     * */
+    val preferencesFlow = preferences.dataStoreFlow
 
     /**
      * Collector für currentSearchQuery. Der flatMapLatest-Operator ruft bei Änderung des Wertes
-     * von currentSearchQuery eine Transformationsfunktion auf
-     * (innerhalb der geschweiften Klammern), die einen neuen Flow mit dem zugehörigen Query
-     * erzeugt.
+     * von currentSearchQuery eine Transformationsfunktion auf, die einen neuen Flow mit dem
+     * zugehörigen Query und der im Konstruktor übergebenen Instanz von DataStorePreferences
+     * (preferences) erzeugt.
      *
      * Das Query wird an die DAO-Funktion getAllEntries übergeben, um die Objekte
-     * der Relation zu filtern.
+     * der Relation zu filtern. Darüber hinaus wird die Sortierung der Einträge übergeben,
+     * welche aus den DataStorePreferences gezogen wird. Hiermit wird die Funktion des DAO auf-
+     * gerufen, welche der übergebenen Sortierung entspricht.
      *
      * Bei erneuter Änderung von currentSearchQuery beendet und verwirft der Operator den zuvor
      * erzeugten Flow.
      * */
     @ExperimentalCoroutinesApi
-    private val vocabularyEntries = combine(currentSearchQuery, entryOrder) {
-        currentSearchQuery, entryOrder  ->
-        Pair(currentSearchQuery, entryOrder)
-    }.flatMapLatest { query ->
-        query.let { dao.getAllEntries(it.first, it.second) }
-    }
+    private val vocabularyEntries =
+        combine(
+            currentSearchQuery,
+            preferencesFlow
+        ) { query, preferences ->
+            Pair(query, preferences)
+        }
+            .flatMapLatest { (query, preferences) ->
+                dao.getAllEntries(query, preferences.sortBy)
+            }
 
     @ExperimentalCoroutinesApi
     val allEntries = vocabularyEntries.asLiveData()
@@ -63,6 +77,9 @@ class ListViewModel @ViewModelInject constructor(
         dao.clearList()
     }
 
+    fun onSortOptionSelected(option: SortBy) = viewModelScope.launch {
+        preferences.updateSort(option)
+    }
+
 }
 
-enum class SortBy { GERMAN, SPANISH, DIFFICULTY_ASC, DIFFICULTY_DESC }

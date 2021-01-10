@@ -1,7 +1,7 @@
 package com.inf3005.android.vocabulario.data
 
 import androidx.room.*
-import com.inf3005.android.vocabulario.list.SortBy
+import com.inf3005.android.vocabulario.utilities.SortBy
 import kotlinx.coroutines.flow.Flow
 
 @Dao

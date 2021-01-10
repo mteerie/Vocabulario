@@ -1,11 +1,18 @@
 package com.inf3005.android.vocabulario.utilities
 
 import android.app.Activity
+import android.os.Build
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import com.inf3005.android.vocabulario.R
+import com.inf3005.android.vocabulario.data.Difficulty
 import com.inf3005.android.vocabulario.data.Vocabulary
+import dagger.hilt.android.qualifiers.ApplicationContext
 
 @BindingAdapter("deText")
 fun TextView.setDeText(entry: Vocabulary) {
@@ -15,6 +22,17 @@ fun TextView.setDeText(entry: Vocabulary) {
 @BindingAdapter("spText")
 fun TextView.setSpText(entry: Vocabulary) {
     text = entry.sp
+}
+
+@BindingAdapter("difficulty")
+fun ImageView.setDifficultyColor(entry: Vocabulary) {
+    setColorFilter(
+        when (entry.difficulty) {
+            Difficulty.INTERMEDIATE -> ContextCompat.getColor(context, R.color.yellow_600)
+            Difficulty.HARD -> ContextCompat.getColor(context, R.color.red_600)
+            else -> ContextCompat.getColor(context, R.color.green_600)
+        }
+    )
 }
 
 /**

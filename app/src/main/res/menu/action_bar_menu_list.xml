@@ -16,7 +16,6 @@
         app:showAsAction="ifRoom|collapseActionView" />
 
     <item
-        android:id="@+id/option_expand_filter"
         android:enabled="true"
         android:icon="@drawable/ic_sort_list"
         android:title="@string/sort_list_entries"
@@ -24,28 +23,25 @@
         app:showAsAction="ifRoom">
 
         <menu>
-
             <item
                 android:checkable="false"
                 android:enabled="false"
-                android:title="@string/sort_by"
-                />
+                android:title="@string/sort_by" />
 
-            <item
-                android:id="@+id/sort_de"
-                android:title="@string/sort_by_ger" />
-
-            <item
-                android:id="@+id/sort_sp"
-                android:title="@string/sort_by_spa" />
-
-            <item
-                android:id="@+id/sort_difficulty_asc"
-                android:title="@string/sort_difficulty_asc"/>
-
-            <item
-                android:id="@+id/sort_difficulty_desc"
-                android:title="@string/sort_difficulty_desc"/>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/sort_de"
+                    android:title="@string/sort_by_ger" />
+                <item
+                    android:id="@+id/sort_sp"
+                    android:title="@string/sort_by_spa" />
+                <item
+                    android:id="@+id/sort_difficulty_asc"
+                    android:title="@string/sort_difficulty_asc" />
+                <item
+                    android:id="@+id/sort_difficulty_desc"
+                    android:title="@string/sort_difficulty_desc" />
+            </group>
         </menu>
 
     </item>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="teal_200">#80cbc4</color>
 
     <color name="green_200">#a5d6a7</color>
     <color name="green_200_dark">#75a478</color>
@@ -18,10 +17,10 @@
     <color name="red_200_dark">#ff8a80</color>
     <color name="red_200_light">#ffcccb</color>
 
-    <color name="teal_200_dark">#4f9a94</color>
-    <color name="teal_700">#00796b</color>
-    <color name="teal_700_dark">#004c40</color>
-    <color name="teal_700_light">#48a999</color>
+    <color name="red_600">#e53935</color>
+    <color name="yellow_600">#fdd835</color>
+    <color name="green_600">#7cb342</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#767676</color>

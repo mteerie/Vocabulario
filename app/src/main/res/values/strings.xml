@@ -41,4 +41,5 @@
     <string name="difficulty_intermediate">Fortgeschritten</string>
     <string name="difficulty_hard">Schwierig</string>
     <string name="list_deleted">Alle Einträge gelöscht.</string>
+    <string name="difficulty_color">Difficulty Color</string>
 </resources>

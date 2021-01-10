@@ -7,6 +7,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -18,9 +19,12 @@ import com.inf3005.android.vocabulario.R
 import com.inf3005.android.vocabulario.data.Vocabulary
 import com.inf3005.android.vocabulario.data.VocabularyAdapter
 import com.inf3005.android.vocabulario.databinding.FragmentListBinding
+import com.inf3005.android.vocabulario.utilities.SortBy
 import com.inf3005.android.vocabulario.utilities.onQueryChanged
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryClickListener {
@@ -143,6 +147,24 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
         searchActionView.onQueryChanged { query ->
             query.let { viewModel.currentSearchQuery.value = query }
         }
+
+        /**
+         * Der first-Operator gibt den ersten Wert des Flows zurück und verwirft ihn anschließend.
+         *
+         * Somit kann der Wert sortBy, der in der Data Class PreferenceProperties angesprochen
+         * werden. Mithilfe dieses Werts kann beim Erzeugen des Optionsmenü derjenige Radio-Button
+         * ausgewählt werden, welcher der vom Nutzer ausgewählten und im DataStore gespeicherten
+         * Sortierung entspricht.
+         * */
+        viewLifecycleOwner.lifecycleScope.launch {
+            when (viewModel.preferencesFlow.first().sortBy) {
+                SortBy.GERMAN -> menu.findItem(R.id.sort_de).isChecked = true
+                SortBy.SPANISH -> menu.findItem(R.id.sort_sp).isChecked = true
+                SortBy.DIFFICULTY_ASC -> menu.findItem(R.id.sort_difficulty_asc).isChecked = true
+                SortBy.DIFFICULTY_DESC -> menu.findItem(R.id.sort_difficulty_desc).isChecked = true
+            }
+        }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -166,22 +188,26 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
             }
 
             R.id.sort_de -> {
-                viewModel.entryOrder.value = SortBy.GERMAN
+                viewModel.onSortOptionSelected(SortBy.GERMAN)
+                item.isChecked = true
                 true
             }
 
             R.id.sort_sp -> {
-                viewModel.entryOrder.value = SortBy.SPANISH
+                viewModel.onSortOptionSelected(SortBy.SPANISH)
+                item.isChecked = true
                 true
             }
 
             R.id.sort_difficulty_asc -> {
-                viewModel.entryOrder.value = SortBy.DIFFICULTY_ASC
+                viewModel.onSortOptionSelected(SortBy.DIFFICULTY_ASC)
+                item.isChecked = true
                 true
             }
 
             R.id.sort_difficulty_desc -> {
-                viewModel.entryOrder.value = SortBy.DIFFICULTY_DESC
+                viewModel.onSortOptionSelected(SortBy.DIFFICULTY_DESC)
+                item.isChecked = true
                 true
             }
 
