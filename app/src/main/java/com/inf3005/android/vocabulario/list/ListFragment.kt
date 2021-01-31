@@ -46,7 +46,7 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
 
         val action = ListFragmentDirections.actionListFragmentToAddEditFragment(
             entry,
-            "Vokabel anpassen"
+            getString(R.string.add_edit_title)
         )
         findNavController().navigate(action, options)
     }

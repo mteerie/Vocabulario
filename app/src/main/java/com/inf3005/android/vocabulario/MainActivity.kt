@@ -63,7 +63,10 @@ class MainActivity : AppCompatActivity(), NavigationDrawerState {
          * Add-Edit-Fragment einen Up-Button in der Action Bar anzeigen zu können.
          * */
         binding.navigationView.setupWithNavController(navigationController)
-        appBarConfiguration = AppBarConfiguration(navigationController.graph, drawerLayout)
+        appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.listFragment, R.id.infoFragment, R.id.binFragment),
+            drawerLayout
+        )
         setupActionBarWithNavController(navigationController, appBarConfiguration)
     }
 

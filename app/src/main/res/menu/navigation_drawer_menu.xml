@@ -5,12 +5,14 @@
         <item
             android:id="@+id/listFragment"
             android:icon="@drawable/ic_info_list"
-            android:title="@string/vocabulary_list"
-            />
+            android:title="@string/vocabulary_list" />
+        <item
+            android:id="@+id/binFragment"
+            android:icon="@drawable/ic_bin"
+            android:title="@string/recycle_bin" />
         <item
             android:id="@+id/infoFragment"
             android:icon="@drawable/ic_information"
             android:title="@string/menu_info" />
-
     </group>
 </menu>

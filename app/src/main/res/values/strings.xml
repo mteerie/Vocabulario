@@ -42,4 +42,8 @@
     <string name="difficulty_hard">Schwierig</string>
     <string name="list_deleted">Alle Einträge gelöscht.</string>
     <string name="difficulty_color">Difficulty Color</string>
+    <string name="add_edit_title">Vokabel anpassen</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="recycle_bin">Papierkorb</string>
 </resources>
