@@ -25,6 +25,8 @@ data class Vocabulary(
     @ColumnInfo(name = "difficulty")
     val difficulty: Difficulty = Difficulty.EASY,
 
+    val binned: Boolean = false,
+
     @PrimaryKey(autoGenerate = true)
     val vocId: Int = 0
 ) : Parcelable

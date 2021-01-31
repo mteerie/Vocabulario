@@ -12,12 +12,14 @@ class VocabularyAdapter(private val clickListener: EntryClickListener) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            FragmentListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            FragmentListItemBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position)!!)
+        holder.bind(getItem(position))
     }
 
     inner class ViewHolder(private val binding: FragmentListItemBinding) :
@@ -43,7 +45,6 @@ class VocabularyAdapter(private val clickListener: EntryClickListener) :
     interface EntryClickListener {
         fun onClick(entry: Vocabulary)
     }
-
 
     fun getEntryAt(position: Int): Vocabulary {
         return getItem(position)

@@ -12,7 +12,7 @@ import javax.inject.Provider
  * Erzeuge Room-Database-Instanz - größtenteils Boilerplate Code.
  * */
 
-@Database(entities = [Vocabulary::class], version = 4)
+@Database(entities = [Vocabulary::class], version = 5)
 abstract class VocabularyDatabase : RoomDatabase() {
 
     abstract fun vocabularyDao(): VocabularyDao
@@ -39,7 +39,7 @@ abstract class VocabularyDatabase : RoomDatabase() {
 
                 dao.clearList()
 
-                var entry = Vocabulary("Auto", "coche", Difficulty.EASY)
+                var entry = Vocabulary("Auto", "coche", Difficulty.EASY, binned = false)
                 dao.insert(entry)
 
                 entry = Vocabulary("Berg", "montaña", Difficulty.EASY)

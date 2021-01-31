@@ -25,6 +25,16 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/fragment_list_item" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/empty_list_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:text="@string/list_is_empty"
+            android:visibility="visible" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"

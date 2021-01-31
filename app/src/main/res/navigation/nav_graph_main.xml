@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/binFragment"
-        android:name="com.inf3005.android.vocabulario.BinFragment"
+        android:name="com.inf3005.android.vocabulario.list.BinFragment"
         android:label="@string/recycle_bin"
         tools:layout="@layout/fragment_bin" />
 </navigation>

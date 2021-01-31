@@ -23,7 +23,7 @@ class ListViewModel @ViewModelInject constructor(
      *
      * MutableStateFlow wird verwendet, weil er änderbar sein muss (Nutzereingabe, Mutable) und
      * sonst nur gebraucht wird, um seinen Collector (vocabularyEntries) über Änderungen in
-     * Kenntnis zu setzen (StateFlow).
+     * Kenntnis zu setzen.
      * */
     val currentSearchQuery = MutableStateFlow("")
 
@@ -55,27 +55,22 @@ class ListViewModel @ViewModelInject constructor(
             preferencesFlow
         ) { query, preferences ->
             Pair(query, preferences)
+        }.flatMapLatest { (query, preferences) ->
+            dao.getAllEntries(query, preferences.sortBy)
         }
-            .flatMapLatest { (query, preferences) ->
-                dao.getAllEntries(query, preferences.sortBy)
-            }
 
     @ExperimentalCoroutinesApi
     val allEntries = vocabularyEntries.asLiveData()
 
     val entryCount: LiveData<Int> = dao.countEntries().asLiveData()
 
-    fun insert(entry: Vocabulary) = viewModelScope.launch {
-        dao.insert(entry)
+    fun updateBinnedState(entry: Vocabulary, state: Boolean) = viewModelScope.launch {
+        dao.update(entry.copy(binned = state))
     }
 
-    fun delete(entry: Vocabulary) = viewModelScope.launch {
-        dao.delete(entry)
-    }
-
-    fun deleteAllEntries() = viewModelScope.launch {
-        dao.clearList()
-    }
+//    fun deleteAllEntries() = viewModelScope.launch {
+//        dao.clearList()
+//    }
 
     fun onSortOptionSelected(option: SortBy) = viewModelScope.launch {
         preferences.updateSort(option)

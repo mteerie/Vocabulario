@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/option_delete_all"
-        android:icon="@drawable/ic_delete_all"
-        android:title="@string/delete_all_list_entries"
-        app:showAsAction="ifRoom" />
+    <!--    <item-->
+    <!--        android:id="@+id/option_delete_all"-->
+    <!--        android:icon="@drawable/ic_delete_all"-->
+    <!--        android:title="@string/delete_all_list_entries"-->
+    <!--        app:showAsAction="ifRoom" />-->
 
     <item
         android:id="@+id/option_search"
@@ -16,6 +16,7 @@
         app:showAsAction="always|collapseActionView" />
 
     <item
+        android:id="@+id/sort_item"
         android:enabled="true"
         android:icon="@drawable/ic_sort_list"
         android:title="@string/sort_list_entries"

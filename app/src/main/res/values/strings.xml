@@ -12,17 +12,17 @@
 
     <string name="fragment_info_list_icon">list icon</string>
 
-    <string name="list_entry_deleted">Vokabel gelöscht.</string>
+    <string name="list_entry_moved_to_bin">In den Papierkorb verschoben.</string>
     <string name="list_entry_undo">Rückgängig</string>
     <string name="delete_all_list_entries">Alle Einträge löschen</string>
-    <string name="delete_all_entries_title">Liste löschen</string>
-    <string name="delete_all_entries">Möchtest Du alle Einträge löschen?</string>
+    <string name="delete_all_entries_title">Papierkorb leeren</string>
+    <string name="delete_all_entries">Möchtest Du alle Einträge im Papierkorb unwiderruflich löschen?</string>
     <string name="delete_all_entries_positive">Ja</string>
     <string name="delete_all_entries_negative">Nein</string>
 
     <string name="input_dialog_de_hint">Deutsch</string>
     <string name="input_dialog_sp_hint">Spanisch</string>
-    <string name="add_entry">Vokabel hinzufügen</string>
+    <string name="add_entry">Neue Vokabel</string>
     <string name="edit_entry">Vokabel anpassen</string>
     <string name="submit_button">Speichern</string>
 
@@ -40,10 +40,12 @@
     <string name="difficulty_easy">Einfach</string>
     <string name="difficulty_intermediate">Fortgeschritten</string>
     <string name="difficulty_hard">Schwierig</string>
-    <string name="list_deleted">Alle Einträge gelöscht.</string>
+    <string name="emptied_bin">Papierkorb geleert.</string>
     <string name="difficulty_color">Difficulty Color</string>
     <string name="add_edit_title">Vokabel anpassen</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="recycle_bin">Papierkorb</string>
+    <string name="restored_from_bin">Vokabel wiederhergestellt.</string>
+    <string name="bin_is_empty">Der Papierkorb ist leer.</string>
+    <string name="list_is_empty">Die Vokabelliste ist leer. \nFüge einen Eintrag hinzu!</string>
 </resources>

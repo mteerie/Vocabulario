@@ -2,9 +2,9 @@ package com.inf3005.android.vocabulario.list
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -13,7 +13,6 @@ import androidx.navigation.navOptions
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.inf3005.android.vocabulario.R
 import com.inf3005.android.vocabulario.data.Vocabulary
@@ -34,7 +33,6 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
     private val viewModel: ListViewModel by viewModels()
 
     override fun onClick(entry: Vocabulary) {
-
         val options = navOptions {
             anim {
                 enter = R.anim.slide_in_right
@@ -65,6 +63,26 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
                 setHasFixedSize(true)
             }
 
+            viewModel.entryCount.observe(viewLifecycleOwner) { entry ->
+                binding.emptyListText.isVisible = entry == 0
+            }
+
+            binding.fab.setOnClickListener {
+                val options = navOptions {
+                    anim {
+                        enter = R.anim.slide_in_bottom
+                        exit = R.anim.fade_out
+                        popEnter = R.anim.slide_in_top
+                        popExit = R.anim.fade_out
+                    }
+                }
+
+                val action = ListFragmentDirections.actionListFragmentToAddEditFragment(
+                    null, getString(R.string.add_entry)
+                )
+                findNavController().navigate(action, options)
+            }
+
             ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
                 0,
                 ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
@@ -79,15 +97,15 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val entry = vocabularyAdapter.getEntryAt(viewHolder.adapterPosition)
-                    viewModel.delete(entry)
+                    viewModel.updateBinnedState(entry, state = true)
 
                     Snackbar.make(
                         requireView(),
-                        getString(R.string.list_entry_deleted),
+                        getString(R.string.list_entry_moved_to_bin),
                         Snackbar.LENGTH_LONG
                     )
                         .setAction(getString(R.string.list_entry_undo)) {
-                            viewModel.insert(entry)
+                            viewModel.updateBinnedState(entry, state = false)
                         }
                         .setActionTextColor(ContextCompat.getColor(context!!, R.color.black))
                         .setTextColor(ContextCompat.getColor(context!!, R.color.black))
@@ -95,22 +113,6 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
                         .show()
                 }
             }).attachToRecyclerView(list)
-
-            binding.fab.setOnClickListener {
-                val options = navOptions {
-                    anim {
-                        enter = R.anim.slide_in_bottom
-                        exit = R.anim.fade_out
-                        popEnter = R.anim.slide_in_top
-                        popExit = R.anim.fade_out
-                    }
-                }
-
-                val action = ListFragmentDirections.actionListFragmentToAddEditFragment(
-                    null, "Neue Vokabel"
-                )
-                findNavController().navigate(action, options)
-            }
 
             viewModel.allEntries.observe(viewLifecycleOwner)
             {
@@ -123,7 +125,7 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.action_bar_menu_list, menu)
+        inflater.inflate(R.menu.list_action_bar_menu, menu)
 
         val searchOption = menu.findItem(R.id.option_search)
 
@@ -169,23 +171,23 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.option_delete_all -> {
-                MaterialAlertDialogBuilder(requireContext())
-                    .setTitle(getString(R.string.delete_all_entries_title))
-                    .setMessage(getString(R.string.delete_all_entries))
-                    .setCancelable(true)
-                    .setPositiveButton(getString(R.string.delete_all_entries_positive)) { _, _ ->
-                        viewModel.deleteAllEntries()
-
-                        Toast.makeText(
-                            context, getString(R.string.list_deleted), Toast.LENGTH_LONG
-                        )
-                            .show()
-                    }
-                    .setNegativeButton(getString(R.string.delete_all_entries_negative), null)
-                    .show()
-                true
-            }
+//            R.id.option_delete_all -> {
+//                MaterialAlertDialogBuilder(requireContext())
+//                    .setTitle(getString(R.string.delete_all_entries_title))
+//                    .setMessage(getString(R.string.delete_all_entries))
+//                    .setCancelable(true)
+//                    .setPositiveButton(getString(R.string.delete_all_entries_positive)) { _, _ ->
+//                        viewModel.deleteAllEntries()
+//
+//                        Toast.makeText(
+//                            context, getString(R.string.list_deleted), Toast.LENGTH_LONG
+//                        )
+//                            .show()
+//                    }
+//                    .setNegativeButton(getString(R.string.delete_all_entries_negative), null)
+//                    .show()
+//                true
+//            }
 
             R.id.sort_de -> {
                 viewModel.onSortOptionSelected(SortBy.GERMAN)
@@ -221,13 +223,15 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
 
-        val deleteAllButton = menu.findItem(R.id.option_delete_all)
+        val searchOption = menu.findItem(R.id.option_search)
 
-        deleteAllButton.isVisible = false
+        searchOption.isVisible = false
 
         viewModel.entryCount.observe(viewLifecycleOwner) { entry ->
-            deleteAllButton.isVisible = entry != 0
+            searchOption.isVisible = entry != 0
         }
+
+
     }
 
     override fun onDestroyView() {
