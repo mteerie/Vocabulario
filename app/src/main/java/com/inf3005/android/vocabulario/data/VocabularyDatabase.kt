@@ -9,9 +9,12 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 /**
- * Erzeuge Room-Database-Instanz - größtenteils Boilerplate Code.
+ * Diese abstrakte Klasse definiert die tatsächliche Room-Datenbank, die auf der Entity in
+ * Vocabulary.kt aufbaut. Innerhalb von VocabularyDatabase wird eine weitere Klasse
+ * VocabularyDatabaseCallback erzeugt. Diese Klasse wird im DependencyInjectionModule über
+ * .addCallback eingesetzt, um die Datenbank bei Erzeugung bereits mit einigen Daten befüllen zu
+ * können.
  * */
-
 @Database(entities = [Vocabulary::class], version = 5)
 abstract class VocabularyDatabase : RoomDatabase() {
 
@@ -39,7 +42,7 @@ abstract class VocabularyDatabase : RoomDatabase() {
 
                 dao.clearList()
 
-                var entry = Vocabulary("Auto", "coche", Difficulty.EASY, binned = false)
+                var entry = Vocabulary("Auto", "coche", Difficulty.EASY)
                 dao.insert(entry)
 
                 entry = Vocabulary("Berg", "montaña", Difficulty.EASY)
@@ -52,6 +55,9 @@ abstract class VocabularyDatabase : RoomDatabase() {
                 dao.insert(entry)
 
                 entry = Vocabulary("Pfannkuchen", "panqueques", Difficulty.INTERMEDIATE)
+                dao.insert(entry)
+
+                entry = Vocabulary("Papierkorb", "papelera", Difficulty.EASY, binned = true)
                 dao.insert(entry)
             }
         }

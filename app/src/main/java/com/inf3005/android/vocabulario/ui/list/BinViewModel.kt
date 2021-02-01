@@ -1,6 +1,5 @@
-package com.inf3005.android.vocabulario.list
+package com.inf3005.android.vocabulario.ui.list
 
-import androidx.appcompat.widget.SearchView
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

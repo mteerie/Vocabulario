@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.inf3005.android.vocabulario.list.ListFragment"
+        android:name="com.inf3005.android.vocabulario.ui.list.ListFragment"
         android:label="Vokabelliste"
         tools:layout="@layout/fragment_list">
         <action
@@ -16,12 +16,12 @@
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
-        android:name="com.inf3005.android.vocabulario.InfoFragment"
+        android:name="com.inf3005.android.vocabulario.ui.InfoFragment"
         android:label="Information"
         tools:layout="@layout/fragment_info" />
     <fragment
         android:id="@+id/addEditFragment"
-        android:name="com.inf3005.android.vocabulario.add_edit.AddEditFragment"
+        android:name="com.inf3005.android.vocabulario.ui.add_edit.AddEditFragment"
         android:label="{title}"
         tools:layout="@layout/fragment_add_edit" >
         <argument
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/binFragment"
-        android:name="com.inf3005.android.vocabulario.list.BinFragment"
+        android:name="com.inf3005.android.vocabulario.ui.list.BinFragment"
         android:label="@string/recycle_bin"
         tools:layout="@layout/fragment_bin" />
 </navigation>

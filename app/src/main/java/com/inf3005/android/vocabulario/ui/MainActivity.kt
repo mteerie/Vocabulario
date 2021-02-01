@@ -1,4 +1,4 @@
-package com.inf3005.android.vocabulario
+package com.inf3005.android.vocabulario.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +9,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.inf3005.android.vocabulario.R
 import com.inf3005.android.vocabulario.databinding.ActivityMainBinding
 import com.inf3005.android.vocabulario.utilities.KeyboardUtilities
 import com.inf3005.android.vocabulario.utilities.NavigationDrawerState

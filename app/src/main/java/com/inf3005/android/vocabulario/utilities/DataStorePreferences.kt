@@ -1,17 +1,14 @@
 package com.inf3005.android.vocabulario.utilities
 
-import android.content.Context
-import androidx.datastore.createDataStore
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.preferencesKey
-import androidx.datastore.preferences.createDataStore
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * In dieser Klasse wird ein Jetpack DataStore erzeugt, der Preferences (Nutzer-Einstellungen)
@@ -30,9 +27,8 @@ import javax.inject.Singleton
  * Der Wert des PreferencesKey wird über die updateSort-Funktion angepasst, welche im ListFragment
  * bei Änderung der Sortierung mit Übergabe der zugehörigen enum-Option aus SortBy aufgerufen wird.
  * */
-@Singleton
-class DataStorePreferences @Inject constructor(@ApplicationContext context: Context) {
-    private val dataStore = context.createDataStore("preferences")
+
+class DataStorePreferences @Inject constructor(private val dataStore: DataStore<Preferences>) {
     val dataStoreFlow = dataStore.data
 
         /**

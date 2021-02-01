@@ -48,4 +48,6 @@
     <string name="restored_from_bin">Vokabel wiederhergestellt.</string>
     <string name="bin_is_empty">Der Papierkorb ist leer.</string>
     <string name="list_is_empty">Die Vokabelliste ist leer. \nFüge einen Eintrag hinzu!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

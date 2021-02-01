@@ -11,7 +11,7 @@
     android:longClickable="false"
     app:cardCornerRadius="16dp"
     app:cardElevation="4dp"
-    tools:context=".add_edit.AddEditFragment">
+    tools:context=".ui.add_edit.AddEditFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

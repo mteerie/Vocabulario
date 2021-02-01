@@ -1,4 +1,4 @@
-package com.inf3005.android.vocabulario.add_edit
+package com.inf3005.android.vocabulario.ui.add_edit
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject

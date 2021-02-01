@@ -1,7 +1,10 @@
-package com.inf3005.android.vocabulario.list
+package com.inf3005.android.vocabulario.ui.list
 
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -83,6 +86,9 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
                 findNavController().navigate(action, options)
             }
 
+            /**
+             * ItemTouchHelper für Swipe-to-Delete usw.
+             * */
             ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
                 0,
                 ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
@@ -97,6 +103,7 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val entry = vocabularyAdapter.getEntryAt(viewHolder.adapterPosition)
+
                     viewModel.updateBinnedState(entry, state = true)
 
                     Snackbar.make(
@@ -114,6 +121,11 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
                 }
             }).attachToRecyclerView(list)
 
+            /**
+             * Observer für den Flow allEntries aus dem ListViewModel.
+             * Der Adapter weist die Liste auf Änderungen der Einträge hin - in diesem Fragment nur
+             * Verschieben in den Papierkorb (Ändern des 'binned'-value).
+             * */
             viewModel.allEntries.observe(viewLifecycleOwner)
             {
                 vocabularyAdapter.submitList(it)
@@ -122,6 +134,7 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
             setHasOptionsMenu(true)
         }
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -171,24 +184,6 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-//            R.id.option_delete_all -> {
-//                MaterialAlertDialogBuilder(requireContext())
-//                    .setTitle(getString(R.string.delete_all_entries_title))
-//                    .setMessage(getString(R.string.delete_all_entries))
-//                    .setCancelable(true)
-//                    .setPositiveButton(getString(R.string.delete_all_entries_positive)) { _, _ ->
-//                        viewModel.deleteAllEntries()
-//
-//                        Toast.makeText(
-//                            context, getString(R.string.list_deleted), Toast.LENGTH_LONG
-//                        )
-//                            .show()
-//                    }
-//                    .setNegativeButton(getString(R.string.delete_all_entries_negative), null)
-//                    .show()
-//                true
-//            }
-
             R.id.sort_de -> {
                 viewModel.onSortOptionSelected(SortBy.GERMAN)
                 item.isChecked = true

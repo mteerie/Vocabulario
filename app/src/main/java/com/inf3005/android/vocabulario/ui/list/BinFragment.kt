@@ -1,4 +1,4 @@
-package com.inf3005.android.vocabulario.list
+package com.inf3005.android.vocabulario.ui.list
 
 import android.os.Bundle
 import android.view.Menu

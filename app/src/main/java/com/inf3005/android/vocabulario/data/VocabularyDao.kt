@@ -65,10 +65,12 @@ interface VocabularyDao {
     fun countBinnedEntries(): Flow<Int>
 
     /**
-     * Löscht alle Einträge in der Tabelle.
+     * Löscht alle Einträge in der Tabelle. Derzeit nur in Verwendung mit dem Database-Callback
+     * in VocabularyDatabase.kt, um bei Erstellung der Datenbank zur Sicherheit etwaige bereits
+     * vorhandene Einträge zu löschen.
      * */
-//    @Query("DELETE FROM vocabulary")
-//    suspend fun clearList()
+    @Query("DELETE FROM vocabulary")
+    suspend fun clearList()
 
     @Query("DELETE FROM vocabulary WHERE binned = 1")
     suspend fun clearBin()

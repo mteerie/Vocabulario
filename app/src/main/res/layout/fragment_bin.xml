@@ -9,13 +9,13 @@
 
         <variable
             name="vocabularyViewModel"
-            type="com.inf3005.android.vocabulario.list.ListViewModel" />
+            type="com.inf3005.android.vocabulario.ui.list.ListViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".list.ListFragment">
+        tools:context=".ui.list.ListFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
