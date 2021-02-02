@@ -14,7 +14,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.inf3005.android.vocabulario.R
@@ -112,19 +111,6 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
                     viewModel.updateBinnedState(entry, state = true)
 
                     /**
-                     * Diese if-Abfrage dient dazu sicherzustellen, dass der scrollable-State im
-                     * viewModel auf false gesetzt wird, sollte das Löschen eines Eintrags zu
-                     * folgender Situation führen:
-                     *  Es sind nicht mehr genug Einträge in der Liste
-                     *  vorhanden, woraus folgt, dass der Nutzer nicht scrollen kann.
-                     * */
-                    if (!list.canScrollVertically(-1)
-                        && !list.canScrollVertically(1)
-                    ) {
-                        viewModel.setScrollableState(false)
-                    }
-
-                    /**
                      * Snackbar, die mittels ihrer Action erlaubt binned = 0 für den zugehörigen
                      * Listeneintrag zu setzen, also:
                      *  "Verschieben in den Papierkorb rückgängig machen."
@@ -139,7 +125,7 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
                         }
                         .setActionTextColor(ContextCompat.getColor(context!!, R.color.black))
                         .setTextColor(ContextCompat.getColor(context!!, R.color.black))
-                        .setAnchorView(binding.fab)
+                        .setAnchorView(binding.snackbarAnchor)
                         .show()
 
                 }
@@ -163,11 +149,13 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     if (dy > 0) {
                         viewModel.setScrollableState(true)
-                    }
-                    if ((dy < 0 && !list.canScrollVertically(-1))
-                        || !list.canScrollVertically(-1)
-                    )
+                        binding.fab.hide()
+                    } else if (!list.canScrollVertically(-1)
+                    ) {
                         viewModel.setScrollableState(false)
+                        binding.fab.show()
+                    } else if (dy < 0)
+                        binding.fab.show()
 
                     super.onScrolled(recyclerView, dx, dy)
                 }

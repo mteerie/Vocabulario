@@ -33,4 +33,5 @@
     <string name="bin_is_empty">The recycle bin is empty.</string>
     <string name="list_is_empty">Your list has no entries. \nGo ahead and add one!</string>
     <string name="scroll_to_top">Scroll to top</string>
+    <string name="snackbar_anchor">Snackbar Anchor</string>
 </resources>

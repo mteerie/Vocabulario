@@ -37,8 +37,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:itemIconTint="@drawable/drawer_selection_icon_text_colour"
-        app:itemTextColor="@drawable/drawer_selection_icon_text_colour"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/black"
         app:itemShapeFillColor="@drawable/drawer_selection_colour"
         app:headerLayout="@layout/drawer_header"
         app:menu="@menu/navigation_drawer_menu" />

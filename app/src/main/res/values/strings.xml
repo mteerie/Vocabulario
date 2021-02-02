@@ -41,5 +41,6 @@
     <string name="bin_is_empty">Der Papierkorb ist leer.</string>
     <string name="list_is_empty">Die Vokabelliste ist leer. \nFüge einen Eintrag hinzu!</string>
     <string name="scroll_to_top">Zum Listenanfang</string>
+    <string name="snackbar_anchor">Snackbar Anchor</string>
 
 </resources>
