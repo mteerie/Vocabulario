@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <color name="green_200">#a5d6a7</color>
+    <color name="green_200_158lum">#88c88b</color>
+    <color name="green_200_80">#b9dfba</color>
     <color name="green_200_dark">#75a478</color>
     <color name="green_200_light">#d7ffd9</color>
+    <color name="green_200_light_95">#e6ffe7</color>
 
     <color name="deep_orange_200">#ffab91</color>
     <color name="deep_orange_200_dark">#c97b63</color>

@@ -39,26 +39,20 @@ abstract class VocabularyDatabase : RoomDatabase() {
                  * Der Code wird nur bei Erzeugung der Datenbank aufgerufen, d.h. bei
                  * Installation der App auf einem Endgerät oder Emulator.
                  * */
-
                 dao.clearList()
 
-                var entry = Vocabulary("Auto", "coche", Difficulty.EASY)
-                dao.insert(entry)
-
-                entry = Vocabulary("Berg", "montaña", Difficulty.EASY)
-                dao.insert(entry)
-
-                entry = Vocabulary(
-                    "Finanzdienstleistungsunternehmen",
-                    "empresa de servicios financieros", Difficulty.HARD
-                )
-                dao.insert(entry)
-
-                entry = Vocabulary("Pfannkuchen", "panqueques", Difficulty.INTERMEDIATE)
-                dao.insert(entry)
-
-                entry = Vocabulary("Papierkorb", "papelera", Difficulty.EASY, binned = true)
-                dao.insert(entry)
+                dao.insert(Vocabulary("Auto", "coche", Difficulty.EASY))
+                dao.insert(Vocabulary("Berg", "montaña", Difficulty.EASY))
+                dao.insert(Vocabulary("Büro", "officina", Difficulty.EASY))
+                dao.insert(Vocabulary("Entwicklung", "desarrollo", Difficulty.INTERMEDIATE))
+                dao.insert(Vocabulary("Mobiltelefon", "móvil", Difficulty.EASY))
+                dao.insert(Vocabulary("Pfannkuchen", "panqueques", Difficulty.INTERMEDIATE))
+                dao.insert(Vocabulary("schwimmen", "nadar", Difficulty.EASY))
+                dao.insert(Vocabulary(
+                        "Finanzdienstleistungsunternehmen",
+                        "empresa de servicios financieros", Difficulty.HARD))
+                dao.insert(Vocabulary(
+                        "Papierkorb", "papelera", Difficulty.EASY, binned = true))
             }
         }
     }

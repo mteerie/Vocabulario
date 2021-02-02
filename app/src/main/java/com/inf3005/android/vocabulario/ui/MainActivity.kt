@@ -30,7 +30,9 @@ class MainActivity : AppCompatActivity(), NavigationDrawerState {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        setTheme(R.style.Theme_Vocabulario)
+//        Für die Theme-Variante des Splash-Screens vorübergehend eingebaut.
+//        setTheme(R.style.Theme_Vocabulario)
+
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
