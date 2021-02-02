@@ -19,8 +19,8 @@
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
-            app:titleTextColor="@color/black"
-            android:theme="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"/>
+            android:theme="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
+            app:titleTextColor="@color/black" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment"
@@ -37,6 +37,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        app:itemIconTint="@drawable/drawer_selection_icon_text_colour"
+        app:itemTextColor="@drawable/drawer_selection_icon_text_colour"
+        app:itemShapeFillColor="@drawable/drawer_selection_colour"
         app:headerLayout="@layout/drawer_header"
         app:menu="@menu/navigation_drawer_menu" />
 

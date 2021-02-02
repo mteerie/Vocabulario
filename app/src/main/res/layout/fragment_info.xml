@@ -11,13 +11,12 @@
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:scaleType="fitXY"
-        android:contentDescription="@string/fragment_info_list_icon"
         android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toTopOf="@+id/info_text_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_info_list"
-        app:tint="@color/green_200" />
+        app:tint="@color/green_200_dark" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/info_text_1"

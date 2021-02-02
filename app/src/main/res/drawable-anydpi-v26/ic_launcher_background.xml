@@ -17,7 +17,7 @@
                     android:offset="0" />
                 <item
                     android:color="#a5d6a7"
-                    android:offset="0.5" />
+                    android:offset="0.4" />
                 <item
                     android:color="#75a478"
                     android:offset="1" />

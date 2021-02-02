@@ -34,6 +34,14 @@ class ListViewModel @ViewModelInject constructor(
      * */
     val preferencesFlow = preferences.dataStoreFlow
 
+    private val _scrollableListFlow = MutableStateFlow(false)
+
+    fun setScrollableState(state: Boolean) {
+        _scrollableListFlow.value = state
+    }
+
+    val listScrollableState = _scrollableListFlow.asLiveData()
+
     /**
      * Collector für currentSearchQuery. Der flatMapLatest-Operator ruft bei Änderung des Wertes
      * von currentSearchQuery eine Transformationsfunktion auf, die einen neuen Flow mit dem

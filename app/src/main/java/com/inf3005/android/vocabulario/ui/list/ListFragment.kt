@@ -33,6 +33,8 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
 
     private lateinit var searchActionView: SearchView
 
+    private lateinit var recyclerView: RecyclerView
+
     private val viewModel: ListViewModel by viewModels()
 
     override fun onClick(entry: Vocabulary) {
@@ -47,7 +49,7 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
 
         val action = ListFragmentDirections.actionListFragmentToAddEditFragment(
             entry,
-            getString(R.string.add_edit_title)
+            getString(R.string.edit_entry)
         )
         findNavController().navigate(action, options)
     }
@@ -59,10 +61,12 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
 
         val vocabularyAdapter = VocabularyAdapter(this)
 
+        recyclerView = binding.list
+
         binding.apply {
             list.apply {
                 adapter = vocabularyAdapter
-                layoutManager = LinearLayoutManager(requireContext())
+                layoutManager
                 setHasFixedSize(true)
             }
 
@@ -104,8 +108,27 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val entry = vocabularyAdapter.getEntryAt(viewHolder.adapterPosition)
 
+                    // Setze binned = 1 für den Listeneintrag, der gewischt wurde
                     viewModel.updateBinnedState(entry, state = true)
 
+                    /**
+                     * Diese if-Abfrage dient dazu sicherzustellen, dass der scrollable-State im
+                     * viewModel auf false gesetzt wird, sollte das Löschen eines Eintrags zu
+                     * folgender Situation führen:
+                     *  Es sind nicht mehr genug Einträge in der Liste
+                     *  vorhanden, woraus folgt, dass der Nutzer nicht scrollen kann.
+                     * */
+                    if (!list.canScrollVertically(-1)
+                        && !list.canScrollVertically(1)
+                    ) {
+                        viewModel.setScrollableState(false)
+                    }
+
+                    /**
+                     * Snackbar, die mittels ihrer Action erlaubt binned = 0 für den zugehörigen
+                     * Listeneintrag zu setzen, also:
+                     *  "Verschieben in den Papierkorb rückgängig machen."
+                     */
                     Snackbar.make(
                         requireView(),
                         getString(R.string.list_entry_moved_to_bin),
@@ -118,8 +141,37 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
                         .setTextColor(ContextCompat.getColor(context!!, R.color.black))
                         .setAnchorView(binding.fab)
                         .show()
+
                 }
             }).attachToRecyclerView(list)
+
+            /**
+             * OnScrollListener für die RecyclerView, der verwendet wird, um die Sichtbarkeit
+             * des scrollToTop-Button in der ActionBar zu regeln.
+             *
+             * Wird nach unten gescrollt -> setze die Sichtbarkeit auf true.
+             *
+             * Die Abfrage für Scrollen nach oben ist komplizierter, da hier berücksichtigt werden
+             * muss, ob der Nutzer selbst nach oben scrollt und den Anfang erreicht, oder ob
+             * die Liste grundsätzlich am Anfang steht (nicht nach oben scrollbar ist).
+             *
+             * Letzteres ist wichtig zu beachten, weil über die onSwiped-Funktion des
+             * ItemTouchHelper Einträge entfernt werden können, wodurch die Liste selbst "scrollt"
+             * - ohne direkte Nutzereingabe.
+             * */
+            list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    if (dy > 0) {
+                        viewModel.setScrollableState(true)
+                    }
+                    if ((dy < 0 && !list.canScrollVertically(-1))
+                        || !list.canScrollVertically(-1)
+                    )
+                        viewModel.setScrollableState(false)
+
+                    super.onScrolled(recyclerView, dx, dy)
+                }
+            })
 
             /**
              * Observer für den Flow allEntries aus dem ListViewModel.
@@ -178,11 +230,19 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
                 SortBy.DIFFICULTY_DESC -> menu.findItem(R.id.sort_difficulty_desc).isChecked = true
             }
         }
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.scroll_to_top -> {
+                recyclerView.layoutManager?.smoothScrollToPosition(
+                    recyclerView,
+                    null,
+                    0
+                )
+                true
+            }
+
             R.id.sort_de -> {
                 viewModel.onSortOptionSelected(SortBy.GERMAN)
                 item.isChecked = true
@@ -208,24 +268,34 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
             }
 
             else -> super.onOptionsItemSelected(item)
-
         }
 //        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
 //                || super.onOptionsItemSelected(item)
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
-        super.onPrepareOptionsMenu(menu)
 
+        /**
+         * Über den Observer der entryCount-LiveData wird die Sichtbarkeit der Suchfunktion
+         * geregelt. Sollten die Datenbank keine Einträge mit binned = 0 enthalten, soll die
+         * Suchfunktion nicht in der ActionBar angezeigt werden.
+         * */
         val searchOption = menu.findItem(R.id.option_search)
-
-        searchOption.isVisible = false
-
         viewModel.entryCount.observe(viewLifecycleOwner) { entry ->
             searchOption.isVisible = entry != 0
         }
 
+        /**
+         * In Zusammenarbeit mit OnScrollListener und ItemTouchHelper der RecyclerView regelt
+         * dieser Observer der listScrollableState-LiveData die Sichtbarkeit des scrollToTop-
+         * Button in der ActionBar.
+         * */
+        val scrollToTopOption = menu.findItem(R.id.scroll_to_top)
+        viewModel.listScrollableState.observe(viewLifecycleOwner) { state ->
+            scrollToTopOption.isVisible = state == true
+        }
 
+        super.onPrepareOptionsMenu(menu)
     }
 
     override fun onDestroyView() {

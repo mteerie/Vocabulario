@@ -10,8 +10,6 @@
     <string name="spanish">Spanisch</string>
     <string name="german">Deutsch</string>
 
-    <string name="fragment_info_list_icon">list icon</string>
-
     <string name="list_entry_moved_to_bin">In den Papierkorb verschoben.</string>
     <string name="list_entry_undo">Undo</string>
     <string name="delete_all_list_entries">Alle Einträge löschen</string>
@@ -37,11 +35,11 @@
     <string name="difficulty_hard">Schwierig</string>
     <string name="emptied_bin">Papierkorb geleert.</string>
     <string name="difficulty_color">Difficulty Color</string>
-    <string name="add_edit_title">Vokabel anpassen</string>
 
     <string name="recycle_bin">Papierkorb</string>
     <string name="restored_from_bin">Vokabel wiederhergestellt.</string>
     <string name="bin_is_empty">Der Papierkorb ist leer.</string>
     <string name="list_is_empty">Die Vokabelliste ist leer. \nFüge einen Eintrag hinzu!</string>
+    <string name="scroll_to_top">Zum Listenanfang</string>
 
 </resources>
