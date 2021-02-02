@@ -32,10 +32,10 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/sort_de"
-                    android:title="@string/sort_by_ger" />
+                    android:title="@string/german" />
                 <item
                     android:id="@+id/sort_sp"
-                    android:title="@string/sort_by_spa" />
+                    android:title="@string/spanish" />
                 <item
                     android:id="@+id/sort_difficulty_asc"
                     android:title="@string/sort_difficulty_asc" />

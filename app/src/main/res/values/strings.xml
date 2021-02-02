@@ -7,21 +7,19 @@
 
     <string name="menu_info">Information</string>
 
-    <string name="list_item_spanisch">spanisch</string>
-    <string name="list_item_deutsch">deutsch</string>
+    <string name="spanish">Spanisch</string>
+    <string name="german">Deutsch</string>
 
     <string name="fragment_info_list_icon">list icon</string>
 
     <string name="list_entry_moved_to_bin">In den Papierkorb verschoben.</string>
-    <string name="list_entry_undo">Rückgängig</string>
+    <string name="list_entry_undo">Undo</string>
     <string name="delete_all_list_entries">Alle Einträge löschen</string>
     <string name="delete_all_entries_title">Papierkorb leeren</string>
     <string name="delete_all_entries">Möchtest Du alle Einträge im Papierkorb unwiderruflich löschen?</string>
     <string name="delete_all_entries_positive">Ja</string>
     <string name="delete_all_entries_negative">Nein</string>
 
-    <string name="input_dialog_de_hint">Deutsch</string>
-    <string name="input_dialog_sp_hint">Spanisch</string>
     <string name="add_entry">Neue Vokabel</string>
     <string name="edit_entry">Vokabel anpassen</string>
     <string name="submit_button">Speichern</string>
@@ -30,12 +28,9 @@
     <string name="search_action">Liste durchsuchen</string>
     <string name="sort_list_entries">Liste sortieren</string>
     <string name="sort_by">Sortieren nach…</string>
-    <string name="sort_by_ger">Deutsch</string>
-    <string name="sort_by_spa">Spanisch</string>
     <string name="sort_difficulty_asc">Schwierigkeit (auf)</string>
     <string name="sort_difficulty_desc">Schwierigkeit (ab)</string>
 
-    <string name="checkmark">checkmark</string>
     <string name="difficulty_hint">Schwierigkeit</string>
     <string name="difficulty_easy">Einfach</string>
     <string name="difficulty_intermediate">Fortgeschritten</string>
@@ -48,6 +43,5 @@
     <string name="restored_from_bin">Vokabel wiederhergestellt.</string>
     <string name="bin_is_empty">Der Papierkorb ist leer.</string>
     <string name="list_is_empty">Die Vokabelliste ist leer. \nFüge einen Eintrag hinzu!</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="com.inf3005.android.vocabulario.ui.list.ListFragment"
-        android:label="Vokabelliste"
+        android:label="@string/vocabulary_list"
         tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/action_listFragment_to_addEditFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/infoFragment"
         android:name="com.inf3005.android.vocabulario.ui.InfoFragment"
-        android:label="Information"
+        android:label="@string/information"
         tools:layout="@layout/fragment_info" />
     <fragment
         android:id="@+id/addEditFragment"

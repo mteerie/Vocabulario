@@ -135,7 +135,6 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
         }
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.list_action_bar_menu, menu)

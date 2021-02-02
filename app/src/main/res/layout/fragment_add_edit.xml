@@ -22,7 +22,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints="@string/input_dialog_de_hint"
+            android:autofillHints="@string/german"
             android:paddingStart="16dp"
             android:paddingTop="16dp"
             android:paddingEnd="16dp"
@@ -35,7 +35,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/input_dialog_de_hint"
+                android:hint="@string/german"
                 android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:autofillHints="@string/input_dialog_sp_hint"
+            android:autofillHints="@string/spanish"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             app:counterEnabled="true"
@@ -58,7 +58,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/input_dialog_sp_hint"
+                android:hint="@string/spanish"
                 android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
