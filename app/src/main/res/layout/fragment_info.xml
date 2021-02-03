@@ -7,29 +7,98 @@
     tools:context=".ui.InfoFragment">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/aboutImageList"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:scaleType="fitXY"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/info_text_1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_info_list"
-        app:tint="@color/green_200_dark" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/info_text_1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginEnd="64dp"
-        android:gravity="center"
-        android:text="@string/info_text_1"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp"
+        android:id="@+id/app_icon"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_launcher_hq"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_icon" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/developer_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/developer_info"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_name" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/materialButton"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:backgroundTint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/developer_info" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/hs_worms_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/hswormsicon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialButton" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/hs_wo_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="64dp"
+        android:paddingEnd="64dp"
+        android:text="@string/hs_wo_info"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hs_worms_icon" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/info_text_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingStart="64dp"
+        android:paddingEnd="64dp"
+        android:text="@string/info_text"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hs_wo_info" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/materialButton2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:backgroundTint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info_text_1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,6 +13,6 @@
         <item
             android:id="@+id/infoFragment"
             android:icon="@drawable/ic_information"
-            android:title="@string/menu_info" />
+            android:title="@string/information" />
     </group>
 </menu>

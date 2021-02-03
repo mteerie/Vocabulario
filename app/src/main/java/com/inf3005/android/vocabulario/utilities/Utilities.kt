@@ -8,6 +8,7 @@ import android.view.View.VISIBLE
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
@@ -38,7 +39,7 @@ fun ImageView.setDifficultyColor(entry: Vocabulary) {
 }
 
 @BindingAdapter("tts")
-fun ImageView.setVisibility(entry: Vocabulary) {
+fun CoordinatorLayout.setVisibility(entry: Vocabulary) {
     visibility = when (entry.binned) {
         false -> VISIBLE
         true -> GONE

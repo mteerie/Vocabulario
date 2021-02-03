@@ -32,7 +32,7 @@ class VocabularyAdapter(private val clickListener: EntryClickListener) :
                         clickListener.onCardClick(getItem(adapterPosition))
                 }
 
-                textToSpeechIcon.setOnClickListener {
+                textToSpeechIconHolder.setOnClickListener {
                     if (adapterPosition != RecyclerView.NO_POSITION)
                         clickListener.onTextToSpeechIconClick(getItem(adapterPosition))
                 }

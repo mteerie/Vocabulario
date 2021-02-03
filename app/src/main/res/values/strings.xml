@@ -3,10 +3,6 @@
 
     <string name="vocabulary_list">Vokabelliste</string>
 
-    <string name="info_text_1">Diese Anwendung wird derzeit noch entwickelt.</string>
-
-    <string name="menu_info">Information</string>
-
     <string name="spanish">Spanisch</string>
     <string name="german">Deutsch</string>
 
@@ -42,5 +38,8 @@
     <string name="list_is_empty">Die Vokabelliste ist leer. \nFüge einen Eintrag hinzu!</string>
     <string name="scroll_to_top">Zum Listenanfang</string>
     <string name="snackbar_anchor">Snackbar Anchor</string>
+    <string name="hs_wo_info">Hochschule Worms \nWintersemester 2020/2021 \nAngewandte Informatik</string>
+    <string name="info_text">Diese App wurde als Projekt für das Modul Entwicklung mobiler Anwendungen entwickelt.</string>
+    <string name="developer_info">von Daniel Langer, inf3005</string>
 
 </resources>

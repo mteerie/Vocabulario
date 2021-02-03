@@ -2,8 +2,7 @@
 <resources>
     <string name="app_name">Vocabulario</string>
     <string name="vocabulary_list">Vocabulary</string>
-    <string name="info_text_1">This app is still in development.</string>
-    <string name="menu_info">Information</string>
+    <string name="info_text">This app was developed as a project for the module Entwicklung mobiler Anwendungen.</string>
     <string name="spanish">Spanish</string>
     <string name="german">German</string>
     <string name="list_entry_moved_to_bin">Moved to the recycle bin.</string>
@@ -34,4 +33,6 @@
     <string name="list_is_empty">Your list has no entries. \nGo ahead and add one!</string>
     <string name="scroll_to_top">Scroll to top</string>
     <string name="snackbar_anchor">Snackbar Anchor</string>
+    <string name="hs_wo_info">Hochschule Worms \nWintersemester 2020/2021 \nInformatics B.Sc.</string>
+    <string name="developer_info">by Daniel Langer, inf3005</string>
 </resources>
