@@ -10,10 +10,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.inf3005.android.vocabulario.R
 import com.inf3005.android.vocabulario.data.Vocabulary
@@ -28,9 +27,35 @@ class BinFragment : Fragment(R.layout.fragment_bin), VocabularyAdapter.EntryClic
 
     private lateinit var searchActionView: SearchView
 
+    private lateinit var fab: FloatingActionButton
+
     private val viewModel: BinViewModel by viewModels()
 
-    override fun onClick(entry: Vocabulary) {
+
+    override fun onCardClick(entry: Vocabulary) {
+        viewModel.updateBinnedState(entry, state = false)
+
+        Snackbar.make(
+            requireView(),
+            getString(R.string.restored_from_bin),
+            Snackbar.LENGTH_LONG
+        )
+            .setAction(getString(R.string.list_entry_undo)) {
+                viewModel.updateBinnedState(entry, state = true)
+            }
+            .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            .setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            .setAnchorView(fab)
+            .show()
+    }
+
+    /**
+     * Die Funktion muss überschrieben werden, weil das Fragment den EntryClickListener des
+     * Adapters erweitert. Da die Funktionalität im Papierkorb nicht benötigt wird, ist die
+     * Funktion nur rudimentär implementiert.
+     * */
+    override fun onTextToSpeechIconClick(entry: Vocabulary) {
+        return
     }
 
     @ExperimentalCoroutinesApi
@@ -39,6 +64,8 @@ class BinFragment : Fragment(R.layout.fragment_bin), VocabularyAdapter.EntryClic
         val binding = FragmentBinBinding.bind(view)
 
         val vocabularyAdapter = VocabularyAdapter(this)
+
+        fab = binding.fab
 
         binding.apply {
             list.apply {
@@ -49,17 +76,16 @@ class BinFragment : Fragment(R.layout.fragment_bin), VocabularyAdapter.EntryClic
 
             viewModel.binnedEntryCount.observe(viewLifecycleOwner) { entry ->
                 binding.emptyBinText.isVisible = entry == 0
-                binding.fab.isEnabled = entry != 0
+                fab.isEnabled = entry != 0
             }
 
-            binding.fab.setOnClickListener {
+            fab.setOnClickListener {
                 MaterialAlertDialogBuilder(requireContext())
                     .setTitle(getString(R.string.delete_all_entries_title))
                     .setMessage(getString(R.string.delete_all_entries))
                     .setCancelable(true)
                     .setPositiveButton(getString(R.string.delete_all_entries_positive)) { _, _ ->
                         viewModel.deleteBinnedEntries()
-
                         Toast.makeText(
                             context, getString(R.string.emptied_bin), Toast.LENGTH_LONG
                         )
@@ -75,37 +101,6 @@ class BinFragment : Fragment(R.layout.fragment_bin), VocabularyAdapter.EntryClic
             {
                 vocabularyAdapter.submitList(it)
             }
-
-            ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
-                0,
-                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-            ) {
-                override fun onMove(
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    target: RecyclerView.ViewHolder
-                ): Boolean {
-                    return false
-                }
-
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val entry = vocabularyAdapter.getEntryAt(viewHolder.adapterPosition)
-                    viewModel.updateBinnedState(entry, state = false)
-
-                    Snackbar.make(
-                        requireView(),
-                        getString(R.string.restored_from_bin),
-                        Snackbar.LENGTH_LONG
-                    )
-                        .setAction(getString(R.string.list_entry_undo)) {
-                            viewModel.updateBinnedState(entry, state = true)
-                        }
-                        .setActionTextColor(ContextCompat.getColor(context!!, R.color.black))
-                        .setTextColor(ContextCompat.getColor(context!!, R.color.black))
-                        .setAnchorView(binding.fab)
-                        .show()
-                }
-            }).attachToRecyclerView(list)
 
             setHasOptionsMenu(true)
         }

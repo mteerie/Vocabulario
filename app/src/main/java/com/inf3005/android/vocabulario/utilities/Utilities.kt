@@ -1,11 +1,15 @@
 package com.inf3005.android.vocabulario.utilities
 
 import android.app.Activity
+import android.speech.tts.TextToSpeech
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.inf3005.android.vocabulario.R
 import com.inf3005.android.vocabulario.data.Difficulty
@@ -31,6 +35,14 @@ fun ImageView.setDifficultyColor(entry: Vocabulary) {
             else -> ContextCompat.getColor(context, R.color.green_600)
         }
     )
+}
+
+@BindingAdapter("tts")
+fun ImageView.setVisibility(entry: Vocabulary) {
+    visibility = when (entry.binned) {
+        false -> VISIBLE
+        true -> GONE
+    }
 }
 
 /**

@@ -29,7 +29,12 @@ class VocabularyAdapter(private val clickListener: EntryClickListener) :
             binding.apply {
                 root.setOnClickListener {
                     if (adapterPosition != RecyclerView.NO_POSITION)
-                        clickListener.onClick(getItem(adapterPosition))
+                        clickListener.onCardClick(getItem(adapterPosition))
+                }
+
+                textToSpeechIcon.setOnClickListener {
+                    if (adapterPosition != RecyclerView.NO_POSITION)
+                        clickListener.onTextToSpeechIconClick(getItem(adapterPosition))
                 }
             }
         }
@@ -43,7 +48,8 @@ class VocabularyAdapter(private val clickListener: EntryClickListener) :
     }
 
     interface EntryClickListener {
-        fun onClick(entry: Vocabulary)
+        fun onCardClick(entry: Vocabulary)
+        fun onTextToSpeechIconClick(entry: Vocabulary)
     }
 
     fun getEntryAt(position: Int): Vocabulary {

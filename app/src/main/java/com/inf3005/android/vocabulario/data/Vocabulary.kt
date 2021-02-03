@@ -25,6 +25,7 @@ data class Vocabulary(
     @ColumnInfo(name = "difficulty")
     val difficulty: Difficulty = Difficulty.EASY,
 
+    @ColumnInfo(name = "binned")
     val binned: Boolean = false,
 
     @PrimaryKey(autoGenerate = true)

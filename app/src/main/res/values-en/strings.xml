@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Vocabulario</string>
-    <string name="vocabulary_list">Vocabulary List</string>
+    <string name="vocabulary_list">Vocabulary</string>
     <string name="info_text_1">This app is still in development.</string>
     <string name="menu_info">Information</string>
     <string name="spanish">Spanish</string>
