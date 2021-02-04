@@ -3,8 +3,12 @@
 
     <font
         android:fontStyle="normal"
-        android:fontWeight="500"
-        android:font="@font/roboto_medium"
+        android:fontWeight="300"
+        android:font="@font/roboto_lightitalic"/>
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/roboto_regular"
         />
 
     <font
@@ -12,5 +16,11 @@
         android:fontWeight="400"
         android:font="@font/roboto_italic"
         />
+
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="500"
+        android:font="@font/roboto_medium"/>
+
 
 </font-family>
