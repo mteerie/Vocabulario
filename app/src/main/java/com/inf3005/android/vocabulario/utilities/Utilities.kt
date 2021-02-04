@@ -78,7 +78,7 @@ class KeyboardUtilities {
  * Adaptiert an Funktionalität von stackoverflow-Nutzer Mike M. (36250280).
  *
  * Es wird ein Interface implementiert, über dessen Funktion setDrawerState festgelegt wird,
- * ob der Navigation Drawer per Gesten geöffnet werden kann.
+ * ob der Navigation Drawer per Geste geöffnet werden kann.
  * */
 interface NavigationDrawerState {
     fun setDrawerState(enabled: Boolean)

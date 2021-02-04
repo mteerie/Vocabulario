@@ -72,7 +72,10 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
         recyclerView = binding.list
 
         // Spracheinstellung für die Text-to-Speech-Engine definieren
-        val spaLocale = Locale("spa", "MEX")
+        val esLocale = Locale("es", "ES")
+
+//        Zu Testzwecken: Bietet andere TTS-Stimme als esLocale - interessant.
+//        val spalocale = Locale("spa", "SPA")
 
         binding.apply {
             list.apply {
@@ -96,10 +99,9 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
             tts = TextToSpeech(requireContext()) { status ->
                 GlobalScope.launch {
                     if (status != TextToSpeech.ERROR
-                        && tts.defaultEngine.isNotBlank()) {
-                        tts.language = spaLocale
-                        tts.setSpeechRate(0.9F)
-                        tts.setPitch(1.1F)
+                        && tts.defaultEngine.isNotBlank()
+                    ) {
+                        tts.language = esLocale
                     }
                 }
             }
@@ -165,17 +167,17 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
 
             /**
              * OnScrollListener für die RecyclerView, der verwendet wird, um die Sichtbarkeit
-             * des scrollToTop-Button in der ActionBar zu regeln.
+             * des scrollToTop-Button in der ActionBar und des FAB zu regeln.
              *
-             * Wird nach unten gescrollt -> setze die Sichtbarkeit auf true.
+             * Wird nach unten gescrollt -> setze die Sichtbarkeit auf true, bzw false (für FAB).
              *
-             * Die Abfrage für Scrollen nach oben ist komplizierter, da hier berücksichtigt werden
-             * muss, ob der Nutzer selbst nach oben scrollt und den Anfang erreicht, oder ob
-             * die Liste grundsätzlich am Anfang steht (nicht nach oben scrollbar ist).
+             * Die Abfrage für Scrollen nach oben muss prüfen, ob die Liste nicht weiter nach oben
+             * gescrollt werden kann - also, ob der Anfang der Liste erreicht wurde. Ist dies der
+             * Fall, so soll der ScrollToTop-Button auch wieder versteckt und der FAB angezeigt
+             * werden.
              *
-             * Letzteres ist wichtig zu beachten, weil über die onSwiped-Funktion des
-             * ItemTouchHelper Einträge entfernt werden können, wodurch die Liste selbst "scrollt"
-             * - ohne direkte Nutzereingabe.
+             * Darüber hinaus wird mit einer weiteren Abfrage geprüft ob der Nutzer nach unten
+             * scrollt. Ist dies der Fall, soll der FAB versteckt werden.
              * */
             list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -290,7 +292,7 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
     override fun onPrepareOptionsMenu(menu: Menu) {
         /**
          * Über den Observer der entryCount-LiveData wird die Sichtbarkeit der Suchfunktion
-         * geregelt. Sollten die Datenbank keine Einträge mit binned = 0 enthalten, soll die
+         * geregelt. Enthält die Datenbank keine Einträge mit binned = 0, soll die
          * Suchfunktion nicht in der ActionBar angezeigt werden.
          * */
         val searchOption = menu.findItem(R.id.option_search)

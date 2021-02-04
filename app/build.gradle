@@ -14,7 +14,7 @@ android {
     defaultConfig {
         applicationId "com.inf3005.android.vocabulario"
         minSdkVersion 24
-        targetSdkVersion 28
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
