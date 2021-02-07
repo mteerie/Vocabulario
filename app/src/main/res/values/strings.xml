@@ -41,7 +41,7 @@
     <string name="hs_wo_info">Hochschule Worms \nWintersemester 2020/2021 \nAngewandte Informatik</string>
     <string name="project_description">Diese App wurde als Projekt für das Modul \nEntwicklung mobiler Anwendungen entwickelt.</string>
     <string name="developer_info">von Daniel Langer (inf3005)</string>
-    <string name="app_description">Eine einfach zu pflegende Vokabelliste \nmit Fokus auf Usability.</string>
+    <string name="app_description">Eine einfach zu pflegende Vokabelliste \nmit Fokus auf Benutzerfreundlichkeit.</string>
     <string name="tts_info">Vocabulario spricht bei Berührung des \nLautsprechers das spanische Wort aus.</string>
     <string name="tts_requirement">Erfordert die Installation einer Text-to-Speech-Engine.</string>
     <string name="entry_contents_info">Ein Listeneinträg enthält:</string>

@@ -42,15 +42,10 @@ abstract class VocabularyDatabase : RoomDatabase() {
                 dao.clearList()
 
                 dao.insert(Vocabulary("Auto", "coche", Difficulty.EASY))
-                dao.insert(Vocabulary("Berg", "montaña", Difficulty.EASY))
-                dao.insert(Vocabulary("Büro", "officina", Difficulty.EASY))
                 dao.insert(Vocabulary("Entwicklung", "desarrollo", Difficulty.INTERMEDIATE))
-                dao.insert(Vocabulary("Mobiltelefon", "móvil", Difficulty.EASY))
-                dao.insert(Vocabulary("Pfannkuchen", "panqueques", Difficulty.INTERMEDIATE))
-                dao.insert(Vocabulary("schwimmen", "nadar", Difficulty.EASY))
                 dao.insert(Vocabulary(
-                        "Finanzdienstleistungsunternehmen",
-                        "empresa de servicios financieros", Difficulty.HARD))
+                        "Schifffahrtskapitän",
+                        "capitán de envío", Difficulty.HARD))
                 dao.insert(Vocabulary(
                         "Papierkorb", "papelera", Difficulty.EASY, binned = true))
             }
