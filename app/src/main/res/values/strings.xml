@@ -39,8 +39,14 @@
     <string name="scroll_to_top">Zum Listenanfang</string>
     <string name="snackbar_anchor">Snackbar Anchor</string>
     <string name="hs_wo_info">Hochschule Worms \nWintersemester 2020/2021 \nAngewandte Informatik</string>
-    <string name="info_text">Diese App wurde als Projekt für das Modul \nEntwicklung mobiler Anwendungen entwickelt.</string>
+    <string name="project_description">Diese App wurde als Projekt für das Modul \nEntwicklung mobiler Anwendungen entwickelt.</string>
     <string name="developer_info">von Daniel Langer (inf3005)</string>
-    <string name="app_info_text">Eine einfach zu pflegende Vokabelliste \nmit Fokus auf Usability.</string>
+    <string name="app_description">Eine einfach zu pflegende Vokabelliste \nmit Fokus auf Usability.</string>
+    <string name="tts_info">Vocabulario spricht bei Berührung des \nLautsprechers das spanische Wort aus.</string>
+    <string name="tts_requirement">Erfordert die Installation einer Text-to-Speech-Engine.</string>
+    <string name="entry_contents_info">Ein Listeneinträg enthält:</string>
+    <string name="entry_contents_bullets">• ein deutsches Wort \n• ein spanisches Wort \n• einen Schwierigkeitsgrad</string>
+    <string name="delete_info">Listeneinträge können durch Wischen \nin den Papierkorb verschoben werden.</string>
+    <string name="restore_info">Einträge im Papierkorb können durch \nAntippen wiederhergestellt werden.</string>
 
 </resources>

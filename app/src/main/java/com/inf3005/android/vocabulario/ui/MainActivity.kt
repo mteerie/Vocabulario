@@ -30,8 +30,11 @@ class MainActivity : AppCompatActivity(), NavigationDrawerState {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-//        Für die Theme-Variante des Splash-Screens vorübergehend eingebaut.
-//        setTheme(R.style.Theme_Vocabulario)
+        /**
+         * Splash Screen verwendet ein eigenes Theme. Beim Start der Main Activity muss das
+         * korrekte App-Theme gesetzt werden.
+         * */
+        setTheme(R.style.Theme_Vocabulario)
 
         super.onCreate(savedInstanceState)
 

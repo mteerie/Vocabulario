@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -74,8 +75,8 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
         // Spracheinstellung für die Text-to-Speech-Engine definieren
         val esLocale = Locale("es", "ES")
 
-//        Zu Testzwecken: Bietet andere TTS-Stimme als esLocale - interessant.
-//        val spalocale = Locale("spa", "SPA")
+//        Zu Testzwecken: Bietet andere TTS-Stimme als esLocale.
+//        val mexlocale = Locale("es", "MEX")
 
         binding.apply {
             list.apply {
@@ -98,9 +99,7 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
              * */
             tts = TextToSpeech(requireContext()) { status ->
                 GlobalScope.launch {
-                    if (status != TextToSpeech.ERROR
-                        && tts.defaultEngine.isNotBlank()
-                    ) {
+                    if (status != TextToSpeech.ERROR) {
                         tts.language = esLocale
                     }
                 }
@@ -184,8 +183,7 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
                     if (dy > 0) {
                         viewModel.setScrollableState(true)
                         binding.fab.hide()
-                    } else if (!list.canScrollVertically(-1)
-                    ) {
+                    } else if (!list.canScrollVertically(-1)) {
                         viewModel.setScrollableState(false)
                         binding.fab.show()
                     } else if (dy < 0)

@@ -11,10 +11,11 @@
     <application
         android:name=".utilities.VocabularyApplication"
         android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Vocabulario"
-        android:icon="@mipmap/ic_launcher">
+        android:theme="@style/Theme.Vocabulario.Launcher">
         <activity
             android:name=".ui.MainActivity"
             android:screenOrientation="portrait"
@@ -24,7 +25,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
-
 </manifest>

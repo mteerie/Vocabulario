@@ -12,7 +12,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
 
         <item name="snackbarStyle">@style/secondaryColorSnackBar</item>
-        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:fontFamily">@font/roboto_font_family</item>
     </style>
 
     <style name="Theme.Vocabulario.Launcher">

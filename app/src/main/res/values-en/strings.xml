@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Vocabulario</string>
     <string name="vocabulary_list">Vocabulary</string>
-    <string name="info_text">This app was developed as a project for the module Entwicklung mobiler Anwendungen.</string>
+    <string name="project_description">This app was developed as a project for the module Entwicklung mobiler Anwendungen.</string>
     <string name="spanish">Spanish</string>
     <string name="german">German</string>
     <string name="list_entry_moved_to_bin">Moved to the recycle bin.</string>
@@ -35,5 +35,11 @@
     <string name="snackbar_anchor">Snackbar Anchor</string>
     <string name="hs_wo_info">Hochschule Worms \nWintersemester 2020/2021 \nInformatics B.Sc.</string>
     <string name="developer_info">by Daniel Langer (inf3005)</string>
-    <string name="app_info_text">An easy to maintain vocabulary list \nwith a focus on usability.</string>
+    <string name="app_description">An easy to maintain vocabulary list \nwith a focus on usability.</string>
+    <string name="tts_info">Touching the speaker icon causes Vocabulario \nto say the Spanish word out loud.</string>
+    <string name="tts_requirement">Requires installation of a Text-to-Speech-Engine.</string>
+    <string name="entry_contents_info">A list entry contains:</string>
+    <string name="entry_contents_bullets">• a German word \n• a Spanish word \n• a difficulty</string>
+    <string name="delete_info">List entries can be moved to the recycle bin \nby swiping them away.</string>
+    <string name="restore_info">Entries in the recycle bin can be restored \nby tapping them.</string>
 </resources>
