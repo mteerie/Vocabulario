@@ -13,7 +13,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/app_info"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
@@ -57,6 +57,19 @@
                     app:layout_constraintTop_toBottomOf="@id/app_icon" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/app_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/black"
+                    android:text="@string/app_description"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/app_name" />
+
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/developer_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -66,20 +79,7 @@
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/app_name" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/app_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/roboto_light"
-                    android:text="@string/app_description"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/developer_info" />
+                    app:layout_constraintTop_toBottomOf="@+id/app_description" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -87,7 +87,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/first_feature"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
@@ -123,6 +123,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:text="@string/entry_contents_info"
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/first_screenshot" />
@@ -133,6 +134,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto_light"
+                    android:textColor="@color/black"
                     android:text="@string/entry_contents_bullets"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -144,7 +146,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/second_feature"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:clickable="false"
@@ -175,6 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:textColor="@color/black"
                     android:fontFamily="@font/roboto_regular"
                     android:text="@string/tts_info"
                     android:textAlignment="center"
@@ -201,7 +204,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/third_feature"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:clickable="false"
@@ -233,6 +236,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/black"
                     android:text="@string/delete_info"
                     android:textAlignment="center"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -245,6 +249,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto_light"
+                    android:textColor="@color/black"
                     android:text="@string/restore_info"
                     android:textAlignment="center"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -257,7 +262,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/project_info"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
@@ -307,9 +312,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto_light"
+                    android:textColor="@color/black"
                     android:text="@string/project_description"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/hs_wo_info" />
