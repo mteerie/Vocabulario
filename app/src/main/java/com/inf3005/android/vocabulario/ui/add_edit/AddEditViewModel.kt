@@ -14,53 +14,63 @@ class AddEditViewModel @ViewModelInject constructor(
     private val dao: VocabularyDao
 ) : ViewModel() {
 
+    // Speichere das Parcelable "entry" aus der Navigationsaktion - kann null sein.
     val entry = state.get<Vocabulary>("entry")
 
-    var entryGermanValue = state.get<String>("entryGermanValue") ?: entry?.de ?: ""
+    /**
+     * Versuche zunächst die Variablen mit Werten aus state zu befüllen. Ist dies nicht möglich,
+     * versuche sie mit den Attributen von entry zu befüllen. Ist entry null, weise über den Elvis-
+     * Operator entsprechende Werte zu.
+     * */
+    var entryGermanValue = state.get<String>("de") ?: entry?.de ?: ""
         set(value) {
             field = value
-            state.set("entryGermanValue", value)
+            state.set("de", value)
         }
 
-    var entrySpanishValue = state.get<String>("entrySpanishValue") ?: entry?.sp ?: ""
+    var entrySpanishValue = state.get<String>("sp") ?: entry?.sp ?: ""
         set(value) {
             field = value
-            state.set("entrySpanishValue", value)
+            state.set("sp", value)
         }
 
-    var entryDifficulty = state.get<Difficulty>("entryDifficulty")
+    var entryDifficulty = state.get<Difficulty>("difficulty")
         ?: entry?.difficulty ?: Difficulty.EASY
         set(value) {
             field = value
-            state.set("entryDifficulty", value)
+            state.set("difficulty", value)
         }
 
-    private val _spTextChangedState = MutableStateFlow(entrySpanishValue.isNotBlank())
+    /**
+     * StateFlows, die über den Status des submitButton in AddEditFragment entscheiden.
+     * */
+    private val _spTextValidState = MutableStateFlow(entrySpanishValue.isNotBlank())
 
-    var spTextChangedState = _spTextChangedState.asStateFlow()
+    var spTextValidState = _spTextValidState.asStateFlow()
 
-    fun setSpTextChangedState(state: Boolean) {
-        _spTextChangedState.value = state
+    fun setSpTextValidState(state: Boolean) {
+        _spTextValidState.value = state
     }
 
-    private val _deTextChangedState = MutableStateFlow(entryGermanValue.isNotBlank())
+    private val _deTextValidState = MutableStateFlow(entryGermanValue.isNotBlank())
 
-    var deTextChangedState = _deTextChangedState.asStateFlow()
+    var deTextValidState = _deTextValidState.asStateFlow()
 
-    fun setDeTextChangedState(state: Boolean) {
-        _deTextChangedState.value = state
+    fun setDeTextValidState(state: Boolean) {
+        _deTextValidState.value = state
     }
 
     private val submitButtonStateFlow = combine(
-        spTextChangedState,
-        deTextChangedState
-    ) { spTextChangedState, deTextChangedState ->
-        Pair(spTextChangedState, deTextChangedState)
+        spTextValidState,
+        deTextValidState
+    ) { spTextValidState, deTextValidState ->
+        Pair(spTextValidState, deTextValidState)
     }
 
+    // Wird von Observer in AddEditFragment verwendet.
     val submitButtonState = submitButtonStateFlow.asLiveData()
 
-    fun onClick() {
+    fun onSubmitClick() {
         if (entry != null)
             update(
                 entry.copy(

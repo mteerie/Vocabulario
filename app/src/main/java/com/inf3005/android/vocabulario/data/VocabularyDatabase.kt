@@ -9,11 +9,12 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 /**
- * Diese abstrakte Klasse definiert die tatsächliche Room-Datenbank, die auf der Entity in
- * Vocabulary.kt aufbaut. Innerhalb von VocabularyDatabase wird eine weitere Klasse
- * VocabularyDatabaseCallback erzeugt. Diese Klasse wird im DependencyInjectionModule über
- * .addCallback eingesetzt, um die Datenbank bei Erzeugung bereits mit einigen Daten befüllen zu
- * können.
+ * Teile Room die Entitäten mit, welche Teil der Datenbank sein sollen.
+ *
+ * Erzeuge ein Callback, das die Datenbank im Auslieferungszustand mit Daten befüllt.
+ *
+ * Der Callback überschreibt die Methode onCreate -- er wird also nur bei erster Erzeugung der
+ * Datenbank aufgerufen.
  * */
 @Database(entities = [Vocabulary::class], version = 5)
 abstract class VocabularyDatabase : RoomDatabase() {
@@ -32,13 +33,6 @@ abstract class VocabularyDatabase : RoomDatabase() {
 
             scope.launch {
 
-                /**
-                 * Dieser Codeblock dient dazu die Datenbank im Auslieferungszustand bereits
-                 * befüllen zu können.
-                 *
-                 * Der Code wird nur bei Erzeugung der Datenbank aufgerufen, d.h. bei
-                 * Installation der App auf einem Endgerät oder Emulator.
-                 * */
                 dao.clearList()
 
                 dao.insert(Vocabulary("Auto", "coche", Difficulty.EASY))

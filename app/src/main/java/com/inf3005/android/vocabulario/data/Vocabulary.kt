@@ -5,12 +5,7 @@ import androidx.room.*
 import kotlinx.parcelize.Parcelize
 
 /**
- * Hier wird die Entitiy erzeugt, d.h. der Datenbankrohling mit dem in der eigentlich Room-
- * Datenbank weiter gearbeitet wird.
- *
- * Es wird eine Tabelle mit drei Attributen erzeugt - einer ID (Primärschlüssel),
- * einem String für das Deutsche Wort und
- * einem String für das Spanische Wort.
+ * Erstelle eine Entity, mit der später die Room-Datenbank erzeugt werden kann.
  * */
 @Entity(tableName = "vocabulary")
 @Parcelize

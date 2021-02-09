@@ -26,49 +26,67 @@ class AddEditFragment : Fragment(R.layout.fragment_add_edit) {
 
         val binding = FragmentAddEditBinding.bind(view)
 
+        // Wird mit spinnerAdapter verwendet, um Schwierigkeitsgrade in einem Dropdown anzuzeigen.
         val spinnerItems = listOf(
             getString(R.string.difficulty_easy),
             getString(R.string.difficulty_intermediate),
             getString(R.string.difficulty_hard)
         )
 
+        // Adapter für spinnerLayout.
         val spinnerAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item, spinnerItems)
 
         binding.apply {
 
+            // Observer entscheidet über submitButton-Status, abhängig von StateFlows im ViewModel.
             viewModel.submitButtonState.observe(viewLifecycleOwner)
             {
                 submitButton.isEnabled = it.first && it.second
             }
 
+            // Text im Textfeld wird entsprechend der Variable im ViewModel gesetzt.
             inputDe.editText?.setText(viewModel.entryGermanValue)
+
+            // Setze bei Änderung der Texteingabe die Variable im ViewModel.
             inputDe.editText?.addTextChangedListener {
                 viewModel.entryGermanValue = it.toString()
 
-                viewModel.setDeTextChangedState(
+                // Eingabe gilt nur als gültig wenn sie nicht leer oder länger als 32 Zeichen ist.
+                viewModel.setDeTextValidState(
                     (viewModel.entryGermanValue.trim().isNotBlank()
                             && viewModel.entryGermanValue.trim().length <= 32)
                 )
             }
 
+            // Wie oben.
             inputSp.editText?.setText(viewModel.entrySpanishValue)
+
             inputSp.editText?.addTextChangedListener {
                 viewModel.entrySpanishValue = it.toString()
 
-                viewModel.setSpTextChangedState(
+                viewModel.setSpTextValidState(
                     (viewModel.entrySpanishValue.trim().isNotBlank()
                             && viewModel.entrySpanishValue.trim().length <= 32)
                 )
             }
 
+            // Verknüpfe spinnerLayout als AutoCompleteTextView mit Adapter.
             (spinnerLayout.editText as? AutoCompleteTextView)?.setAdapter(spinnerAdapter)
 
+            /**
+             * Setze die Auswahl des Dropdown-Menü entsprechend der Schwierigkeit, die im ViewModel
+             * gespeichert ist.
+             *
+             * filter: false ist notwendig, da sonst die Auswahloptionen des Dropdown-Menü auf
+             * die über getItem().toString() gesetzte Schwierigkeit beschränkt wird.
+             * */
             (spinnerLayout.editText as? AutoCompleteTextView)?.setText(
                 spinnerAdapter
                     .getItem(viewModel.entryDifficulty.ordinal - 1)
                     .toString(), false
             )
 
+            // Passe die Variable im ViewModel bei Änderung der Auswahl im Dropdown an.
             spinnerLayout.editText?.addTextChangedListener {
                 when (it.toString()) {
                     getString(R.string.difficulty_easy) -> viewModel
@@ -81,7 +99,7 @@ class AddEditFragment : Fragment(R.layout.fragment_add_edit) {
             }
 
             submitButton.setOnClickListener {
-                viewModel.onClick()
+                viewModel.onSubmitClick()
                 findNavController().popBackStack()
             }
         }

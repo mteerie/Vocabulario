@@ -17,16 +17,8 @@ interface VocabularyDao {
     suspend fun delete(entry: Vocabulary)
 
     /**
-     * Gibt die gesamte Tabelle zurück. Zur Verwendung mit RecyclerView,
-     * um alle Vokabeln anzuzeigen.
-     *
-     * Als Parameter wird ein String übergeben, der mithilfe des Flow-Operators 'flatMapLatest'
-     * verwendet wird, um die Objekte der Relation zu durchsuchen. In Verwendung mit der Such-
-     * Funktion des ListFragments.
-     *
-     * Innerhalb der Queries wird '%' als Platzhalter verwendet, sodass die Nutzereingabe auch nur teilweise dem
-     * Objekt der Relation entsprechen kann - ist userQuery == 'uto' soll also trotzdem ein Eintrag
-     * mit Wert 'auto' in einem der Attribute angezeigt werden.
+     * Funktion, die abhängig von userQuery und entryOrder die passende Datenbankanfragefunktion
+     * aufruft.
      * */
     fun getAllEntries(
         userQuery: String,
@@ -39,6 +31,11 @@ interface VocabularyDao {
             SortBy.DIFFICULTY_DESC -> getAllEntriesByDifficultyDescending(userQuery)
         }
 
+    /**
+     * Datenbankanfragefunktionen, die von getAllEntries aufgerufen werden können.
+     *
+     * userQuery dient als Platzhalter für die Suchfeldeingabe des Nutzers.
+     * */
     @Query("SELECT * FROM vocabulary WHERE (binned = 0) AND german LIKE '%' || :userQuery || '%' OR (binned = 0) AND spanish LIKE '%' || :userQuery || '%' ORDER BY UPPER(german)")
     fun getAllEntriesByGerman(userQuery: String): Flow<List<Vocabulary>>
 
@@ -51,12 +48,16 @@ interface VocabularyDao {
     @Query("SELECT * FROM vocabulary WHERE (binned = 0) AND german LIKE '%' || :userQuery || '%' OR (binned = 0) AND spanish LIKE '%' || :userQuery || '%' ORDER BY difficulty DESC, UPPER(german)")
     fun getAllEntriesByDifficultyDescending(userQuery: String): Flow<List<Vocabulary>>
 
+    /**
+     * Datenbankanfragefunktion, die für die Darstellung der im Papierkorb befindlichen Einträge
+     * verwendet wird.
+     * */
     @Query("SELECT * FROM vocabulary WHERE (binned = 1) AND german LIKE '%' || :userQuery || '%' OR (binned = 1) AND spanish LIKE '%' || :userQuery || '%' ORDER BY UPPER(german)")
     fun getAllBinnedEntries(userQuery: String): Flow<List<Vocabulary>>
 
     /**
-     * Zählt die Anzahl der Einträge in der Relation. Wird primär verwendet, um die Anzeige
-     * des Alle-Einträge-Löschen-Buttons im ListFragment zu kontrollieren.
+     * Datenbankanfragefunktionen, die verwendet werden, um respektive alle Einträge zu zählen, die
+     * sich entweder im Papierkorb befinden, oder nicht.
      * */
     @Query("SELECT COUNT(vocId) FROM vocabulary WHERE binned = 0")
     fun countEntries(): Flow<Int>
@@ -65,9 +66,8 @@ interface VocabularyDao {
     fun countBinnedEntries(): Flow<Int>
 
     /**
-     * Löscht alle Einträge in der Tabelle. Derzeit nur in Verwendung mit dem Database-Callback
-     * in VocabularyDatabase.kt, um bei Erstellung der Datenbank zur Sicherheit etwaige bereits
-     * vorhandene Einträge zu löschen.
+     * Datenbankanfragefunktionen, die verwendet werden, um respektive ALLE Einträge in der
+     * Datenbank zu löschen, oder nur jene, die sich im Papierkorb befinden.
      * */
     @Query("DELETE FROM vocabulary")
     suspend fun clearList()

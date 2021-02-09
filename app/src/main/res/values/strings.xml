@@ -43,7 +43,7 @@
     <string name="developer_info">von Daniel Langer (inf3005)</string>
     <string name="app_description">Eine einfach zu pflegende Vokabelliste \nmit Fokus auf Benutzerfreundlichkeit.</string>
     <string name="tts_info">Vocabulario spricht bei Berührung des \nLautsprechers das spanische Wort aus.</string>
-    <string name="tts_requirement">Erfordert die Installation einer Text-to-Speech-Engine.</string>
+    <string name="tts_requirement">Setzt Installation einer Text-to-Speech-Engine voraus.</string>
     <string name="entry_contents_info">Ein Listeneinträg enthält:</string>
     <string name="entry_contents_bullets">• ein deutsches Wort \n• ein spanisches Wort \n• einen Schwierigkeitsgrad</string>
     <string name="delete_info">Listeneinträge können durch Wischen \nin den Papierkorb verschoben werden.</string>

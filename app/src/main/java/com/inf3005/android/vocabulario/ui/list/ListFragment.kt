@@ -75,8 +75,8 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
         // Spracheinstellung für die Text-to-Speech-Engine definieren
         val esLocale = Locale("es", "ES")
 
-//        Zu Testzwecken: Bietet andere TTS-Stimme als esLocale.
-//        val mexlocale = Locale("es", "MEX")
+        // Zu Testzwecken: Bietet andere TTS-Stimme als esLocale.
+        // val mexlocale = Locale("es", "MEX")
 
         binding.apply {
             list.apply {
