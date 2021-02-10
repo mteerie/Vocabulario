@@ -1,26 +1,33 @@
 package com.inf3005.android.vocabulario.ui.list
 
+import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.inf3005.android.vocabulario.data.Vocabulary
 import com.inf3005.android.vocabulario.data.VocabularyDao
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 
 class BinViewModel @ViewModelInject constructor(
-    private val dao: VocabularyDao
+    private val dao: VocabularyDao,
+    @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
 
-    val currentSearchQuery = MutableStateFlow("")
+    // Analog zu ListViewModel
+    private val currentBinSearchQuery = state.getLiveData("currentSearchQuery", "")
+
+    fun setBinSearchQuery(query: String?) {
+        currentBinSearchQuery.value = query
+    }
+
+    fun getBinSearchQuery(): String? {
+        return currentBinSearchQuery.value
+    }
 
     @ExperimentalCoroutinesApi
     private val binnedEntriesFlow =
-        currentSearchQuery.flatMapLatest { query ->
+        currentBinSearchQuery.asFlow().flatMapLatest { query ->
             dao.getAllBinnedEntries(query)
         }
 

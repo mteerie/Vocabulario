@@ -19,8 +19,8 @@ class AddEditViewModel @ViewModelInject constructor(
 
     /**
      * Versuche zunächst die Variablen mit Werten aus state zu befüllen. Ist dies nicht möglich,
-     * versuche sie mit den Attributen von entry zu befüllen. Ist entry null, weise über den Elvis-
-     * Operator entsprechende Werte zu.
+     * versuche sie mit den Attributen von entry zu befüllen. Ist entry null, weise
+     * entsprechende Werte zu.
      * */
     var entryGermanValue = state.get<String>("de") ?: entry?.de ?: ""
         set(value) {

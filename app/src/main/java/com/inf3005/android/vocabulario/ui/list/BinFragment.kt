@@ -18,7 +18,6 @@ import com.inf3005.android.vocabulario.R
 import com.inf3005.android.vocabulario.data.Vocabulary
 import com.inf3005.android.vocabulario.data.VocabularyAdapter
 import com.inf3005.android.vocabulario.databinding.FragmentBinBinding
-import com.inf3005.android.vocabulario.utilities.onQueryChanged
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -124,25 +123,26 @@ class BinFragment : Fragment(R.layout.fragment_bin), VocabularyAdapter.EntryClic
 
         val searchOption = menu.findItem(R.id.option_search)
 
-        val pendingQuery = viewModel.currentSearchQuery.value
-
-        if (pendingQuery.isNotEmpty()) {
-            searchOption.expandActionView()
-            searchActionView.setQuery(pendingQuery, false)
-        }
-
         searchActionView = searchOption.actionView as SearchView
 
-        /**
-         * Verwendet die in Extensions.kt deklarierte Extension-Inline-Funktion 'onQueryTextChanged'
-         * für ein SearchView-Objekt.
-         *
-         * Nutzereingabe im SearchView-Suchfeld ruft die Extension-Funktion auf, wodurch bei
-         * Eingabe/Änderung der Eingabe der Suchstring in den MutableStateFlow 'currentSearchQuery'
-         * des ViewModels geschrieben wird.
-         * */
-        searchActionView.onQueryChanged { query ->
-            query.let { viewModel.currentSearchQuery.value = query }
+        val stateQuery = viewModel.getBinSearchQuery()
+
+        if (!stateQuery.isNullOrEmpty()) {
+            searchOption.expandActionView()
+            searchActionView.setQuery(stateQuery, false)
         }
+
+        // Analog zu Funktionalität in ListFragment.
+        searchActionView
+            .setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    viewModel.setBinSearchQuery(newText)
+                    return true
+                }
+            })
     }
 }

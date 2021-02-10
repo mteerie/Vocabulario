@@ -11,8 +11,17 @@
         android:label="@string/vocabulary_list"
         tools:layout="@layout/fragment_list">
         <action
-            android:id="@+id/action_listFragment_to_addEditFragment"
-            app:destination="@id/addEditFragment" />
+            android:id="@+id/action_listFragment_editEntry"
+            app:destination="@id/addEditFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_listFragment_addEntry"
+            app:destination="@id/addEditFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/infoFragment"

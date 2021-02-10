@@ -18,8 +18,7 @@
         android:theme="@style/Theme.Vocabulario.Launcher">
         <activity
             android:name=".ui.MainActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

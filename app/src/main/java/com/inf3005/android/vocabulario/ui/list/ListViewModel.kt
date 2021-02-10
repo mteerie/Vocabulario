@@ -1,10 +1,8 @@
 package com.inf3005.android.vocabulario.ui.list
 
+import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.inf3005.android.vocabulario.data.Vocabulary
 import com.inf3005.android.vocabulario.data.VocabularyDao
 import com.inf3005.android.vocabulario.utilities.DataStorePreferences
@@ -17,35 +15,37 @@ import kotlinx.coroutines.launch
 
 class ListViewModel @ViewModelInject constructor(
     private val dao: VocabularyDao,
-    private val preferences: DataStorePreferences
+    private val preferences: DataStorePreferences,
+    @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
 
     /**
-     * Zunächst ein leerer String, der mit der Eingabe der SearchView im ListFragment befüllt wird.
-     *
-     * Ein leerer String wird übergeben, sodass die Funktion getAllEntries für die RecyclerView
-     * alle Einträge zurückgibt, ohne dass bereits etwas gefiltert wird.
-     *
-     * MutableStateFlow wird verwendet, weil er änderbar sein muss (Nutzereingabe, Mutable) und
-     * sonst nur gebraucht wird, um seinen Collector (vocabularyEntries) über Änderungen in
-     * Kenntnis zu setzen.
+     * Speichert und holt Sucheingabe des Nutzers in/aus state.
      * */
-    val currentSearchQuery = MutableStateFlow("")
+    private val currentSearchQuery = state.getLiveData("currentSearchQuery", "")
+
+    fun setSearchQuery(query: String?) {
+        currentSearchQuery.value = query
+    }
+
+    fun getSearchQuery(): String? {
+        return currentSearchQuery.value
+    }
 
     /**
      * Innerhalb dieses Flows wird der dataStoreFlow der Klasse DataStorePreferences zwischen-
      * gespeichert. Er wird im vocabularyEntries-Flow verwendet, um den Wert zu erhalten, der
      * derzeitig im val sortBy innerhalb des map-Operators in DataStorePreferences gespeichert ist.
      * */
-    val preferencesFlow = preferences.dataStoreFlow
+    val userPrefFlow = preferences.dataStoreFlow
 
-    private val _scrollableListFlow = MutableStateFlow(false)
+    private val scrollToTopVisibleState = MutableStateFlow(false)
 
-    fun setScrollableState(state: Boolean) {
-        _scrollableListFlow.value = state
+    fun setScrollToTopVisible(state: Boolean) {
+        scrollToTopVisibleState.value = state
     }
 
-    val listScrollableState = _scrollableListFlow.asLiveData()
+    val scrollToTopVisible = scrollToTopVisibleState.asLiveData()
 
     /**
      * Collector für currentSearchQuery. Der flatMapLatest-Operator ruft bei Änderung des Wertes
@@ -64,8 +64,8 @@ class ListViewModel @ViewModelInject constructor(
     @ExperimentalCoroutinesApi
     private val vocabularyEntries =
         combine(
-            currentSearchQuery,
-            preferencesFlow
+            currentSearchQuery.asFlow(),
+            userPrefFlow
         ) { query, preferences ->
             Pair(query, preferences)
         }.flatMapLatest { (query, preferences) ->
@@ -80,10 +80,6 @@ class ListViewModel @ViewModelInject constructor(
     fun updateBinnedState(entry: Vocabulary, state: Boolean) = viewModelScope.launch {
         dao.update(entry.copy(binned = state))
     }
-
-//    fun deleteAllEntries() = viewModelScope.launch {
-//        dao.clearList()
-//    }
 
     fun onSortOptionSelected(option: SortBy) = viewModelScope.launch {
         preferences.updateSort(option)

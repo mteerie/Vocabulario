@@ -13,7 +13,7 @@ import javax.inject.Provider
  *
  * Erzeuge ein Callback, das die Datenbank im Auslieferungszustand mit Daten befüllt.
  *
- * Der Callback überschreibt die Methode onCreate -- er wird also nur bei erster Erzeugung der
+ * Im Callback wird die Methode onCreate überschrieben -- er wird also nur bei erster Erzeugung der
  * Datenbank aufgerufen.
  * */
 @Database(entities = [Vocabulary::class], version = 5)
