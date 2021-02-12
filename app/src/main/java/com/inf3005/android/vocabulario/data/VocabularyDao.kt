@@ -32,9 +32,13 @@ interface VocabularyDao {
         }
 
     /**
-     * Datenbankanfragefunktionen, die von getAllEntries aufgerufen werden können.
-     *
      * userQuery dient als Platzhalter für die Suchfeldeingabe des Nutzers.
+     *
+     * Geben Flows aus, die Listen von Vocabulary-Objekten enthalten. Erlaubt einfaches Reagieren
+     * auf Änderungen an Datenbankeinträgen.
+     *
+     * '%' dient als Platzhalter, damit userQuery auch nur einen Teil der Werte abdecken kann.
+     * Beispiel: Eingabe 'uto' soll trotzdem Eintrag mit 'Auto' anzeigen können.
      * */
     @Query("SELECT * FROM vocabulary WHERE (binned = 0) AND german LIKE '%' || :userQuery || '%' OR (binned = 0) AND spanish LIKE '%' || :userQuery || '%' ORDER BY UPPER(german)")
     fun getAllEntriesByGerman(userQuery: String): Flow<List<Vocabulary>>

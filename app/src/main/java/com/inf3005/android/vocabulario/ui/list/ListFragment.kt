@@ -62,6 +62,7 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
         return
     }
 
+    @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         val binding = FragmentListBinding.bind(view)
@@ -82,7 +83,6 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
         binding.apply {
             list.apply {
                 adapter = vocabularyAdapter
-                layoutManager = LinearLayoutManager(requireContext())
                 setHasFixedSize(true)
             }
 

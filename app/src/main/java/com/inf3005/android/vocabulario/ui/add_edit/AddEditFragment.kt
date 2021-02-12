@@ -59,7 +59,7 @@ class AddEditFragment : Fragment(R.layout.fragment_add_edit) {
                 )
             }
 
-            // Wie oben.
+            // Siehe Zeile 48ff.
             inputSp.editText?.setText(viewModel.entrySpanishValue)
 
             inputSp.editText?.addTextChangedListener {

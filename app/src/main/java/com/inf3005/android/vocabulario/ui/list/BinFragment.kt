@@ -74,7 +74,6 @@ class BinFragment : Fragment(R.layout.fragment_bin), VocabularyAdapter.EntryClic
         binding.apply {
             list.apply {
                 adapter = vocabularyAdapter
-                layoutManager = LinearLayoutManager(requireContext())
                 setHasFixedSize(true)
             }
 
