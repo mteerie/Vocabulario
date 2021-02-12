@@ -46,19 +46,22 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
     // Überschreibe Funktionen des EntryClickListener-Interface.
     override fun onCardClick(entry: Vocabulary) {
         // Übergebe den geklickten entry und den Titel für das AddEditFragment
-        val action = ListFragmentDirections.actionListFragmentEditEntry(
+        val action = ListFragmentDirections.actionListFragmentToAddEditFragment(
             entry,
             getString(R.string.edit_entry)
         )
         findNavController().navigate(action)
+        return
     }
 
     override fun onTextToSpeechIconClick(entry: Vocabulary) {
-        // TTS-Engine Anweisung den spanischen Text auszusprechen.
+
+        // Spreche das ausgewählte Wort aus und speichere den Text im viewModel.
+        viewModel.setSpokenText(entry.sp)
         tts.speak(entry.sp, TextToSpeech.QUEUE_FLUSH, null, null)
+        return
     }
 
-    @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         val binding = FragmentListBinding.bind(view)
@@ -84,15 +87,15 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
             }
 
             /**
-             * Text-to-Speech-Engine initialisieren. Dies soll innerhalb einer Coroutine geschehen,
-             * um zusätzliche Verzögerungen beim Aufbau des Fragments bestmöglich zu vermeiden.
+             * Text-to-Speech-Objekt initialisieren. Geschieht innerhalb einer Coroutine, um
+             * Verzögerungen beim Aufbau des Fragments bestmöglich zu vermeiden.
              *
-             * Über die if-Abfrage wird geprüft, ob es Probleme beim Setup des TTS-Objekts gab
-             * und sichergestellt, dass zumindest eine TTS-Engine auf dem Gerät installiert und
-             * ausgewählt ist.
+             * Funktionalität erfordert, dass eine TTS-Engine auf dem Gerät installiert ist.
+             *
+             * if-Abfrage prüft, ob es Probleme beim Setup des TTS-Objekts gab.
              * */
             tts = TextToSpeech(requireContext()) { status ->
-                GlobalScope.launch {
+                lifecycleScope.launch {
                     if (status != TextToSpeech.ERROR) {
                         tts.language = esLocale
                     }
@@ -101,7 +104,7 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
 
             binding.fab.setOnClickListener {
                 // Analog zu onCardClick mit entry = null.
-                val action = ListFragmentDirections.actionListFragmentAddEntry(
+                val action = ListFragmentDirections.actionListFragmentToAddEditFragment(
                     null, getString(R.string.add_entry)
                 )
                 findNavController().navigate(action)
@@ -126,7 +129,7 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val entry = vocabularyAdapter.getEntryAt(viewHolder.adapterPosition)
 
-                    // Setze binned = true für den Listeneintrag, der gewischt wurde
+                    // Setze binned = true für den Listeneintrag, der gewischt wurde.
                     viewModel.updateBinnedState(entry, state = true)
 
                     /**
@@ -146,14 +149,20 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
                         .setAnchorView(binding.snackbarAnchor)
                         .show()
 
-                    // Stoppe die TTS-Ausgabe, wenn ein Eintrag in den Papierkorb verschoben wurde.
-                    tts.stop()
+                    /**
+                     * Prüfe ob die TTS-Engine spricht und ob das gesprochene Wort dem Eintrag
+                     * entspricht, der in den Papierkorb verschoben wurde.
+                     *
+                     * Falls ja: stoppe die Sprachausgabe.
+                     * */
+                    if (tts.isSpeaking && viewModel.getLastSpokenText() == entry.sp)
+                        tts.stop()
                 }
             }).attachToRecyclerView(list)
 
             /**
              * OnScrollListener für die RecyclerView, der verwendet wird, um die Sichtbarkeit
-             * des scrollToTop-Button in der ActionBar und des FAB zu regeln.
+             * des Scroll-to-Top-Button in der ActionBar und des FAB zu regeln.
              * */
             list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -199,12 +208,12 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
          * */
         val searchOption = menu.findItem(R.id.option_search)
         viewModel.entryCount.observe(viewLifecycleOwner) { count ->
-            searchOption.isVisible = count != 0
+            searchOption.isVisible = count > 0
             emptyListText.isVisible = count == 0
         }
 
         /**
-         * Sichtbarkeit des ScrollToTop-Button wird über diesen Observer abhängig von
+         * Sichtbarkeit des Scroll-to-Top-Button wird über diesen Observer abhängig von
          * scrollToTopVisible in viewModel geregelt.
          * */
         val scrollToTopOption = menu.findItem(R.id.scroll_to_top)
@@ -260,7 +269,7 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
 
-            // ScrollToTop-Button scrollt die Liste geschmeidig zu ihrem Anfang.
+            // Scroll-to-Top-Button scrollt die Liste geschmeidig zu ihrem Anfang.
             R.id.scroll_to_top -> {
                 recyclerView.layoutManager?.smoothScrollToPosition(
                     recyclerView,
@@ -301,7 +310,7 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
         super.onPause()
     }
 
-    // Schalte die TTS-Engine ab.
+    // Schalte die TTS-Engine ab und entferne den OnQueryTextListener von searchActionView.
     override fun onDestroyView() {
         tts.shutdown()
         searchActionView.setOnQueryTextListener(null)

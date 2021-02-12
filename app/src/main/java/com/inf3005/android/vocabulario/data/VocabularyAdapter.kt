@@ -61,9 +61,7 @@ class VocabularyAdapter(private val clickListener: EntryClickListener) :
         holder.bind(getItem(position))
     }
 
-    fun getEntryAt(position: Int): Vocabulary {
-        return getItem(position)
-    }
+    fun getEntryAt(position: Int): Vocabulary = getItem(position)
 
     class VocabularyDifferences : DiffUtil.ItemCallback<Vocabulary>() {
         override fun areItemsTheSame(oldItem: Vocabulary, newItem: Vocabulary) =

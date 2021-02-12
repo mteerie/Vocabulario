@@ -22,6 +22,7 @@ class AddEditFragment : Fragment(R.layout.fragment_add_edit) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Erlaube dem Nutzer nicht den Navigation Drawer zu öffnen.
         (activity as NavigationDrawerState).setDrawerState(false)
 
         val binding = FragmentAddEditBinding.bind(view)
@@ -109,15 +110,16 @@ class AddEditFragment : Fragment(R.layout.fragment_add_edit) {
         super.onPause()
 
         /**
-         * Die Tastatur bleibt ohne Aufruf der Funktion geöffnet, wenn der Nutzer beim Hinzufügen
-         * eines Listeneintrags den submitButton drückt, ohne vorher die Tastatur zu schließen.
-         * */
+         * Verstecke die Tastatur, wenn der Nutzer die App pausiert oder das Fragment beendet.
+         * Soll bereits in onPause geschehen, weil es dann besser aussieht.
+         */
         KeyboardUtilities.hideKeyboard(requireActivity())
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
 
+        // Erlaube dem Nutzer wieder den Navigation Drawer zu öffnen.
         (activity as NavigationDrawerState).setDrawerState(true)
     }
 }

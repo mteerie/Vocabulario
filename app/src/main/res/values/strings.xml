@@ -21,7 +21,9 @@
     <string name="information">Information</string>
     <string name="search_action">Liste durchsuchen</string>
     <string name="sort_list_entries">Liste sortieren</string>
-    <string name="sort_by">Sortieren nach…</string>
+    <string name="sort_by">Nach…</string>
+    <string name="sort_german">Deutsch</string>
+    <string name="sort_spanish">Spanisch</string>
     <string name="sort_difficulty_asc">Schwierigkeit (auf)</string>
     <string name="sort_difficulty_desc">Schwierigkeit (ab)</string>
 

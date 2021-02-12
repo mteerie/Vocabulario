@@ -31,10 +31,8 @@ class MainActivity : AppCompatActivity(), NavigationDrawerState {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        /**
-         * Splash Screen verwendet ein eigenes Theme. Beim Start der Main Activity muss das
-         * korrekte App-Theme gesetzt werden.
-         * */
+
+        // Setze das korrekte Theme bei Erzeugung der Activity und löse den Splash-Screen ab.
         setTheme(R.style.Theme_Vocabulario)
 
         super.onCreate(savedInstanceState)
@@ -44,7 +42,7 @@ class MainActivity : AppCompatActivity(), NavigationDrawerState {
         setContentView(binding.root)
 
         /**
-         * Da die App ein Theme verwendet, das zunächst keine über ActionBar verfügt, muss im
+         * Da die App ein Theme verwendet, das zunächst über keine ActionBar verfügt, muss im
          * Layout der Main Activity eine ActionBar erzeugt werden. Hier wird festgelegt,
          * dass die App die eigens erstellte Toolbar als solche ansieht.
          * */
@@ -56,51 +54,40 @@ class MainActivity : AppCompatActivity(), NavigationDrawerState {
          * */
         drawerLayout = binding.drawerLayout
 
-        /**
-         * Lege das navHostFragment und den navigationController fest.
-         * */
+
+        // Lege das navHostFragment und den navigationController fest.
         navHostFragment = supportFragmentManager.findFragmentById(binding.navHostFragment.id)
                 as NavHostFragment
 
         navigationController = navHostFragment.findNavController()
 
         /**
-         * Die navigationView (Navigation Drawer) wird mit dem Navigation Controller verknüpft,
-         * um über den Navigation Graph die Ziele der App ansteuern zu können.
+         * Die navigationView wird mit dem Navigation Controller verknüpft, um über den Navigation
+         * Graph die Ziele der App ansteuern zu können.
          *
          * Die Action Bar wird ebenfalls mit dem Navigation Controller verknüpft, um bspw. auch im
          * Add-Edit-Fragment einen Up-Button in der Action Bar anzeigen zu können.
          * */
         binding.navigationView.setupWithNavController(navigationController)
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.listFragment, R.id.infoFragment, R.id.binFragment),
+            setOf(R.id.listFragment, R.id.binFragment, R.id.infoFragment),
             drawerLayout
         )
         setupActionBarWithNavController(navigationController, appBarConfiguration)
     }
 
+    /**
+     * Überschreiben um navigationController die Navigation bei Betätigen des Up-Button zu
+     * überlassen.
+     * */
     override fun onSupportNavigateUp(): Boolean {
-        KeyboardUtilities.hideKeyboard(this)
         return navigationController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-
-        /**
-         * Zum Aufruf in onSupportNavigateUp. Die Tastatur soll versteckt werden, wenn der Nutzer eines
-         * der Eingabefelder im Add-Edit-Fragment anklickt und mit geöffneter Tastatur den Back-Button
-         * in der ActionBar betätigt.
-         * */
-        KeyboardUtilities.hideKeyboard(this)
-    }
-
     /**
-     * Die Funktion soll von unterschiedlichen Zielen innerhalb der App (Fragments oder ggf.
-     * anderen Activities) mit Übergabe eines Boolean aufgerufen werden können.
+     * Regelt ob der Navigation Drawer per Gesten vom Nutzer aufgerufen werden kann.
      *
-     * Soll der Navigation Drawer nicht über Gesten aufrufbar sein (bspw. im AddEditFragment),
-     * so wird false übergeben.
+     * Zur Verwendung in AddEditFragment.
      * */
     override fun setDrawerState(enabled: Boolean) {
         drawerLayout.setDrawerLockMode(

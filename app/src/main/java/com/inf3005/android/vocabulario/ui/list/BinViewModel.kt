@@ -14,32 +14,36 @@ class BinViewModel @ViewModelInject constructor(
     @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
 
-    // Analog zu ListViewModel
+    // Analog zu ListViewModel.
     private val currentBinSearchQuery = state.getLiveData("currentSearchQuery", "")
 
     fun setBinSearchQuery(query: String?) {
         currentBinSearchQuery.value = query
     }
 
-    fun getBinSearchQuery(): String? {
-        return currentBinSearchQuery.value
-    }
+    fun getBinSearchQuery(): String? = currentBinSearchQuery.value
+
+    // Analog zu ListViewModel - hier nur Übergabe einer Suchfeldeingabe als Parameter.
 
     @ExperimentalCoroutinesApi
     private val binnedEntriesFlow =
-        currentBinSearchQuery.asFlow().flatMapLatest { query ->
-            dao.getAllBinnedEntries(query)
+        currentBinSearchQuery.asFlow().flatMapLatest {
+            dao.getAllBinnedEntries(it)
         }
 
+    // Zähle Einträge im Papierkorb - für Observer in BinFramgent.
     val binnedEntryCount: LiveData<Int> = dao.countBinnedEntries().asLiveData()
 
+    // Flow als LiveData speichern - für Observer in BinFragment.
     @ExperimentalCoroutinesApi
     val binnedEntries = binnedEntriesFlow.asLiveData()
 
+    // Zum Wiederherstellen aus dem Papierkorb - setzt binned auf false für den geklickten Eintrag.
     fun updateBinnedState(entry: Vocabulary, state: Boolean) = viewModelScope.launch {
         dao.update(entry.copy(binned = state))
     }
 
+    // Lösche alle Einträge für die binned true ist.
     fun deleteBinnedEntries() = viewModelScope.launch {
         dao.clearBin()
     }

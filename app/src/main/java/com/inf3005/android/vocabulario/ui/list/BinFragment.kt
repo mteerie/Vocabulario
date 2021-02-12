@@ -30,7 +30,11 @@ class BinFragment : Fragment(R.layout.fragment_bin), VocabularyAdapter.EntryClic
 
     private val viewModel: BinViewModel by viewModels()
 
-
+    /**
+     * Beim Anklicken eines Eintrags, wird er wieder in die Vokabelliste verschoben.
+     *
+     * Snackbar wird erzeugt und erlaubt Verschieben rückgängig zu machen.
+     */
     override fun onCardClick(entry: Vocabulary) {
         viewModel.updateBinnedState(entry, state = false)
 
@@ -46,12 +50,13 @@ class BinFragment : Fragment(R.layout.fragment_bin), VocabularyAdapter.EntryClic
             .setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
             .setAnchorView(fab)
             .show()
+        return
     }
 
     /**
-     * Die Funktion muss überschrieben werden, weil das Fragment den EntryClickListener des
-     * Adapters erweitert. Da die Funktionalität im Papierkorb nicht benötigt wird, ist die
-     * Funktion nur rudimentär implementiert.
+     * Wegen Erweiterung des EntryClickListener muss die Funktion überschrieben werden.
+     *
+     * Wird in BinFragent aber nicht verwendet.
      * */
     override fun onTextToSpeechIconClick(entry: Vocabulary) {
         return
@@ -73,11 +78,18 @@ class BinFragment : Fragment(R.layout.fragment_bin), VocabularyAdapter.EntryClic
                 setHasFixedSize(true)
             }
 
+            /**
+             * Observer entscheidet über Sichtbarkeit des emptyBinText und über Status des FAB.
+             *
+             * Dialog zum Löschen aller Einträge im Papierkorb soll nur aufrufbar sein, wenn mind.
+             * ein Eintrag vorhanden ist.
+             * */
             viewModel.binnedEntryCount.observe(viewLifecycleOwner) { entry ->
                 binding.emptyBinText.isVisible = entry == 0
-                fab.isEnabled = entry != 0
+                fab.isEnabled = entry > 0
             }
 
+            // Erzeugt Dialog zur Abfrage ob alle Einträge im Papierkorb gelöscht werden sollen.
             fab.setOnClickListener {
                 MaterialAlertDialogBuilder(requireContext())
                     .setTitle(getString(R.string.delete_all_entries_title))
@@ -96,6 +108,7 @@ class BinFragment : Fragment(R.layout.fragment_bin), VocabularyAdapter.EntryClic
                     .show()
             }
 
+            // Analog zu ListFragment für Einträge mit binned == true.
             viewModel.binnedEntries.observe(viewLifecycleOwner)
             {
                 vocabularyAdapter.submitList(it)
@@ -105,18 +118,19 @@ class BinFragment : Fragment(R.layout.fragment_bin), VocabularyAdapter.EntryClic
         }
     }
 
+    // Über Anzeige des Such-Icons entscheiden. Nur sichtbar, wenn mind. ein Eintrag binned ist.
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
 
         val searchOption = menu.findItem(R.id.option_search)
 
-        searchOption.isVisible = false
-
         viewModel.binnedEntryCount.observe(viewLifecycleOwner) { entry ->
-            searchOption.isVisible = entry != 0
+            searchOption.isVisible = entry > 0
         }
     }
 
+
+    // Suchfunktionalität in Action Bar implementieren - analog zu ListFramgent.
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.bin_action_bar_menu, menu)
@@ -132,7 +146,6 @@ class BinFragment : Fragment(R.layout.fragment_bin), VocabularyAdapter.EntryClic
             searchActionView.setQuery(stateQuery, false)
         }
 
-        // Analog zu Funktionalität in ListFragment.
         searchActionView
             .setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {

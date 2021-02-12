@@ -19,47 +19,52 @@ class ListViewModel @ViewModelInject constructor(
     @Assisted private val state: SavedStateHandle
 ) : ViewModel() {
 
-    /**
-     * Speichert und holt Sucheingabe des Nutzers in/aus state.
-     * */
+    // Speichert und holt Sucheingabe des Nutzers in/aus state.
     private val currentSearchQuery = state.getLiveData("currentSearchQuery", "")
 
+    // Funktionen um currentSearchQuery zu setzen oder den Wert abzufragen.
     fun setSearchQuery(query: String?) {
         currentSearchQuery.value = query
     }
 
-    fun getSearchQuery(): String? {
-        return currentSearchQuery.value
+    fun getSearchQuery(): String? = currentSearchQuery.value
+
+    // ListFragment speichert bei Aufruf der TTS-Ausprache das gesprochene Wort in dieser Variable.
+    private var lastSpokenText = ""
+
+    fun setSpokenText(text: String) {
+        lastSpokenText = text
     }
 
+    // In ListFragment/onSwiped, um zu prüfen, ob das gelöschte Wort gerade ausgesprochen wird.
+    fun getLastSpokenText(): String = lastSpokenText
+
     /**
-     * Innerhalb dieses Flows wird der dataStoreFlow der Klasse DataStorePreferences zwischen-
-     * gespeichert. Er wird im vocabularyEntries-Flow verwendet, um den Wert zu erhalten, der
-     * derzeitig im val sortBy innerhalb des map-Operators in DataStorePreferences gespeichert ist.
+     * Speichert den dataStoreFlow aus preferences.
+     *
+     * Wird für vocabularyEntries benötigt, um korrekte Sortieroption an dao zu übermitteln
      * */
     val userPrefFlow = preferences.dataStoreFlow
 
-    private val scrollToTopVisibleState = MutableStateFlow(false)
+    /**
+     * Kann dynamisch in ListFragment durch Aufruf von setScrollToTopVisible angepasst werden.
+     *
+     * scrollToTopVisible bildet den Flow als LiveData ab, damit er von einem Observer im
+     * ListFragment beobachtet werden kann.
+     */
+    private val scrollToTopVisibleStateFlow = MutableStateFlow(false)
 
     fun setScrollToTopVisible(state: Boolean) {
-        scrollToTopVisibleState.value = state
+        scrollToTopVisibleStateFlow.value = state
     }
 
-    val scrollToTopVisible = scrollToTopVisibleState.asLiveData()
+    val scrollToTopVisible = scrollToTopVisibleStateFlow.asLiveData()
 
     /**
-     * Collector für currentSearchQuery. Der flatMapLatest-Operator ruft bei Änderung des Wertes
-     * von currentSearchQuery eine Transformationsfunktion auf, die einen neuen Flow mit dem
-     * zugehörigen Query und der im Konstruktor übergebenen Instanz von DataStorePreferences
-     * (preferences) erzeugt.
+     * Kombiniert die Flows currentSearchQuery und userPrefFlow zu einem Pair.
      *
-     * Das Query wird an die DAO-Funktion getAllEntries übergeben, um die Objekte
-     * der Relation zu filtern. Darüber hinaus wird die Sortierung der Einträge übergeben,
-     * welche aus den DataStorePreferences gezogen wird. Hiermit wird die Funktion des DAO auf-
-     * gerufen, welche der übergebenen Sortierung entspricht.
-     *
-     * Bei erneuter Änderung von currentSearchQuery beendet und verwirft der Operator den zuvor
-     * erzeugten Flow.
+     * Mit dem Pair wird der flatMapLatest-Operator aufgerufen, der es entpackt und mit den
+     * Einzelteilen eine DAO-Funktion aufruft, um relevante Datensätze zu erhalten.
      * */
     @ExperimentalCoroutinesApi
     private val vocabularyEntries =
@@ -68,22 +73,28 @@ class ListViewModel @ViewModelInject constructor(
             userPrefFlow
         ) { query, preferences ->
             Pair(query, preferences)
-        }.flatMapLatest { (query, preferences) ->
-            dao.getAllEntries(query, preferences.sortBy)
+        }.flatMapLatest {
+            dao.getAllEntries(it.first, it.second.sortBy)
         }
 
+    /**
+     * Den FLow vocabularyEntries als LiveData speichern, um ihn mit Observer in ListFragment
+     * verwenden zu können.
+     * */
     @ExperimentalCoroutinesApi
     val allEntries = vocabularyEntries.asLiveData()
 
+    // Zähle Einträge der Datenbank, die nicht im Papierkorb sind. Für Observer in ListFragment.
     val entryCount: LiveData<Int> = dao.countEntries().asLiveData()
 
+    // Für Wischgesten in ListFragment: Setze binned für zugehörigen Eintrag auf true.
     fun updateBinnedState(entry: Vocabulary, state: Boolean) = viewModelScope.launch {
         dao.update(entry.copy(binned = state))
     }
 
+    // Coroutine starten um suspend-Funktion ausführen zu können - für Update der Sortieroption.
     fun onSortOptionSelected(option: SortBy) = viewModelScope.launch {
         preferences.updateSort(option)
     }
-
 }
 

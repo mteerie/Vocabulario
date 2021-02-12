@@ -19,20 +19,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 
 /**
- * Dieses Objekt dient dazu mittels Dagger + Hilt Dependency Injection innerhalb der App
- * verwenden zu können. Die hier erzeugten Funktionen (provideDatabase, ...) sind sogenannte
- * Provider, die bei Bedarf an anderen Stellen der App aufgerufen werden können. Sie stellen dann
- * den Code zur Verfügung - und zwar nur dann, wenn er auch wirklich benötigt wird.
- *
- * Darüber hinaus wird für die Funktionen provideDatabase, provideCoroutineScope und
- * provideDataStore die Singleton Annotation verwendet, um sicher zu stellen, dass lediglich
- * eine Instanz des jeweiligen Objekts über die gesamte App erzeugt wird.
+ * Dependency Injection mit Hilt. Details in der Dokumentation.
  * */
-
 @Module
 @InstallIn(ApplicationComponent::class)
 object DependencyInjectionModule {
 
+    /**
+     * Erzeuge einzelne Instanz der Room-Datenbank. Wird in VocabularyDatabase verwendet.
+     *
+     * JournalMode.Truncate wird verwendet um die Datenbank als einzelne Datei speichern zu
+     * können. Für zukünftige Backup-und-Import-Funktionalität gedacht.
+     * */
     @Singleton
     @Provides
     fun provideDatabase(
@@ -48,16 +46,16 @@ object DependencyInjectionModule {
             .setJournalMode(RoomDatabase.JournalMode.TRUNCATE)
             .build()
 
+    // Erzeuge bei Injektion Instanz des DAO.
     @Provides
-    fun provideVocabularyDao(database: VocabularyDatabase) = database.vocabularyDao()
+    fun provideDao(database: VocabularyDatabase) = database.vocabularyDao()
 
+    // Stelle ein CoroutineScope bereit, das in VocabularyDatabase für DatabaseCallback ben. wird.
     @Singleton
     @Provides
-    fun provideCoroutineScope() = CoroutineScope(
-        Dispatchers.Main.immediate
-                + SupervisorJob()
-    )
+    fun provideScope() = CoroutineScope(SupervisorJob())
 
+    // Erzeuge einzelne Instanz des DataStore. In Konstruktor von DataStorePreferences injiziert.
     @Singleton
     @Provides
     fun provideDataStore(@ApplicationContext context: Context): DataStore<Preferences> =

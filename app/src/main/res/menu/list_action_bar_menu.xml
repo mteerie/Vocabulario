@@ -20,7 +20,7 @@
     <item
         android:id="@+id/sort_item"
         android:enabled="true"
-        android:icon="@drawable/ic_sort_list"
+        android:icon="@drawable/ic_sort"
         android:title="@string/sort_list_entries"
         android:visible="true"
         app:showAsAction="always">
@@ -29,15 +29,16 @@
             <item
                 android:checkable="false"
                 android:enabled="false"
-                android:title="@string/sort_by" />
+                android:title="@string/sort_by"
+                />
 
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/sort_de"
-                    android:title="@string/german" />
+                    android:title="@string/sort_german" />
                 <item
                     android:id="@+id/sort_sp"
-                    android:title="@string/spanish" />
+                    android:title="@string/sort_spanish" />
                 <item
                     android:id="@+id/sort_difficulty_asc"
                     android:title="@string/sort_difficulty_asc" />

@@ -16,7 +16,13 @@ import com.inf3005.android.vocabulario.R
 import com.inf3005.android.vocabulario.data.Difficulty
 import com.inf3005.android.vocabulario.data.Vocabulary
 
-
+/**
+ * Binding Adapter für die Listenelemente der RecyclerView. Erlauben Einsparungen am Code in
+ * VocabularyAdapter, da dank Data Binding die Attribute dynamisch angepasst werden können.
+ *
+ * Beispiel in layout/fragment_list_item.xml: Text für entry_de wird über Attribut
+ * app:deText aus dem Bindingadapter festgelegt.
+ * */
 @BindingAdapter("deText")
 fun TextView.setDeText(entry: Vocabulary) {
     text = entry.de
@@ -27,6 +33,7 @@ fun TextView.setSpText(entry: Vocabulary) {
     text = entry.sp
 }
 
+// Setze die Farbe der ImageView eines Listeneintrags entsprechend des Schwierigkeitsgrades.
 @BindingAdapter("difficulty")
 fun ImageView.setDifficultyColor(entry: Vocabulary) {
     setColorFilter(
@@ -38,6 +45,7 @@ fun ImageView.setDifficultyColor(entry: Vocabulary) {
     )
 }
 
+// Zeige das TTS-Icon (Lautsprecher) nur für Einträge an, die nicht im Papierkorb sind.
 @BindingAdapter("tts")
 fun CoordinatorLayout.setVisibility(entry: Vocabulary) {
     visibility = when (entry.binned) {
@@ -46,16 +54,13 @@ fun CoordinatorLayout.setVisibility(entry: Vocabulary) {
     }
 }
 
+// Wird für Listensortierung verwendet.
+enum class SortBy { GERMAN, SPANISH, DIFFICULTY_ASC, DIFFICULTY_DESC }
+
 /**
- * Adaptiert an Funktionalität von stackoverflow-Nutzer Gastón Saillén (63036385).
+ * Adaptiert an Funktionalität von StackOverflow-Nutzer Gastón Saillén - Details in Dokumentation.
  *
- * Die Funktion wird innerhalb eines companion objects definiert, um sie in Activities und
- * Fragments direkt über den Klassennamen aufrufen zu können.
- *
- * hideKeyboard wird verwendet, um die Android-on-Screen-Tastatur zu verstecken, sowohl in der
- * MainActivity - beim Betätigen des Android Back Buttons, Ausführen der Funktion
- * onSupportNavigateUp - und bei Beenden des AddEditFragments durch den onClickListener des
- * submitButtons.
+ * Verstecke Tastatur bei Funktionsaufruf.
  * */
 class KeyboardUtilities {
     companion object {
@@ -63,10 +68,7 @@ class KeyboardUtilities {
             val manager =
                 activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
 
-            /**
-             * Für Null Safety wird der Elvis-Operator ?: verwendet, um notfalls den currentFocus
-             * der activity des jeweiligen Kontexts bei Aufruf im val view speichern zu können.
-             * */
+            // Elvis-Operator um Null-Safety zu gewährleisten.
             val view = activity.currentFocus ?: View(activity)
 
             manager.hideSoftInputFromWindow(view.windowToken, 0)
@@ -75,10 +77,9 @@ class KeyboardUtilities {
 }
 
 /**
- * Adaptiert an Funktionalität von stackoverflow-Nutzer Mike M. (36250280).
+ * Adaptiert an Funktionalität von StackOverflow-Nutzer Mike M. - Details in Dokumentation.
  *
- * Es wird ein Interface implementiert, über dessen Funktion setDrawerState festgelegt wird,
- * ob der Navigation Drawer per Geste geöffnet werden kann.
+ * Interface wird von MainActivity erweitert um Funktion überschreiben zu können.
  * */
 interface NavigationDrawerState {
     fun setDrawerState(enabled: Boolean)

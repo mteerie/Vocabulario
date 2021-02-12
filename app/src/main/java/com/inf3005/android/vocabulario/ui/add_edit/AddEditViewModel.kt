@@ -42,7 +42,8 @@ class AddEditViewModel @ViewModelInject constructor(
         }
 
     /**
-     * StateFlows, die über den Status des submitButton in AddEditFragment entscheiden.
+     * StateFlows, die für die Entscheidung über den Status des submitButton in AddEditFragment
+     * benötigt werden.
      * */
     private val _spTextValidState = MutableStateFlow(entrySpanishValue.isNotBlank())
 
@@ -83,10 +84,12 @@ class AddEditViewModel @ViewModelInject constructor(
         return
     }
 
+    // In onSubmitClick verwendet - fügt neuen Eintrag hinzu.
     private fun insert(entry: Vocabulary) = viewModelScope.launch {
         dao.insert(entry)
     }
 
+    // In onSubmitClick verwendet - passt vorhandenen Eintrag an.
     private fun update(entry: Vocabulary) = viewModelScope.launch {
         dao.update(entry)
     }
