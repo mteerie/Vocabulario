@@ -42,6 +42,6 @@
     <string name="entry_contents_bullets">• a German word \n• a Spanish word \n• a difficulty</string>
     <string name="delete_info">List entries can be moved to the recycle bin \nby swiping them away.</string>
     <string name="restore_info">Entries in the recycle bin can be restored \nby tapping them.</string>
-    <string name="sort_german">German (desc.)</string>
-    <string name="sort_spanish">Spanish (desc.)</string>
+    <string name="sort_german">German</string>
+    <string name="sort_spanish">Spanish</string>
 </resources>
