@@ -7,6 +7,12 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface VocabularyDao {
 
+    /**
+     * Standardfunktionen zum Hinzufügen, Aktualisieren oder Löschen eines Eintrags aus der DB.
+     *
+     * suspend hat zu Folge, dass die Funktionen in einer Coroutine ausgeführt werden müssen.
+     * Dient dazu, dass sie nicht auf dem UI-Thread laufen und unter Umständen diesen blockieren.
+     * */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entry: Vocabulary)
 
@@ -69,10 +75,7 @@ interface VocabularyDao {
     @Query("SELECT COUNT(vocId) FROM vocabulary WHERE binned = 1")
     fun countBinnedEntries(): Flow<Int>
 
-    /**
-     * Datenbankanfragefunktionen, die verwendet werden, um respektive ALLE Einträge in der
-     * Datenbank zu löschen, oder nur jene, die sich im Papierkorb befinden.
-     * */
+    // Lösche respektive alle oder im Papierkorb befindliche Einträge.
     @Query("DELETE FROM vocabulary")
     suspend fun clearList()
 

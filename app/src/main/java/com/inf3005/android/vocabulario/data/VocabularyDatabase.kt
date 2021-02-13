@@ -13,8 +13,8 @@ import javax.inject.Provider
  *
  * Erzeuge ein Callback, das die Datenbank im Auslieferungszustand mit Daten befüllt.
  *
- * Im Callback wird die Methode onCreate überschrieben -- er wird also nur bei erster Erzeugung der
- * Datenbank aufgerufen.
+ * Callback wird durch Überschreibung von onCreate nur bei erster Erzeugung der Datenbank
+ * aufgerufen (bspw. Erstinstallation der App).
  * */
 @Database(entities = [Vocabulary::class], version = 5)
 abstract class VocabularyDatabase : RoomDatabase() {

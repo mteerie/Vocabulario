@@ -28,7 +28,7 @@ object DependencyInjectionModule {
     /**
      * Erzeuge einzelne Instanz der Room-Datenbank. Wird in VocabularyDatabase verwendet.
      *
-     * JournalMode.Truncate wird verwendet um die Datenbank als einzelne Datei speichern zu
+     * JournalMode.Truncate wird gesetzt, um die Datenbank als einzelne Datei speichern zu
      * können. Für zukünftige Backup-und-Import-Funktionalität gedacht.
      * */
     @Singleton
@@ -38,7 +38,8 @@ object DependencyInjectionModule {
         callback: VocabularyDatabase.VocabularyDatabaseCallback
     ) =
         Room.databaseBuilder(
-            application, VocabularyDatabase::class.java,
+            application,
+            VocabularyDatabase::class.java,
             "vocabulary_database"
         )
             .fallbackToDestructiveMigration()
@@ -46,7 +47,12 @@ object DependencyInjectionModule {
             .setJournalMode(RoomDatabase.JournalMode.TRUNCATE)
             .build()
 
-    // Erzeuge bei Injektion Instanz des DAO.
+    /**
+     * Erzeuge bei Injektion Instanz des DAO durch Aufruf der abstrakten Funktion.
+     *
+     * Singleton-Annoation wird hier nicht benötigt, weil die Datenbank bereits als solches
+     * gekennzeichnet ist.
+     */
     @Provides
     fun provideDao(database: VocabularyDatabase) = database.vocabularyDao()
 

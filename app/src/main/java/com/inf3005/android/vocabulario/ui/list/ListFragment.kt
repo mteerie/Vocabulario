@@ -62,6 +62,10 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
         return
     }
 
+    /**
+     * Von Android Studio vorgeschlagene Annotation. Bezieht sich höchstwahrscheinlich auf den in
+     * ListViewModel verwendeten Operator flatMapLatest.
+     * */
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -91,8 +95,6 @@ class ListFragment : Fragment(R.layout.fragment_list), VocabularyAdapter.EntryCl
              * Verzögerungen beim Aufbau des Fragments bestmöglich zu vermeiden.
              *
              * Funktionalität erfordert, dass eine TTS-Engine auf dem Gerät installiert ist.
-             *
-             * if-Abfrage prüft, ob es Probleme beim Setup des TTS-Objekts gab.
              * */
             tts = TextToSpeech(requireContext()) { status ->
                 lifecycleScope.launch {
