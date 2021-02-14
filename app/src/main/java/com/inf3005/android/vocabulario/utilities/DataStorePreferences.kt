@@ -12,18 +12,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 /**
- * In dieser Klasse wird ein Jetpack DataStore erzeugt, der Preferences (Nutzer-Einstellungen)
- * speichert.
- *
- * über createDataStore wird ein Flow erzeugt, dessen Operatoren (hier) catch und map aufgerufen
- * werden.
- *
- * Der map-Operator wird hier zunächst verwendet, um ein val sortBy zu erzeugen. In sortBy wird
- * dann bei Aufruf der Transformationsfunktion ein Wert aus dem SortBy-enum gespeichert. Der Wert
- * entspricht dem zugehörigen Wert, der im PreferencesKey SORT_BY hinterlegt ist.
- *
- * Der Wert des PreferencesKey wird über die updateSort-Funktion angepasst, welche im ListFragment
- * bei Änderung der Sortierung mit Übergabe der zugehörigen enum-Option aus SortBy aufgerufen wird.
+ * Erzeuge DataStore zum Speichern von Nutzereinstellungen mithilfe von Dependency Injection.
  * */
 
 class DataStorePreferences @Inject constructor(private val dataStore: DataStore<Preferences>) {
